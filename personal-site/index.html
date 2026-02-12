@@ -36,20 +36,24 @@
     <header class="site-header">
       <a class="logo" href="#hero" id="site-logo">Tsung-Ta Wu, MD</a>
       <nav>
-        <a href="#about">About</a>
-        <a href="#focus">Focus</a>
-        <a href="#publications">Publications</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" id="nav-about">About</a>
+        <a href="#focus" id="nav-focus">Focus</a>
+        <a href="#publications" id="nav-publications">Publications</a>
+        <a href="#contact" id="nav-contact">Contact</a>
       </nav>
+      <div class="language-switch" role="group" aria-label="Language switcher">
+        <button id="lang-en" class="lang-btn active" type="button">EN</button>
+        <button id="lang-zh" class="lang-btn" type="button">中文</button>
+      </div>
     </header>
 
     <main>
       <section id="hero" class="hero reveal">
-        <p class="tag">PERSONAL SITE</p>
+        <p class="tag" id="hero-tag">PERSONAL SITE</p>
         <div id="hero-content" class="markdown"></div>
         <div class="hero-actions">
-          <a class="btn primary" href="#about">About Me</a>
-          <a class="btn ghost" href="#contact">Contact</a>
+          <a class="btn primary" href="#about" id="hero-btn-about">About Me</a>
+          <a class="btn ghost" href="#contact" id="hero-btn-contact">Contact</a>
         </div>
       </section>
 
@@ -74,6 +78,6 @@
       <p>© <span id="year"></span> <span id="footer-name">Tsung-Ta Wu, MD</span></p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260213-2"></script>
   </body>
 </html>

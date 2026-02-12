@@ -75,6 +75,30 @@ nav a:hover {
   color: var(--text);
 }
 
+.language-switch {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lang-btn {
+  border: 0;
+  padding: 8px 12px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.lang-btn.active {
+  background: var(--primary);
+  color: #052119;
+  font-weight: 700;
+}
+
 main {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -253,6 +277,10 @@ footer {
 
   nav {
     flex-wrap: wrap;
+  }
+
+  .language-switch {
+    align-self: flex-start;
   }
 
   .hero {
