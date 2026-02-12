@@ -84,6 +84,7 @@ nav a:hover {
 
 .lang-btn {
   border: 0;
+  min-width: 58px;
   padding: 8px 12px;
   background: transparent;
   color: var(--muted);
@@ -91,6 +92,7 @@ nav a:hover {
   font-family: "Space Grotesk", sans-serif;
   font-size: 0.8rem;
   letter-spacing: 0.06em;
+  text-align: center;
 }
 
 .lang-btn.active {
