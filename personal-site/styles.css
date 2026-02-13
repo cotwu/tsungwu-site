@@ -194,6 +194,13 @@ h1 {
   font-weight: 700;
 }
 
+html[lang="zh-Hant"] .hero .markdown h1 strong {
+  font-size: 0.62em;
+  font-weight: 500;
+  color: var(--text);
+  margin-left: 8px;
+}
+
 .hero-actions {
   margin-top: 24px;
   display: flex;

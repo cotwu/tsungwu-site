@@ -20,6 +20,7 @@ const UI_TEXT = {
     title: "Tsung-Ta Wu, MD | Anesthesiologist",
     description:
       "Anesthesiologist, Medical Educator, and Clinical Researcher at National Taiwan University Hospital, Hsinchu Branch.",
+    logoName: "Tsung-Ta Wu, MD",
     navAbout: "About",
     navFocus: "Focus",
     navPublications: "Publications",
@@ -34,6 +35,7 @@ const UI_TEXT = {
     htmlLang: "zh-Hant",
     title: "Tsung-Ta Wu, MD | 麻醉科醫師",
     description: "麻醉科醫師、醫學教育者與臨床研究者。",
+    logoName: "吳宗達 Tsung-Ta Wu, MD",
     navAbout: "關於",
     navFocus: "專業重點",
     navPublications: "發表著作",
@@ -142,14 +144,6 @@ function focusMarkdownToHtml(markdown) {
   )}</h2></div><div class="project-grid">${cards.join("")}</div>`;
 }
 
-function findFirstH1(markdown) {
-  const line = markdown
-    .split("\n")
-    .map((item) => item.trim())
-    .find((item) => item.startsWith("# "));
-  return line ? line.slice(2).trim() : "";
-}
-
 function getStoredLang() {
   const value = localStorage.getItem("siteLanguage");
   return SUPPORTED_LANGS.has(value) ? value : DEFAULT_LANG;
@@ -194,6 +188,8 @@ function applyUiText(lang) {
   const heroTag = document.getElementById("hero-tag");
   const heroBtnAbout = document.getElementById("hero-btn-about");
   const heroBtnContact = document.getElementById("hero-btn-contact");
+  const logo = document.getElementById("site-logo");
+  const footerName = document.getElementById("footer-name");
 
   if (navAbout) navAbout.textContent = copy.navAbout;
   if (navFocus) navFocus.textContent = copy.navFocus;
@@ -202,6 +198,8 @@ function applyUiText(lang) {
   if (heroTag) heroTag.textContent = copy.heroTag;
   if (heroBtnAbout) heroBtnAbout.textContent = copy.heroBtnAbout;
   if (heroBtnContact) heroBtnContact.textContent = copy.heroBtnContact;
+  if (logo) logo.textContent = copy.logoName;
+  if (footerName) footerName.textContent = copy.logoName;
 }
 
 async function loadSection(path, targetId, loadErrorText, formatter = markdownToHtml) {
@@ -254,11 +252,7 @@ async function loadLanguageContent(lang) {
     return baseCandidates.map((base) => `${base}/content/${lang}/${name}.md`);
   };
 
-  const heroMarkdown = await loadSectionWithFallback(
-    filePaths("hero"),
-    "hero-content",
-    copy.loadError
-  );
+  await loadSectionWithFallback(filePaths("hero"), "hero-content", copy.loadError);
   await Promise.all([
     loadSectionWithFallback(filePaths("about"), "about-content", copy.loadError),
     loadSectionWithFallback(
@@ -275,13 +269,6 @@ async function loadLanguageContent(lang) {
     loadSectionWithFallback(filePaths("contact"), "contact-content", copy.loadError),
   ]);
 
-  const displayName = findFirstH1(heroMarkdown);
-  if (displayName) {
-    const logo = document.getElementById("site-logo");
-    const footerName = document.getElementById("footer-name");
-    if (logo) logo.textContent = displayName;
-    if (footerName) footerName.textContent = displayName;
-  }
 }
 
 function setupRevealAnimation() {
