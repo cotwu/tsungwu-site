@@ -1,6 +1,6 @@
 # Tsung-Ta Wu, MD
 ## Anesthesiologist · Medical Educator · Clinical Researcher
 
-I am an anesthesiologist at National Taiwan University Hospital, Hsinchu Branch, with primary interests in perioperative physiology, patient safety, and medical education.
+I am an anesthesiologist at National Taiwan University Hospital, Hsinchu Branch.
 
-My work focuses on how anesthesiologists think, decide, and act under uncertainty, and how structured education and monitoring-informed practice can improve perioperative outcomes.
+My work focuses on perioperative physiology, patient safety, and medical education, with particular interest in clinical decision-making under uncertainty and monitoring-informed perioperative care.
