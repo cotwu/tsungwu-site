@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>一天之內把網站重新做出來：APEX 工作坊課後心得 · 吳宗達 Tsung-Ta Wu, MD</title>
+    <meta name="description" content="2026 年 9 月 12 日參加新思惟《AI 時代的個人品牌工作坊》（APEX）。從一個爬蟲看不到內容的舊站，到當天重做上線、寫出第一批文章，記錄這一天做了什麼、學到什麼。" />
+    <link rel="canonical" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/" />
+    <link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/" />
+    <link rel="alternate" hreflang="x-default" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Tsung-Ta Wu, MD" />
+    <meta property="og:title" content="一天之內把網站重新做出來：APEX 工作坊課後心得 · 吳宗達 Tsung-Ta Wu, MD" />
+    <meta property="og:description" content="2026 年 9 月 12 日參加新思惟《AI 時代的個人品牌工作坊》（APEX）。從一個爬蟲看不到內容的舊站，到當天重做上線、寫出第一批文章，記錄這一天做了什麼、學到什麼。" />
+    <meta property="og:url" content="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/zh/">吳宗達 Tsung-Ta Wu, MD</a>
+        <nav class="nav">
+        <a href="/zh/concepts/">概念</a>
+        <a href="/zh/research/">研究</a>
+        <a href="/zh/blog/" aria-current="page">Blog</a>
+        <a href="/zh/about/">關於</a>
+        </nav>
+        <div class="lang" role="group" aria-label="Language"><a href="/en/blog/" hreflang="en" lang="en">EN</a><a class="active" aria-current="true" href="/zh/blog/2026-09-12-apex-workshop/" hreflang="zh-Hant" lang="zh-Hant">中文</a></div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p class="kicker">2026年9月12日</p>
+      <article>
+<h1>一天之內把網站重新做出來：APEX 工作坊課後心得</h1>
+<p>今天參加了新思惟的<a href="https://apex.innovarad.tw/">《AI 時代的個人品牌工作坊》</a>（APEX）。
+這篇是當天晚上寫的心得，順便記錄這個網站是怎麼在一天之內重新長出來的。</p>
+<h2>帶著一個「已經有」的網站去上課</h2>
+<p>我不是從零開始。tsungwu.tw 這個網域今年二月就有了，也放了一個單頁的個人網站。
+但課前整理資料時發現一個問題：那個網站的每一段內容，都是瀏覽器打開後才用程式去抓文字檔填進去的。
+人看起來沒問題，可是 Google 和 AI 抓到的原始碼裡，每一區都是空的。
+換句話說，網站存在了半年，但對搜尋引擎來說等於沒有內容。</p>
+<p>這正好是這堂課反覆強調的事：AI 時代的網站，不只是給人看，也要讓搜尋引擎和 AI 讀得到、引得到。
+於是今天的目標很清楚——不是修補，是整個重做。</p>
+<h2>當天做了什麼</h2>
+<p>環境設定的部分照著課程的流程走，工具裝好、GitHub 和 Cloudflare 接好之後，剩下的事情幾乎都是用說的。
+把舊網站備份三份（GitHub 打了標籤、Dropbox 存了原始碼和線上抓下來的版本），然後告訴 Claude Code：舊的不管了，直接做新的。</p>
+<p>新的網站每一頁都是在建置時就產生完整的 HTML，不再依賴瀏覽器端的程式；中英文各一份，互相標註對應頁面；
+推上 GitHub 之後大約二十秒，Cloudflare 就把新版部署上線。這個速度讓「改一個字、看一下、再改」變成可行的工作方式。</p>
+<p>內容上，今天完成了：</p>
+<ul>
+<li><strong>兩篇概念條目</strong>：<a href="/zh/concepts/mean-systemic-filling-pressure/">平均系統充盈壓（Pmsf）</a>與<a href="/zh/concepts/critical-closing-pressure/">臨界關閉壓（Pcc）</a>。這是我目前研究最核心的兩個概念。每篇固定分成機制、證據、未解問題三層，所有引用都附 DOI 連結，並且刻意把「文獻已經證明的」和「還沒證明的」分開寫。</li>
+<li><strong>把 2019 年在臉書寫的<a href="/zh/blog/sedation-and-anesthesia-safety/">〈鎮靜與麻醉安全〉</a>搬過來</strong>。社群平台上的文章會被時間沖走，放在自己的網站上才會被記得。</li>
+<li>關於我、研究、概念索引、Blog 四個區塊的骨架。</li>
+</ul>
+<h2>幾件記下來的事</h2>
+<p><strong>流量不是重點，讓對的人找得到才是。</strong> 這個網站的讀者，是搜到我的論文之後想知道「這個人在想什麼」的同行、審稿人、潛在合作者。
+不需要熱鬧，需要的是：當他們好奇的時候，這裡有東西可以看。</p>
+<p><strong>個人品牌要綁在自己身上，帶得走。</strong> 所以網站上只有一行提到現職單位，其他都是自己的東西。換了單位，只要改那一行。</p>
+<p><strong>AI 寫得出通順的句子，寫不出我的臨床判斷。</strong> 今天寫概念條目時，AI 幫忙查證每一個 DOI、整理五篇研究的比較表、把英文翻成中文；
+但哪些東西可以公開、哪些是還沒發表的推論不能上網、用什麼語氣談其他團隊的研究，這些界線是我自己畫的。
+技術交給工具，專業與信任自己把關——這大概是今天最重要的一句話。</p>
+<p><strong>先上線，再慢慢長。</strong> 這個網站現在還很小，概念索引裡有一半的條目寫著「準備中」。但它已經是一個真的網站，
+以後每寫一篇，推上去就在。比起等到「準備好」再上線，這個順序才做得下去。</p>
+<h2>接下來</h2>
+<p>概念條目照這個順序繼續寫：Pmsf → Pcc → vascular waterfall 與組織灌流壓 → 以脈壓估算心輸出量 → 術中低血壓怎麼量。
+Blog 則放比較短的東西，以及像今天這種紀錄。</p>
+<p>如果你也是專業人士，正在猶豫要不要有自己的網站：我的經驗是，卡住的通常不是寫不出東西，是環境設定。
+把那一關過了，剩下的就是持續寫。</p>
+
+      </article>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 吳宗達 Tsung-Ta Wu, MD</span>
+        <span>隨證據更新而改寫。</span>
+      </div>
+    </footer>
+  </body>
+</html>
