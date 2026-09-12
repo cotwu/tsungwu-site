@@ -219,3 +219,4 @@ article ol li { margin-bottom: 14px; }
 .entries a { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; color: var(--text); }
 .entries a:hover { color: var(--accent); text-decoration: none; }
 .more { margin: 12px 0 0; font-size: 0.95rem; }
+.entries-section { margin-top: 36px; }
