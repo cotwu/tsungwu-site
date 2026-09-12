@@ -108,3 +108,17 @@ tbody tr:last-child td { border-bottom: 0; }
 .posts a:hover { color: var(--accent); text-decoration: none; }
 .posts .date { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
 .posts p { margin: 8px 0 0; color: var(--muted); font-size: 0.97rem; }
+
+/* figures */
+figure { margin: 24px 0; }
+figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 8px; text-align: right; }
+.sed { width: 100%; border-collapse: collapse; font-size: 0.95rem; table-layout: fixed; }
+.sed th, .sed td { border: 0; padding: 10px 6px; text-align: center; vertical-align: middle; min-width: 0; color: var(--text); }
+.sed th { background: none; font-family: var(--serif); font-weight: 600; }
+.sed th.row { text-align: left; width: 5.5em; color: var(--text); }
+.sed th.top:nth-child(5) { color: var(--accent); }
+.sed td.wedge { padding: 6px 0; }
+.sed td.wedge svg { width: 100%; height: 26px; display: block; }
+.sed td.small { font-size: 0.85rem; color: var(--muted); }
+.sed .rule { background: var(--accent-soft); border-radius: 6px; }
+@media (max-width: 640px) { .sed { font-size: 0.82rem; } .sed th.row { width: 4.2em; } }

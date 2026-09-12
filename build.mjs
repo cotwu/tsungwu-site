@@ -81,10 +81,15 @@ function renderHome(meta, body) {
 function layout({ lang, path, meta, main }) {
   const L = LANGS[lang];
   const url = `/${lang}/${path}`;
+  const has = (l) => l === lang || (EXISTS[l] && EXISTS[l].has(path));
   const alt = (l) => `${SITE}/${l}/${path}`;
-  const alternates = Object.keys(LANGS).map((l) => `    <link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${alt(l)}" />`).join("\n");
+  const langsHere = Object.keys(LANGS).filter(has);
+  const alternates = langsHere.map((l) => `    <link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${alt(l)}" />`).join("\n");
+  // fall back to the section index (or home) when the page has no counterpart in that language
+  const fallback = (l) => { const seg = path.split("/")[0]; return has(l) ? `/${l}/${path}` : (seg && EXISTS[l].has(`${seg}/`) ? `/${l}/${seg}/` : `/${l}/`); };
   const switcher = Object.keys(LANGS).map((l) =>
-    `<a${l === lang ? ' class="active" aria-current="true"' : ""} href="/${l}/${path}" hreflang="${LANGS[l].hreflang}" lang="${LANGS[l].htmlLang}">${LANGS[l].label}</a>`).join("");
+    `<a${l === lang ? ' class="active" aria-current="true"' : ""} href="${fallback(l)}" hreflang="${LANGS[l].hreflang}" lang="${LANGS[l].htmlLang}">${LANGS[l].label}</a>`).join("");
+  const xDefault = has("en") ? alt("en") : `${SITE}${url}`;
   const nav = L.nav.map(([href, label]) => `<a href="${href}"${url.startsWith(href) ? ' aria-current="page"' : ""}>${label}</a>`).join("\n        ");
   const title = path === "" ? meta.title : `${meta.title} · ${L.brand}`;
   return `<!doctype html>
@@ -96,7 +101,7 @@ function layout({ lang, path, meta, main }) {
     <meta name="description" content="${esc(meta.description || "")}" />
     <link rel="canonical" href="${SITE}${url}" />
 ${alternates}
-    <link rel="alternate" hreflang="x-default" href="${alt("en")}" />
+    <link rel="alternate" hreflang="x-default" href="${xDefault}" />
     <meta property="og:type" content="${/^(concepts|blog)\//.test(path) ? "article" : "website"}" />
     <meta property="og:site_name" content="Tsung-Ta Wu, MD" />
     <meta property="og:title" content="${esc(title)}" />
@@ -160,9 +165,14 @@ function readPosts(lang) {
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 }
 
+function pathOf(lang, file) {
+  const rel = relative(join("content", lang), file).replace(/\.md$/, "").split(sep).join("/");
+  return rel === "index" ? "" : `${rel.replace(/\/index$/, "")}/`;
+}
+
 function buildPage(lang, file) {
   const rel = relative(join("content", lang), file).replace(/\.md$/, "").split(sep).join("/");
-  const path = rel === "index" ? "" : `${rel.replace(/\/index$/, "")}/`;
+  const path = pathOf(lang, file);
   const { meta, body } = parseFrontmatter(readFileSync(file, "utf8"));
   let main;
   if (meta.layout === "home") {
@@ -189,6 +199,14 @@ rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 copyFileSync("src/styles.css", join(OUT, "styles.css"));
 
+const EXISTS = {};
+for (const lang of Object.keys(LANGS)) {
+  EXISTS[lang] = new Set();
+  const dir = join("content", lang);
+  if (!existsSync(dir)) continue;
+  for (const f of walk(dir)) EXISTS[lang].add(pathOf(lang, f));
+}
+
 const pages = [];
 for (const lang of Object.keys(LANGS)) {
   const dir = join("content", lang);
@@ -201,7 +219,7 @@ writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${SITE
 writeFileSync(join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
   pages.map((p) => {
-    const alts = Object.keys(LANGS).map((l) => `    <xhtml:link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${SITE}/${l}/${p.path}"/>`).join("\n");
+    const alts = Object.keys(LANGS).filter((l) => EXISTS[l].has(p.path)).map((l) => `    <xhtml:link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${SITE}/${l}/${p.path}"/>`).join("\n");
     const mod = p.updated ? `\n    <lastmod>${p.updated}</lastmod>` : "";
     return `  <url>\n    <loc>${SITE}${p.url}</loc>${mod}\n${alts}\n  </url>`;
   }).join("\n") + `\n</urlset>\n`);
