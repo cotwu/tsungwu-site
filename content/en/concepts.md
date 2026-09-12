@@ -1,6 +1,6 @@
 ---
 title: Concepts
-description: Concept entries on perioperative hemodynamics, causal inference, and medical education. Each entry has three parts — mechanism, evidence, open questions — with DOI-linked references.
+description: Concept entries on perioperative hemodynamics and medical education. Each entry has three parts — mechanism, evidence, open questions — with DOI-linked references.
 ---
 
 # Concepts
@@ -17,11 +17,6 @@ Further entries are in preparation and will appear here as they are published.
 - Estimating cardiac output from pulse pressure: a 120-year genealogy <span class="soon">in preparation</span>
 - Tissue perfusion pressure: MAP − Pcc <span class="soon">in preparation</span>
 - Measuring intraoperative hypotension exposure: thresholds, time-weighted average, area under the threshold <span class="soon">in preparation</span>
-
-## Causal inference {#causal-inference}
-
-- Counterfactuals and the three standard biases <span class="soon">in preparation</span>
-- Target trial emulation for perioperative questions <span class="soon">in preparation</span>
 
 ## Medical education {#medical-education}
 

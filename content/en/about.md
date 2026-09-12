@@ -1,6 +1,6 @@
 ---
 title: About
-description: Tsung-Ta Wu, MD — attending anesthesiologist at National Taiwan University Hospital Hsinchu Branch. Research on perioperative hemodynamics, intraoperative hypotension, microcirculation, and causal inference.
+description: Tsung-Ta Wu, MD — attending anesthesiologist at National Taiwan University Hospital Hsinchu Branch. Research on perioperative hemodynamics, intraoperative hypotension, and microcirculation.
 ---
 
 # Tsung-Ta Wu, MD
@@ -34,14 +34,6 @@ effect on microcirculatory flow and organ injury, and fluid strategy in transpla
 **Hemodynamic monitoring in difficult positions and difficult physiology.**
 Non-invasive surrogates for cardiac output — airway pressure during prone-position spine
 surgery; dynamic preload variables in liver cirrhosis.
-
-## Methods
-
-Much of my recent reading has been methodological rather than clinical: the counterfactual
-framework, target trial emulation, g-methods and marginal structural models, and the standard
-biases (confounding, selection, measurement). Observational hemodynamic data is exactly the
-setting where these tools decide whether a finding means anything. Those notes will live under
-Concepts → Causal inference.
 
 ## Teaching
 
