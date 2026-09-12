@@ -6,9 +6,25 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/about/"/>
   </url>
   <url>
+    <loc>https://tsungwu.tw/en/concepts/critical-closing-pressure/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/critical-closing-pressure/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/critical-closing-pressure/"/>
+  </url>
+  <url>
+    <loc>https://tsungwu.tw/en/concepts/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/"/>
+  </url>
+  <url>
     <loc>https://tsungwu.tw/en/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/"/>
+  </url>
+  <url>
+    <loc>https://tsungwu.tw/en/research/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/research/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/research/"/>
   </url>
   <url>
     <loc>https://tsungwu.tw/zh/about/</loc>
@@ -16,8 +32,24 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/about/"/>
   </url>
   <url>
+    <loc>https://tsungwu.tw/zh/concepts/critical-closing-pressure/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/critical-closing-pressure/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/critical-closing-pressure/"/>
+  </url>
+  <url>
+    <loc>https://tsungwu.tw/zh/concepts/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/"/>
+  </url>
+  <url>
     <loc>https://tsungwu.tw/zh/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/"/>
+  </url>
+  <url>
+    <loc>https://tsungwu.tw/zh/research/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/research/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/research/"/>
   </url>
 </urlset>

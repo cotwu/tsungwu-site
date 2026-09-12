@@ -1,18 +1,38 @@
 // Static site generator for tsungwu.tw — zero framework.
-// content/{en,zh}/*.md  →  personal-site/{en,zh}/<slug>/index.html
-// Every page is fully rendered HTML at build time so crawlers and AI see real content.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, copyFileSync, existsSync } from "node:fs";
-import { join, basename } from "node:path";
+// content/{en,zh}/**/*.md  →  personal-site/{en,zh}/<path>/index.html
+// Every page is fully rendered at build time so crawlers and AI see real content.
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, copyFileSync, existsSync, statSync } from "node:fs";
+import { join, relative, sep } from "node:path";
 import { marked } from "marked";
 
 const SITE = "https://tsungwu.tw";
 const OUT = "personal-site";
 const LANGS = {
-  en: { htmlLang: "en", hreflang: "en", label: "EN", nav: { home: "Home", about: "About", concepts: "Concepts" }, name: "Tsung-Ta Wu, MD" },
-  zh: { htmlLang: "zh-Hant", hreflang: "zh-Hant", label: "中文", nav: { home: "首頁", about: "關於", concepts: "概念" }, name: "吳宗達 Tsung-Ta Wu, MD" },
+  en: { htmlLang: "en", hreflang: "en", label: "EN", locale: "en_US", brand: "Tsung-Ta Wu, MD",
+        nav: [["/en/concepts/", "Concepts"], ["/en/research/", "Research"], ["/en/about/", "About"]],
+        footer: "Revised as the evidence moves." },
+  zh: { htmlLang: "zh-Hant", hreflang: "zh-Hant", label: "中文", locale: "zh_TW", brand: "吳宗達 Tsung-Ta Wu, MD",
+        nav: [["/zh/concepts/", "概念"], ["/zh/research/", "研究"], ["/zh/about/", "關於"]],
+        footer: "隨證據更新而改寫。" },
 };
 
-marked.use({ gfm: true });
+// `## Heading {#id}` → <h2 id="id">
+const renderer = {
+  heading({ tokens, depth }) {
+    let text = this.parser.parseInline(tokens);
+    let id = "";
+    const m = text.match(/\s*\{#([\w-]+)\}\s*$/);
+    if (m) { id = m[1]; text = text.slice(0, m.index); }
+    return `<h${depth}${id ? ` id="${id}"` : ""}>${text}</h${depth}>\n`;
+  },
+  table({ header, rows }) {
+    const cell = (c, tag) => `<${tag}>${this.parser.parseInline(c.tokens)}</${tag}>`;
+    const thead = `<tr>${header.map((c) => cell(c, "th")).join("")}</tr>`;
+    const tbody = rows.map((r) => `<tr>${r.map((c) => cell(c, "td")).join("")}</tr>`).join("");
+    return `<div class="table-wrap"><table><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>\n`;
+  },
+};
+marked.use({ gfm: true, renderer });
 
 function parseFrontmatter(raw) {
   const m = raw.match(/^---\n([\s\S]*?)\n---\n?/);
@@ -25,40 +45,46 @@ function parseFrontmatter(raw) {
   return { meta, body: raw.slice(m[0].length) };
 }
 
-const esc = (s) => s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+const esc = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
-// "- Title | description" bullets → card grid (same convention as the old focus.md)
-function renderHome(body) {
-  const lines = body.split("\n");
-  const introLines = [], cards = [];
-  let heading = "";
-  let inCards = false;
-  for (const line of lines) {
-    if (line.startsWith("## ")) { heading = line.slice(3).trim(); inCards = true; continue; }
-    if (inCards && line.startsWith("- ")) {
-      const [t, d = ""] = line.slice(2).split("|").map((x) => x.trim());
-      cards.push(`<article class="project"><h3>${marked.parseInline(t)}</h3><p>${marked.parseInline(d)}</p></article>`);
-      continue;
+// Home: sections split on `## `; "Tracks" bullets are `Title | /url/ | description`
+function renderHome(meta, body) {
+  const sections = body.split(/^## /m).filter((s) => s.trim());
+  let html = `      <section class="hero">
+        <p class="kicker">${esc(meta.kicker || "")}</p>
+        <h1>${esc(meta.title)}</h1>
+        <p class="lede">${esc(meta.lede || "")}</p>
+        <p class="question">${esc(meta.question || "")}</p>
+      </section>\n`;
+  for (const s of sections) {
+    const nl = s.indexOf("\n");
+    const heading = s.slice(0, nl).trim();
+    const rest = s.slice(nl + 1);
+    const bullets = rest.split("\n").filter((l) => l.startsWith("- ") && l.includes(" | "));
+    if (bullets.length) {
+      const items = bullets.map((l) => {
+        const [t, url, d] = l.slice(2).split("|").map((x) => x.trim());
+        return `<li><h3><a href="${url}">${marked.parseInline(t)}</a></h3><p>${marked.parseInline(d || "")}</p></li>`;
+      }).join("\n");
+      html += `      <section><h2>${esc(heading)}</h2><ul class="tracks">\n${items}\n</ul></section>\n`;
+    } else if (/^latest$|^最新$/i.test(heading)) {
+      html += `      <section><h2>${esc(heading)}</h2><div class="featured">${marked.parse(rest)}</div></section>\n`;
+    } else {
+      html += `      <section><h2>${esc(heading)}</h2>${marked.parse(rest)}</section>\n`;
     }
-    if (!inCards) introLines.push(line);
   }
-  return { intro: marked.parse(introLines.join("\n")), heading, cards: cards.join("") };
+  return html;
 }
 
-function pageUrl(lang, slug) {
-  return slug === "index" ? `/${lang}/` : `/${lang}/${slug}/`;
-}
-
-function layout({ lang, slug, meta, main }) {
+function layout({ lang, path, meta, main }) {
   const L = LANGS[lang];
-  const url = pageUrl(lang, slug);
-  const alternates = Object.keys(LANGS)
-    .map((l) => `    <link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${SITE}${pageUrl(l, slug)}" />`)
-    .join("\n");
-  const switcher = Object.keys(LANGS)
-    .map((l) => `<a class="lang-btn${l === lang ? " active" : ""}" href="${pageUrl(l, slug)}" hreflang="${LANGS[l].hreflang}" lang="${LANGS[l].htmlLang}">${LANGS[l].label}</a>`)
-    .join("");
-  const title = slug === "index" ? meta.title : `${meta.title} · ${L.name}`;
+  const url = `/${lang}/${path}`;
+  const alt = (l) => `${SITE}/${l}/${path}`;
+  const alternates = Object.keys(LANGS).map((l) => `    <link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${alt(l)}" />`).join("\n");
+  const switcher = Object.keys(LANGS).map((l) =>
+    `<a${l === lang ? ' class="active" aria-current="true"' : ""} href="/${l}/${path}" hreflang="${LANGS[l].hreflang}" lang="${LANGS[l].htmlLang}">${LANGS[l].label}</a>`).join("");
+  const nav = L.nav.map(([href, label]) => `<a href="${href}"${url.startsWith(href) ? ' aria-current="page"' : ""}>${label}</a>`).join("\n        ");
+  const title = path === "" ? meta.title : `${meta.title} · ${L.brand}`;
   return `<!doctype html>
 <html lang="${L.htmlLang}">
   <head>
@@ -68,70 +94,69 @@ function layout({ lang, slug, meta, main }) {
     <meta name="description" content="${esc(meta.description || "")}" />
     <link rel="canonical" href="${SITE}${url}" />
 ${alternates}
-    <link rel="alternate" hreflang="x-default" href="${SITE}${pageUrl("en", slug)}" />
-    <meta property="og:type" content="website" />
+    <link rel="alternate" hreflang="x-default" href="${alt("en")}" />
+    <meta property="og:type" content="${path.startsWith("concepts/") ? "article" : "website"}" />
     <meta property="og:site_name" content="Tsung-Ta Wu, MD" />
     <meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(meta.description || "")}" />
     <meta property="og:url" content="${SITE}${url}" />
-    <meta property="og:locale" content="${lang === "zh" ? "zh_TW" : "en_US"}" />
+    <meta property="og:locale" content="${L.locale}" />
     <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="bg-grid" aria-hidden="true"></div>
-
     <header class="site-header">
-      <a class="logo" href="/${lang}/">${L.name}</a>
-      <nav>
-        <a href="/${lang}/">${L.nav.home}</a>
-        <a href="/${lang}/about/">${L.nav.about}</a>
-      </nav>
-      <div class="language-switch" role="group" aria-label="Language">${switcher}</div>
+      <div class="wrap">
+        <a class="brand" href="/${lang}/">${L.brand}</a>
+        <nav class="nav">
+        ${nav}
+        </nav>
+        <div class="lang" role="group" aria-label="Language">${switcher}</div>
+      </div>
     </header>
 
-    <main>
+    <main class="wrap">
 ${main}
     </main>
 
     <footer>
-      <p>© ${new Date().getFullYear()} ${L.name}</p>
+      <div class="wrap">
+        <span>© ${new Date().getFullYear()} ${L.brand}</span>
+        <span>${L.footer}</span>
+      </div>
     </footer>
   </body>
 </html>
 `;
 }
 
+function* walk(dir) {
+  for (const f of readdirSync(dir).sort()) {
+    const p = join(dir, f);
+    if (statSync(p).isDirectory()) yield* walk(p);
+    else if (f.endsWith(".md")) yield p;
+  }
+}
+
 function buildPage(lang, file) {
-  const slug = basename(file, ".md");
+  const rel = relative(join("content", lang), file).replace(/\.md$/, "").split(sep).join("/");
+  const path = rel === "index" ? "" : `${rel}/`;
   const { meta, body } = parseFrontmatter(readFileSync(file, "utf8"));
   let main;
   if (meta.layout === "home") {
-    const { intro, heading, cards } = renderHome(body);
-    main = `      <section class="hero">
-        <p class="tag">${esc(meta.tag || "")}</p>
-        <div class="markdown">
-${intro}
-        <p class="subtitle">${esc(meta.subtitle || "")}</p>
-        </div>
-      </section>
-      <section class="card">
-        <div class="markdown"><h2>${esc(heading)}</h2></div>
-        <div class="project-grid">${cards}</div>
-      </section>`;
+    main = renderHome(meta, body);
   } else {
-    main = `      <article class="card markdown">
-${marked.parse(body)}
-      </article>`;
+    const head = meta.track ? `      <p class="kicker">${esc(meta.track)}</p>\n` : "";
+    main = `${head}      <article>\n${marked.parse(body)}\n      </article>`;
   }
-  const html = layout({ lang, slug, meta, main });
-  const dir = join(OUT, lang, slug === "index" ? "" : slug);
+  const html = layout({ lang, path, meta, main });
+  const dir = join(OUT, lang, path);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "index.html"), html);
-  return { lang, slug, url: pageUrl(lang, slug) };
+  return { lang, path, url: `/${lang}/${path}`, updated: meta.updated };
 }
 
 // ---- build ----
@@ -143,21 +168,18 @@ const pages = [];
 for (const lang of Object.keys(LANGS)) {
   const dir = join("content", lang);
   if (!existsSync(dir)) continue;
-  for (const f of readdirSync(dir).filter((f) => f.endsWith(".md")).sort()) pages.push(buildPage(lang, join(dir, f)));
+  for (const f of walk(dir)) pages.push(buildPage(lang, f));
 }
 
-// Root → English (301); Cloudflare Pages reads _redirects natively
 writeFileSync(join(OUT, "_redirects"), `/  /en/  301\n`);
 writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
-writeFileSync(
-  join(OUT, "sitemap.xml"),
+writeFileSync(join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
-    pages.map((p) => {
-      const alts = Object.keys(LANGS).map((l) => `    <xhtml:link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${SITE}${pageUrl(l, p.slug)}"/>`).join("\n");
-      return `  <url>\n    <loc>${SITE}${p.url}</loc>\n${alts}\n  </url>`;
-    }).join("\n") +
-    `\n</urlset>\n`
-);
+  pages.map((p) => {
+    const alts = Object.keys(LANGS).map((l) => `    <xhtml:link rel="alternate" hreflang="${LANGS[l].hreflang}" href="${SITE}/${l}/${p.path}"/>`).join("\n");
+    const mod = p.updated ? `\n    <lastmod>${p.updated}</lastmod>` : "";
+    return `  <url>\n    <loc>${SITE}${p.url}</loc>${mod}\n${alts}\n  </url>`;
+  }).join("\n") + `\n</urlset>\n`);
 
 console.log(`Built ${pages.length} pages → ${OUT}/`);
 for (const p of pages) console.log("  " + p.url);

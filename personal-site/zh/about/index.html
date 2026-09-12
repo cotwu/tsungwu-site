@@ -18,23 +18,24 @@
     <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="bg-grid" aria-hidden="true"></div>
-
     <header class="site-header">
-      <a class="logo" href="/zh/">吳宗達 Tsung-Ta Wu, MD</a>
-      <nav>
-        <a href="/zh/">首頁</a>
-        <a href="/zh/about/">關於</a>
-      </nav>
-      <div class="language-switch" role="group" aria-label="Language"><a class="lang-btn" href="/en/about/" hreflang="en" lang="en">EN</a><a class="lang-btn active" href="/zh/about/" hreflang="zh-Hant" lang="zh-Hant">中文</a></div>
+      <div class="wrap">
+        <a class="brand" href="/zh/">吳宗達 Tsung-Ta Wu, MD</a>
+        <nav class="nav">
+        <a href="/zh/concepts/">概念</a>
+        <a href="/zh/research/">研究</a>
+        <a href="/zh/about/" aria-current="page">關於</a>
+        </nav>
+        <div class="lang" role="group" aria-label="Language"><a href="/en/about/" hreflang="en" lang="en">EN</a><a class="active" aria-current="true" href="/zh/about/" hreflang="zh-Hant" lang="zh-Hant">中文</a></div>
+      </div>
     </header>
 
-    <main>
-      <article class="card markdown">
+    <main class="wrap">
+      <article>
 <h1>吳宗達 醫師</h1>
 <p>麻醉科主治醫師，新竹台大分院麻醉部。</p>
 <p>我的時間分在開刀房與研究桌之間。臨床上是一般麻醉、困難氣道處理、區域麻醉與急性疼痛；
@@ -103,7 +104,10 @@ kidney transplantation: a meta-analysis of randomised controlled trials.
     </main>
 
     <footer>
-      <p>© 2026 吳宗達 Tsung-Ta Wu, MD</p>
+      <div class="wrap">
+        <span>© 2026 吳宗達 Tsung-Ta Wu, MD</span>
+        <span>隨證據更新而改寫。</span>
+      </div>
     </footer>
   </body>
 </html>
