@@ -8,8 +8,8 @@ description: Tsung-Ta Wu, MD — attending anesthesiologist at National Taiwan U
 Attending anesthesiologist, Department of Anesthesiology,
 National Taiwan University Hospital Hsinchu Branch.
 
-Clinically my day is general
-anesthesia, difficult airway management, regional anesthesia, and acute pain. My research
+Clinically I am a board-certified anesthesiologist and a board-certified
+intensivist. My research
 asks a narrower question: **when we say intraoperative hypotension is harmful, what exactly
 have we shown — and what have we only assumed?**
 
