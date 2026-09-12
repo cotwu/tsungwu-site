@@ -85,12 +85,6 @@ ${art}        <div class="hero-text">
         <p class="question">${esc(meta.question || "")}</p>
         </div>
       </section>\n`;
-  // Concept entries, in the order of the hand-written index (the order is the argument)
-  const seq = SEQUENCE[lang].filter((p) => META[lang][p]);
-  if (seq.length) {
-    const items = seq.map((p) => `<li><a href="/${lang}/${p}">${esc(META[lang][p].title)}</a></li>`).join("\n");
-    html += `      <section class="entries-section"><ol class="entries">\n${items}\n</ol><p class="more"><a href="/${lang}/concepts/">${zh ? "全部條目 →" : "All entries →"}</a></p></section>\n`;
-  }
   // Blog, newest first
   const posts = readPosts(lang).slice(0, 5);
   if (posts.length) {
