@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&quot;Rebuilding this site in a day: notes from the APEX workshop&quot; · Tsung-Ta Wu, MD</title>
+    <meta name="description" content="On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking." />
+    <link rel="canonical" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
+    <link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
+    <link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/" />
+    <link rel="alternate" hreflang="x-default" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Tsung-Ta Wu, MD" />
+    <meta property="og:title" content="&quot;Rebuilding this site in a day: notes from the APEX workshop&quot; · Tsung-Ta Wu, MD" />
+    <meta property="og:description" content="On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking." />
+    <meta property="og:url" content="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"Rebuilding this site in a day: notes from the APEX workshop\"","description":"On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking.","inLanguage":"en","url":"https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/","author":{"@type":"Person","name":"Tsung-Ta Wu","alternateName":"吳宗達","url":"https://tsungwu.tw/en/about/"},"datePublished":"2026-09-12","dateModified":"2026-09-12"}</script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/en/">Tsung-Ta Wu, MD</a>
+        <nav class="nav">
+        <a href="/en/concepts/">Concepts</a>
+        <a href="/en/research/">Research</a>
+        <a href="/en/blog/" aria-current="page">Blog</a>
+        <a href="/en/about/">About</a>
+        </nav>
+        <div class="lang" role="group" aria-label="Language"><a class="active" aria-current="true" href="/en/blog/2026-09-12-apex-workshop/" hreflang="en" lang="en">EN</a><a href="/zh/blog/2026-09-12-apex-workshop/" hreflang="zh-Hant" lang="zh-Hant">中文</a></div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p class="kicker"><span class="byline">Tsung-Ta Wu, MD</span> · 12 September 2026</p>
+      <article>
+<h1>Rebuilding this site in a day: notes from the APEX workshop</h1>
+<p>Today I attended <a href="https://apex.innovarad.tw/">APEX</a>, a one-day workshop on personal branding in the AI era run by Innovarad in Taipei. These notes were written the same evening, and they double as the record of how this site was rebuilt from scratch in a single day.</p>
+<h2>Arriving with a site that already existed</h2>
+<p>I did not start from zero. The domain tsungwu.tw has been mine since February, with a single-page personal site on it. But while preparing for the workshop I found a problem: every section of that page was filled in by a script <em>after</em> the browser loaded it, fetching text files one by one. To a human visitor it looked fine. In the raw HTML that Google and the AI crawlers actually read, every section was empty. The site had existed for half a year and, as far as search engines were concerned, had no content.</p>
+<p>That happens to be the point the workshop kept returning to: in the AI era a site is not only for people to look at; it has to be readable, and quotable, by search engines and language models. So the goal for the day was clear — not to patch, but to rebuild.</p>
+<h2>What happened during the day</h2>
+<p>Environment setup followed the workshop&#39;s own flow. Once the tools were installed and GitHub and Cloudflare were connected, almost everything else was done by talking. I backed the old site up three ways (a tag on GitHub, the source and a live mirror in Dropbox), then told Claude Code: forget the old one, build a new one.</p>
+<p>Every page of the new site is generated as complete HTML at build time; nothing depends on browser-side scripts. English and Traditional Chinese each have their own copy, cross-referenced page by page. About twenty seconds after a push to GitHub, Cloudflare has the new version live. That speed makes &quot;change a word, look, change again&quot; a workable way to work.</p>
+<h2>The most important thing from the morning</h2>
+<p>The first half of the day covered a fair amount of SEO and GEO basics — how to structure a site, how search engines and AI read a page, which settings are table stakes. Useful, but not what I took away.</p>
+<p>The most important sentence was this: <strong>the core of an online personal brand should come from the accumulation of your professional work, not from traffic.</strong></p>
+<p>I had some resistance to the idea of &quot;writing articles continuously.&quot; It sounded like a second job — writing for exposure, about things I might not want to say. Listening to the instructor turned that around: it is simply recording one&#39;s own thinking. Every day in clinical work there are judgements being made; every day in research there is literature being read and gaps being noticed. That thinking is already happening; it just is not written down, and so it dissipates.</p>
+<p>Writing it down accumulates a record of one&#39;s professional reasoning. And that process is, in itself, a footprint left in the world — not for the sake of how many people see it, but so that the ideas existed, can be found, and can be built on. In a digital world these small accumulations are gradually recognised.</p>
+<p>Seen that way, writing is no longer an extra burden. It is part of what was already being done — with one added step: recording it.</p>
+
+      </article>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2026 Tsung-Ta Wu, MD</span>
+        <span>Revised as the evidence moves.</span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -6,9 +6,10 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/about/"/>
   </url>
   <url>
-    <loc>https://tsungwu.tw/en/blog/2026-09-12-why-this-site/</loc>
+    <loc>https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/</loc>
     <lastmod>2026-09-12</lastmod>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/2026-09-12-why-this-site/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/"/>
   </url>
   <url>
     <loc>https://tsungwu.tw/en/blog/</loc>
@@ -70,6 +71,7 @@
   <url>
     <loc>https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/</loc>
     <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/"/>
   </url>
   <url>
