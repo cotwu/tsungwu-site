@@ -37,7 +37,7 @@ Seen that way, writing is no longer an extra burden. It is part of what was alre
 
 The afternoon was about how the instructor uses AI agents to make himself stronger. Not "AI is amazing" in the abstract, but a few things he actually uses every day.
 
-One is the **newsletter**. He has an AI compile the day's news in a given field into a primer: not merely collecting headlines, but drawing on the background knowledge the model already has, arranging it like a course, written in a tone a high-school student can follow, and then inviting his children to subscribe. He subscribes to several himself: advances in traditional Chinese medicine, clinic management, breakthroughs in obstetrics. He was candid that the thing breaks, errs, and links to the wrong places; it needs reading, fixing, adjusting. But it is for his own eyes, so an error costs nothing more than a correction.
+One is the **newsletter**. He has an AI compile the day's news in a given field into a primer: not merely collecting headlines, but drawing on the background knowledge the model already has, arranging it like a course, written in a tone a high-school student can follow, and then inviting his children to subscribe. A newsletter you design yourself can also be used to train yourself; and how you actually read it can be fed back to the AI, so that it produces content that fits you better.
 
 Another is **distillation**. A conversation with a language model is diffuse, but the AI can be asked to pull out what was actually valuable in it and turn that into material for the next step. The conversation is the process; what is distilled from it is what accumulates.
 
