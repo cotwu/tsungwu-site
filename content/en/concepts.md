@@ -13,10 +13,11 @@ Further entries are in preparation and will appear here as they are published.
 
 ## Perioperative hemodynamics {#hemodynamics}
 
-- [Critical closing pressure (Pcc) and the vascular waterfall](/en/concepts/critical-closing-pressure/)
-- Estimating cardiac output from pulse pressure: a 120-year genealogy <span class="soon">in preparation</span>
-- Tissue perfusion pressure: MAP − Pcc <span class="soon">in preparation</span>
-- Measuring intraoperative hypotension exposure: thresholds, time-weighted average, area under the threshold <span class="soon">in preparation</span>
+1. [Mean systemic filling pressure (Pmsf)](/en/concepts/mean-systemic-filling-pressure/)
+2. [Critical closing pressure (Pcc) and the vascular waterfall](/en/concepts/critical-closing-pressure/)
+3. The vascular waterfall and tissue perfusion pressure: Pcc − Pmsf <span class="soon">in preparation</span>
+4. Estimating cardiac output from pulse pressure: a 120-year genealogy <span class="soon">in preparation</span>
+5. Measuring intraoperative hypotension exposure: thresholds, time-weighted average, area under the threshold <span class="soon">in preparation</span>
 
 ## Medical education {#medical-education}
 
