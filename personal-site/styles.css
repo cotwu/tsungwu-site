@@ -204,3 +204,11 @@ article ol li { margin-bottom: 14px; }
 @media (max-width: 640px) {
   .hero-art .hero-img { aspect-ratio: 4 / 3; object-position: 70% 60%; }
 }
+
+/* hero: name small (it is already in the header), the question becomes the visual lead */
+.hero h1 { font-size: 1.35rem; font-weight: 600; color: var(--muted); margin-bottom: 8px; letter-spacing: 0; }
+.hero .lede { font-size: 1rem; color: var(--muted); }
+.hero .question { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.35; margin-top: 14px; color: var(--text); }
+.hero-art h1 { font-size: 1.25rem; }
+.hero-art .lede { font-size: clamp(0.9rem, 1.2vw, 1rem); }
+.hero-art .question { font-size: clamp(1.25rem, 1.9vw, 1.7rem); }
