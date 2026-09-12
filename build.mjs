@@ -228,7 +228,11 @@ function buildPage(lang, file) {
     main = renderHome(lang, meta, body);
   } else if (meta.layout === "blog") {
     const posts = readPosts(lang);
-    const list = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</li>`).join("\n");
+    const list = posts.map((p) => {
+      const text = `<div class="post-text"><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</div>`;
+      const thumb = p.cover ? `<a class="post-thumb" href="${p.url}" aria-hidden="true" tabindex="-1"><img src="${esc(p.cover)}" alt="" loading="lazy"></a>` : "";
+      return `<li class="post-row">${text}${thumb}</li>`;
+    }).join("\n");
     main = `      <article>\n${marked.parse(body)}\n      </article>\n      <ul class="posts">\n${list}\n      </ul>`;
   } else if (rel.startsWith("blog/")) {
     const parts = [byline(AUTHOR[lang]), fmtDate(lang, meta.date)];
@@ -243,7 +247,8 @@ function buildPage(lang, file) {
     const cleaned = body.replace(/\n---\n\n\*(Entries on this site are revised|本站條目會隨證據更新)[^\n]*\*\n?$/, "\n");
     main = `${kicker}      <article>\n${marked.parse(cleaned)}\n      </article>`;
   }
-  const head = isArticle ? jsonLd(lang, meta, `/${lang}/${path}`, path.startsWith("blog/") ? "BlogPosting" : "Article") : "";
+  let head = isArticle ? jsonLd(lang, meta, `/${lang}/${path}`, path.startsWith("blog/") ? "BlogPosting" : "Article") : "";
+  if (meta.cover) head += `\n    <meta property="og:image" content="${SITE}${esc(meta.cover)}" />`;
   const html = layout({ lang, path, meta, main, head });
   const dir = join(OUT, lang, path);
   mkdirSync(dir, { recursive: true });

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="鎮靜深度：輕度、中度、重度、麻醉">
+  <rect width="600" height="400" fill="#fbfaf7"/>
+  <g font-family="Noto Sans TC, Inter, sans-serif" font-size="30" fill="#1c1f24" text-anchor="middle" font-weight="600">
+    <text x="90" y="80">輕度</text><text x="230" y="80">中度</text><text x="370" y="80">重度</text><text x="510" y="80" fill="#0f6e63">麻醉</text>
+  </g>
+  <polygon points="30,300 570,150 570,300" fill="#0f6e63"/>
+  <g font-family="Noto Sans TC, Inter, sans-serif" font-size="22" fill="#5d6470">
+    <text x="30" y="345">呼吸循環：輕微影響</text><text x="570" y="345" text-anchor="end">劇烈影響</text>
+  </g>
+</svg>
