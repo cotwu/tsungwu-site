@@ -39,7 +39,7 @@ The afternoon was about how the instructor uses AI agents to make himself strong
 
 One is the **newsletter**. He has an AI compile the day's news in a given field into a primer: not merely collecting headlines, but combining what it finds by searching with the background knowledge the model already has, arranging it like a course, written in a tone a high-school student can follow; one can even invite one's children to subscribe. Used this way, it is a method for keeping up with a field and improving oneself, and a personal brand built on that is more solid.
 
-Another is **distillation**. A conversation with a language model is diffuse, but the AI can be asked to pull out what was actually valuable in it and turn that into material for the next step. The conversation is the process; what is distilled from it is what accumulates.
+Another is **distillation**. Not the model distillation of machine learning; here the thing being distilled is oneself. A conversation with a language model is diffuse, but the AI can be asked to pull out what was actually valuable in it and turn that into material for the next step. The conversation is the process; what is distilled from it is what accumulates.
 
 On writing, he laid out an approach to writing in the AI era.
 
