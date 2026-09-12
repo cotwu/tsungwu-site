@@ -336,7 +336,7 @@ function buildPage(lang, file) {
   const ogName = `${lang}-${(path || "home").replace(/\/$/, "").replaceAll("/", "-")}.png`;
   const kicker = meta.track || (path.startsWith("blog/") ? "Blog" : path === "" ? (lang === "zh" ? "概念筆記" : "Concept notebook") : "");
   mkdirSync(join(OUT, "og"), { recursive: true });
-  writeFileSync(join(OUT, "og", ogName), ogPng({ title: meta.title, subtitle: path === "" ? meta.question : "", kicker, lang }));
+  writeFileSync(join(OUT, "og", ogName), ogPng({ title: meta.title, kicker, lang, home: path === "" }));
   head += `\n    <meta property="og:image" content="${SITE}/og/${ogName}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta name="twitter:image" content="${SITE}/og/${ogName}" />`;
   const html = layout({ lang, path, meta, main, head });
   const dir = join(OUT, lang, path);
