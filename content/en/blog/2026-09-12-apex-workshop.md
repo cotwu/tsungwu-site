@@ -41,6 +41,6 @@ One is the **newsletter**. He has an AI compile the day's news in a given field 
 
 Another is **distillation**. Not the model distillation of machine learning; here the thing being distilled is oneself. A conversation with a language model is diffuse, but the AI can be asked to pull out what was actually valuable in it and turn that into material for the next step. The conversation is the process; what is distilled from it is what accumulates.
 
-On writing, he laid out an approach to writing in the AI era.
+On writing and illustration, he shared practical methods for the AI era.
 
 The last part was about the **link between the physical world and the online one**. Over the long run, what happens offline should be turned into online assets: run a workshop, and the participants' write-ups become backlinks; a restaurant that trades "a review for free fries" is accumulating Google reviews, digital word of mouth. In the other direction, what accumulates online is there so that real-world opportunities can find you. Each of us should think creatively and design a mechanism, suited to our own situation, for gathering user-generated content.
