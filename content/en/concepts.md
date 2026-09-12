@@ -6,7 +6,7 @@ band: /img/hero-2400.jpg
 
 # Concepts
 
-Each entry follows the same three-part structure: **Mechanism**, **Evidence** (with DOI links), and **Open questions**. Entries are revised as the evidence moves.
+Each entry follows the same three-part structure: **Mechanism**, **Evidence**, and **Open questions**. Entries are revised as the evidence moves.
 
 ## Perioperative hemodynamics {#hemodynamics}
 
