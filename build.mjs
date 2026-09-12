@@ -85,12 +85,13 @@ ${art}        <div class="hero-text">
         <p class="question">${esc(meta.question || "")}</p>
         </div>
       </section>\n`;
-  // Blog, newest first
-  const posts = readPosts(lang).slice(0, 5);
-  if (posts.length) {
-    const items = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span></li>`).join("\n");
-    html += `      <section><h2>${zh ? "Blog 最新" : "Latest on the blog"}</h2><ul class="posts compact">\n${items}\n</ul><p class="more"><a href="/${lang}/blog/">${zh ? "全部文章 →" : "All posts →"}</a></p></section>\n`;
-  }
+  // two quiet lines under the question: a starting point, and proof of life
+  const first = SEQUENCE[lang][0];
+  const latest = [...readPosts(lang), ...latestEntries(lang).filter((e) => e.kind === "concepts")].sort((a, b) => b.date.localeCompare(a.date))[0];
+  let lines = "";
+  if (first && META[lang][first]) lines += `<p><span>${zh ? "從第一篇開始讀" : "Start with the first entry"}</span> → <a href="/${lang}/${first}">${esc(META[lang][first].title)}</a></p>\n`;
+  if (latest) lines += `<p><span>${zh ? "最近更新" : "Latest"}</span> · ${fmtDate(lang, latest.date)} · <a href="${latest.url}">${esc(latest.title)}</a></p>\n`;
+  if (lines) html += `      <section class="next">\n${lines}      </section>\n`;
   // any remaining hand-written sections in index.md still render below
   for (const s of body.split(/^## /m).filter((x) => x.trim())) {
     const nl = s.indexOf("\n"); const heading = s.slice(0, nl).trim(); const rest = s.slice(nl + 1);

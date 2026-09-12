@@ -209,3 +209,10 @@ article ol li { margin-bottom: 14px; }
 
 /* home: more air between the hero question and the blog section */
 .hero + section > h2 { margin-top: 64px; }
+
+/* home: two quiet lines under the question */
+.next { margin-top: 40px; font-size: 0.95rem; color: var(--muted); }
+.next p { margin: 0 0 6px; }
+.next span { color: var(--muted); }
+.next a { color: var(--text); font-family: var(--serif); font-weight: 600; }
+.next a:hover { color: var(--accent); text-decoration: none; }
