@@ -76,11 +76,14 @@ function latestEntries(lang) {
 
 function renderHome(lang, meta, body) {
   const sections = body.split(/^## /m).filter((s) => s.trim());
-  let html = `      <section class="hero">
+  const art = meta.hero ? `        <img class="hero-img" src="${esc(meta.hero)}" srcset="${esc(meta.hero)} 2400w, ${esc(meta.hero).replace("2400", "1400")} 1400w" sizes="(min-width: 1400px) 1400px, 100vw" alt="${esc(meta.heroAlt || "")}" fetchpriority="high" />\n` : "";
+  let html = `      <section class="hero${meta.hero ? " hero-art" : ""}">
+${art}        <div class="hero-text">
         <p class="kicker">${esc(meta.kicker || "")}</p>
         <h1>${esc(meta.title)}</h1>
         <p class="lede">${esc(meta.lede || "")}</p>
         <p class="question">${esc(meta.question || "")}</p>
+        </div>
       </section>\n`;
   for (const s of sections) {
     const nl = s.indexOf("\n");
