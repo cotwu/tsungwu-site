@@ -16,7 +16,7 @@ description: 圍術期血流動力學與醫學教育的概念條目。每篇固�
 2. [臨界關閉壓（Pcc）](/zh/concepts/critical-closing-pressure/)
 3. [組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？](/zh/concepts/tissue-perfusion-pressure/)
 4. [以脈壓估算心輸出量：120 年的系譜](/zh/concepts/cardiac-output-from-pulse-pressure/)
-5. 術中低血壓暴露怎麼量：閾值、時間加權平均、閾值下面積 <span class="soon">準備中</span>
+5. [Hypotension Prediction Index：從 2018 到 2026](/zh/concepts/hypotension-prediction-index/)
 
 ## 醫學教育 {#medical-education}
 

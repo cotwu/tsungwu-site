@@ -17,7 +17,7 @@ Further entries are in preparation and will appear here as they are published.
 2. [Critical closing pressure (Pcc)](/en/concepts/critical-closing-pressure/)
 3. [Tissue perfusion pressure: MAP − Pcc, or Pcc − Pmsf?](/en/concepts/tissue-perfusion-pressure/)
 4. [Estimating cardiac output from pulse pressure: a 120-year genealogy](/en/concepts/cardiac-output-from-pulse-pressure/)
-5. Measuring intraoperative hypotension exposure: thresholds, time-weighted average, area under the threshold <span class="soon">in preparation</span>
+5. [The Hypotension Prediction Index, 2018–2026](/en/concepts/hypotension-prediction-index/)
 
 ## Medical education {#medical-education}
 
