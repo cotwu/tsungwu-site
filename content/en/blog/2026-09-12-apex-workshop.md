@@ -1,6 +1,6 @@
 ---
 title: "Rebuilding this site in a day: notes from the APEX workshop"
-description: On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking.
+description: On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic, and writing turns out to be nothing more than recording one's own thinking.
 date: 2026-09-12
 ---
 
@@ -10,9 +10,7 @@ Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on perso
 
 ## Arriving with a site that already existed
 
-I did not start from zero. The domain tsungwu.tw has been mine since February, with a single-page personal site on it. But while preparing for the workshop I found a problem: every section of that page was filled in by a script *after* the browser loaded it, fetching text files one by one. To a human visitor it looked fine. In the raw HTML that Google and the AI crawlers actually read, every section was empty. The site had existed for half a year and, as far as search engines were concerned, had no content.
-
-Looking back, though, the real problem was not technical. All I had wanted was a business card; the idea of a personal brand had never crossed my mind. A digital Flintstone, more or less.
+I was not starting entirely from zero. The domain tsungwu.tw has been mine since February, with a single-page business-card site on it. Only while preparing for the workshop did I notice that its content was filled in by a script after the page loaded, so the raw HTML that Google and the AI crawlers read was empty in every section. But the real problem was not technical: all I had wanted was a business card. The idea of a personal brand had never crossed my mind. A digital Flintstone, more or less.
 
 That happens to be the point the workshop kept returning to: in the AI era a site is not only for people to look at; it has to be readable, and quotable, by search engines and language models. So the goal for the day was clear: not to patch, but to rebuild.
 

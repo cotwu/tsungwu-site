@@ -1,6 +1,6 @@
 ---
 title: About
-description: Tsung-Ta Wu, MD — attending anesthesiologist at National Taiwan University Hospital Hsinchu Branch. Research on perioperative hemodynamics, intraoperative hypotension, and microcirculation.
+description: Tsung-Ta Wu, MD, attending anesthesiologist at National Taiwan University Hospital Hsinchu Branch. Research on perioperative hemodynamics, intraoperative hypotension, and microcirculation.
 ---
 
 # Tsung-Ta Wu, MD
@@ -11,7 +11,7 @@ National Taiwan University Hospital Hsinchu Branch.
 Clinically I am a board-certified anesthesiologist and a board-certified
 intensivist. My research
 asks a narrower question: **when we say intraoperative hypotension is harmful, what exactly
-have we shown — and what have we only assumed?**
+have we shown, and what have we only assumed?**
 
 This site is where I keep the concepts behind that question in the open. It is a working
 notebook rather than a publication list: entries get revised as the evidence moves, and each
@@ -32,7 +32,7 @@ With the NTUH Center of Microcirculation Medical Research (NCMMR): sedative choi
 effect on microcirculatory flow and organ injury, and fluid strategy in transplantation.
 
 **Hemodynamic monitoring in difficult positions and difficult physiology.**
-Non-invasive surrogates for cardiac output — airway pressure during prone-position spine
+Non-invasive surrogates for cardiac output: airway pressure during prone-position spine
 surgery; dynamic preload variables in liver cirrhosis.
 
 ## Teaching
@@ -41,8 +41,8 @@ I am the course director for undergraduate (UGY) medical students rotating throu
 Department of Anesthesiology at NTUH Hsinchu Branch. Beyond that role, I am also
 interested in clinical skills and simulation, OSCE design, team resource management,
 and nurse-anesthetist training. I also like reading the
-education-theory literature — cognitive load theory, multimedia learning, the
-worked-example effect — and keep those notes here alongside the clinical ones.
+education-theory literature: cognitive load theory, multimedia learning, the
+worked-example effect, and keep those notes here alongside the clinical ones.
 
 ## Selected publications
 
@@ -51,7 +51,7 @@ worked-example effect — and keep those notes here alongside the clinical ones.
    intraoperative hypotension: a randomized controlled trial.
    *Anesthesiology*. Published online 17 August 2026.
    [doi:10.1097/ALN.0000000000006335](https://doi.org/10.1097/ALN.0000000000006335)
-   — **first author**
+   (**first author**)
 2. Wang Y-P, Chen P-J, Yu H-L, Syu J-F, Wu C-Y, **Wu T-T**\*. Airway pressure as a predictor
    of cardiac output reduction in prone position spine surgery: a prospective observational
    study. *J Formos Med Assoc*. 2025;124(1):56–63.

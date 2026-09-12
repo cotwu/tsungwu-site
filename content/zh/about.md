@@ -1,6 +1,6 @@
 ---
 title: 關於我
-description: 吳宗達醫師——新竹台大分院麻醉部主治醫師。研究圍術期血流動力學、術中低血壓、與微循環。
+description: 吳宗達醫師，新竹台大分院麻醉部主治醫師。研究圍術期血流動力學、術中低血壓、與微循環。
 ---
 
 # 吳宗達 醫師
@@ -29,14 +29,14 @@ description: 吳宗達醫師——新竹台大分院麻醉部主治醫師。研�
 以及器官移植的輸液策略。
 
 **困難體位與困難生理下的血流動力學監測**
-心輸出量的非侵入性替代指標——俯臥位脊椎手術的氣道壓力；
+心輸出量的非侵入性替代指標：俯臥位脊椎手術的氣道壓力；
 肝硬化病人的動態前負荷指標。
 
 ## 教學
 
 我是新竹台大分院麻醉部 UGY 醫學生課程的負責人。除此之外，也對以下主題有興趣：
 臨床技能與擬真教學、OSCE 設計、團隊資源管理、麻醉專科護理師訓練。
-我也喜歡直接讀教育理論的原始文獻——認知負荷理論、多媒體學習、worked-example 效應——
+我也喜歡直接讀教育理論的原始文獻（認知負荷理論、多媒體學習、worked-example 效應），
 這些筆記和臨床條目放在同一個網站上。
 
 ## 代表著作
@@ -46,7 +46,7 @@ description: 吳宗達醫師——新竹台大分院麻醉部主治醫師。研�
    intraoperative hypotension: a randomized controlled trial.
    *Anesthesiology*. Published online 17 August 2026.
    [doi:10.1097/ALN.0000000000006335](https://doi.org/10.1097/ALN.0000000000006335)
-   — **第一作者**
+   （**第一作者**）
 2. Wang Y-P, Chen P-J, Yu H-L, Syu J-F, Wu C-Y, **Wu T-T**\*. Airway pressure as a predictor
    of cardiac output reduction in prone position spine surgery: a prospective observational
    study. *J Formos Med Assoc*. 2025;124(1):56–63.

@@ -7,13 +7,13 @@ updated: 2026-09-12
 
 # Critical closing pressure (Pcc)
 
-<p class="lede">Blood flow does not stop when arterial pressure reaches venous pressure. It stops earlier — at a pressure set by vessel tone and surrounding tissue. That pressure is the critical closing pressure, and it changes what "resistance" and "perfusion pressure" mean.</p>
+<p class="lede">Blood flow does not stop when arterial pressure reaches venous pressure. It stops earlier, at a pressure set by vessel tone and surrounding tissue. That pressure is the critical closing pressure, and it changes what "resistance" and "perfusion pressure" mean.</p>
 
 ## Mechanism
 
 **Historical line.** In 1914, Patterson and Starling placed the descending aorta of an isolated heart preparation inside a pressurised chamber and observed that diastolic pressure could not fall below chamber pressure ([Patterson & Starling, *J Physiol* 1914](https://doi.org/10.1113/jphysiol.1914.sp001669)). Burton formalised the idea in 1951: a small vessel with active wall tension has a pressure below which it closes, the *critical closing pressure* ([Burton, *Am J Physiol* 1951](https://doi.org/10.1152/ajplegacy.1951.164.2.319)).
 
-**What happens at the vessel.** When the pressure surrounding a vessel — from wall tone or interstitial pressure — exceeds the pressure inside it, the vessel collapses and flow pauses. Intraluminal pressure then rebuilds toward the upstream value, the vessel reopens, flow resumes, and the cycle repeats. This *stuttering* behaviour is the direct signature of Pcc acting as the effective back-pressure of the circulation. A 2026 narrative review connects the physiological model to its mechanical basis and is open access ([Castro et al., *J Crit Care* 2026](https://doi.org/10.1016/j.jcrc.2026.155485)).
+**What happens at the vessel.** When the pressure surrounding a vessel, from wall tone or interstitial pressure, exceeds the pressure inside it, the vessel collapses and flow pauses. Intraluminal pressure then rebuilds toward the upstream value, the vessel reopens, flow resumes, and the cycle repeats. This *stuttering* behaviour is the direct signature of Pcc acting as the effective back-pressure of the circulation. A 2026 narrative review connects the physiological model to its mechanical basis and is open access ([Castro et al., *J Crit Care* 2026](https://doi.org/10.1016/j.jcrc.2026.155485)).
 
 **The vascular waterfall.** Permutt and Riley showed in 1963 that a collapsible vessel with tone behaves like a waterfall: flow depends on the pressure drop from upstream to the closing point, and downstream pressure is irrelevant as long as it stays below that point ([Permutt & Riley, *J Appl Physiol* 1963](https://doi.org/10.1152/jappl.1963.18.5.924)). Pcc is the height of that waterfall on the arterial side; on the venous side the corresponding quantity is the [mean systemic filling pressure (Pmsf)](/en/concepts/mean-systemic-filling-pressure/), and the gap Pcc − Pmsf is the pressure lost across the waterfall itself.
 
@@ -26,7 +26,7 @@ updated: 2026-09-12
 
 ## Evidence
 
-**How Pcc is estimated without stopping the heart.** Pcc is the pressure intercept of the flow–pressure relationship extrapolated to zero flow. Producing enough variation in cardiac output to draw that line is not feasible in routine care. Chandrasekhar et al. (2023) proposed pulse pressure × heart rate (PP × HR) as a surrogate for pulsatile flow, arguing that any surrogate that is *proportional* to flow and goes to zero when flow goes to zero must give the same intercept: the proportionality constant is absorbed into the slope. The argument is therefore about the intercept, not about the accuracy of PP × HR as a cardiac-output estimate — and it requires that the constant of proportionality, which is arterial compliance, stays constant within the sampling window. Liljestrand and Zander identified arterial distensibility as the principal limitation of the pulse-pressure product in 1928, citing Recklinghausen's relation that amplitude × frequency = minute output ÷ arterial distensibility ([Liljestrand & Zander, *Z Ges Exp Med* 1928](https://doi.org/10.1007/BF02608853)).
+**How Pcc is estimated without stopping the heart.** Pcc is the pressure intercept of the flow–pressure relationship extrapolated to zero flow. Producing enough variation in cardiac output to draw that line is not feasible in routine care. Chandrasekhar et al. (2023) proposed pulse pressure × heart rate (PP × HR) as a surrogate for pulsatile flow, arguing that any surrogate that is *proportional* to flow and goes to zero when flow goes to zero must give the same intercept: the proportionality constant is absorbed into the slope. The argument is therefore about the intercept, not about the accuracy of PP × HR as a cardiac-output estimate: and it requires that the constant of proportionality, which is arterial compliance, stays constant within the sampling window. Liljestrand and Zander identified arterial distensibility as the principal limitation of the pulse-pressure product in 1928, citing Recklinghausen's relation that amplitude × frequency = minute output ÷ arterial distensibility ([Liljestrand & Zander, *Z Ges Exp Med* 1928](https://doi.org/10.1007/BF02608853)).
 
 **Five cohorts, 2023–2026.** Four used PP × HR as the flow surrogate; one used measured thermodilution cardiac output.
 
@@ -42,7 +42,7 @@ updated: 2026-09-12
 
 **Three observations that follow from placing the cohorts side by side.**
 
-1. *The estimates converge.* Sampling resolution differs by more than three orders of magnitude — beat-to-beat at 120 Hz versus hourly means — yet median Pcc falls in the range of roughly 36–45 mmHg in every cohort.
+1. *The estimates converge.* Sampling resolution differs by more than three orders of magnitude, beat-to-beat at 120 Hz versus hourly means, yet median Pcc falls in the range of roughly 36–45 mmHg in every cohort.
 2. *Two cohorts point in opposite directions.* After cardiopulmonary bypass, higher Pcc was associated with kidney injury (Ayers 2025); in sepsis, higher Pcc was associated with survival, with a U-shaped curve (Wang J-Y 2026). Why the waterfall model predicts both is taken up in the [tissue perfusion pressure entry](/en/concepts/tissue-perfusion-pressure/).
 3. *Only one cohort measured the venous side.* Wang J-Y et al. also estimated Pmsf (the intercept of CVP against PP × HR) and could therefore compute the waterfall gradient Pcc − Pmsf. The other cohorts characterise the arterial side only.
 

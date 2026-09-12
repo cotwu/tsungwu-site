@@ -1,6 +1,6 @@
 ---
 title: Research
-description: Research lines of Tsung-Ta Wu, MD — perioperative hemodynamics and hypotension exposure, microcirculation and organ protection, hemodynamic monitoring in difficult physiology — with selected publications.
+description: Research lines of Tsung-Ta Wu, MD: perioperative hemodynamics and hypotension exposure, microcirculation and organ protection, hemodynamic monitoring in difficult physiology, with selected publications.
 ---
 
 # Research
@@ -23,7 +23,7 @@ effect on microcirculatory flow and organ injury, and fluid strategy in transpla
 
 ## Hemodynamic monitoring in difficult positions and difficult physiology
 
-Non-invasive surrogates for cardiac output — airway pressure during prone-position spine
+Non-invasive surrogates for cardiac output: airway pressure during prone-position spine
 surgery; dynamic preload variables in liver cirrhosis.
 
 ## Selected publications

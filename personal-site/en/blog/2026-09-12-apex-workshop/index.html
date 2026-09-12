@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>&quot;Rebuilding this site in a day: notes from the APEX workshop&quot; · Tsung-Ta Wu, MD</title>
-    <meta name="description" content="On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking." />
+    <meta name="description" content="On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic, and writing turns out to be nothing more than recording one's own thinking." />
     <link rel="canonical" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
     <link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
     <link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/" />
@@ -12,7 +12,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Tsung-Ta Wu, MD" />
     <meta property="og:title" content="&quot;Rebuilding this site in a day: notes from the APEX workshop&quot; · Tsung-Ta Wu, MD" />
-    <meta property="og:description" content="On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking." />
+    <meta property="og:description" content="On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic, and writing turns out to be nothing more than recording one's own thinking." />
     <meta property="og:url" content="https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />
@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css?v=8b2d0ef6" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"Rebuilding this site in a day: notes from the APEX workshop\"","description":"On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic — and writing turns out to be nothing more than recording one's own thinking.","inLanguage":"en","url":"https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/","author":{"@type":"Person","name":"Tsung-Ta Wu","alternateName":"吳宗達","url":"https://tsungwu.tw/en/about/"},"datePublished":"2026-09-12","dateModified":"2026-09-12"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"\"Rebuilding this site in a day: notes from the APEX workshop\"","description":"On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic, and writing turns out to be nothing more than recording one's own thinking.","inLanguage":"en","url":"https://tsungwu.tw/en/blog/2026-09-12-apex-workshop/","author":{"@type":"Person","name":"Tsung-Ta Wu","alternateName":"吳宗達","url":"https://tsungwu.tw/en/about/"},"datePublished":"2026-09-12","dateModified":"2026-09-12"}</script>
   </head>
   <body>
     <header class="site-header">
@@ -42,8 +42,7 @@
 <h1>Rebuilding this site in a day: notes from the APEX workshop</h1>
 <p>Today I attended <a href="https://apex.innovarad.tw/">APEX</a>, a one-day workshop on personal branding in the AI era run by Innovarad in Taipei. These notes were written the same evening, and they double as the record of how this site was rebuilt from scratch in a single day.</p>
 <h2>Arriving with a site that already existed</h2>
-<p>I did not start from zero. The domain tsungwu.tw has been mine since February, with a single-page personal site on it. But while preparing for the workshop I found a problem: every section of that page was filled in by a script <em>after</em> the browser loaded it, fetching text files one by one. To a human visitor it looked fine. In the raw HTML that Google and the AI crawlers actually read, every section was empty. The site had existed for half a year and, as far as search engines were concerned, had no content.</p>
-<p>Looking back, though, the real problem was not technical. All I had wanted was a business card; the idea of a personal brand had never crossed my mind. A digital Flintstone, more or less.</p>
+<p>I was not starting entirely from zero. The domain tsungwu.tw has been mine since February, with a single-page business-card site on it. Only while preparing for the workshop did I notice that its content was filled in by a script after the page loaded, so the raw HTML that Google and the AI crawlers read was empty in every section. But the real problem was not technical: all I had wanted was a business card. The idea of a personal brand had never crossed my mind. A digital Flintstone, more or less.</p>
 <p>That happens to be the point the workshop kept returning to: in the AI era a site is not only for people to look at; it has to be readable, and quotable, by search engines and language models. So the goal for the day was clear: not to patch, but to rebuild.</p>
 <h2>What happened during the day</h2>
 <p>Environment setup followed the workshop&#39;s own flow. Once the tools were installed and GitHub and Cloudflare were connected, almost everything else was done by talking. I backed the old site up three ways (a tag on GitHub, the source and a live mirror in Dropbox), then told Claude Code: forget the old one, build a new one.</p>

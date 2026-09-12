@@ -1,10 +1,10 @@
 ---
 title: Tsung-Ta Wu, MD
-description: An English-language concept notebook on perioperative hemodynamics and medical education — written by a practising anesthesiologist in Taiwan.
+description: An English-language concept notebook on perioperative hemodynamics and medical education, written by a practising anesthesiologist in Taiwan.
 layout: home
 kicker: Concept notebook
 lede: Attending anesthesiologist at National Taiwan University Hospital Hsinchu Branch. Clinical researcher in perioperative hemodynamics; clinical-skills educator.
-question: When we say intraoperative hypotension is harmful, what exactly have we shown — and what have we only assumed?
+question: When we say intraoperative hypotension is harmful, what exactly have we shown, and what have we only assumed?
 ---
 
 ## What this site is

@@ -1,6 +1,6 @@
 ---
 title: Concepts
-description: Concept entries on perioperative hemodynamics and medical education. Each entry has three parts — mechanism, evidence, open questions — with DOI-linked references.
+description: Concept entries on perioperative hemodynamics and medical education. Each entry has three parts (mechanism, evidence, open questions), with DOI-linked references.
 ---
 
 # Concepts
