@@ -12,6 +12,8 @@ Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on perso
 
 I did not start from zero. The domain tsungwu.tw has been mine since February, with a single-page personal site on it. But while preparing for the workshop I found a problem: every section of that page was filled in by a script *after* the browser loaded it, fetching text files one by one. To a human visitor it looked fine. In the raw HTML that Google and the AI crawlers actually read, every section was empty. The site had existed for half a year and, as far as search engines were concerned, had no content.
 
+Looking back, though, the real problem was not technical. All I had wanted was a business card; the idea of a personal brand had never crossed my mind — a digital Flintstone, more or less.
+
 That happens to be the point the workshop kept returning to: in the AI era a site is not only for people to look at; it has to be readable, and quotable, by search engines and language models. So the goal for the day was clear — not to patch, but to rebuild.
 
 ## What happened during the day
