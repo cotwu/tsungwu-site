@@ -6,7 +6,7 @@ date: 2026-09-12
 
 # Rebuilding this site in a day: notes from the APEX workshop
 
-Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on personal branding in the AI era run by Innovarad in Taipei. These notes were written the same evening, and they double as the record of how this site was rebuilt from scratch in a single day.
+Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on personal branding in the AI era run by Innovarad in Taipei. These notes were written at midday, during the hands-on session, and they double as the record of how this site was rebuilt from scratch in a single day.
 
 ## Arriving with a site that already existed
 
