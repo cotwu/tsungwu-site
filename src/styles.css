@@ -99,3 +99,12 @@ th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align
 th:first-child, td:first-child { min-width: 90px; color: var(--muted); }
 th { background: var(--accent-soft); font-weight: 600; }
 tbody tr:last-child td { border-bottom: 0; }
+
+/* blog list */
+.posts { list-style: none; padding: 0; margin: 8px 0 0; }
+.posts li { margin: 0; padding: 18px 0; border-top: 1px solid var(--line); }
+.posts li:last-child { border-bottom: 1px solid var(--line); }
+.posts a { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--text); }
+.posts a:hover { color: var(--accent); text-decoration: none; }
+.posts .date { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+.posts p { margin: 8px 0 0; color: var(--muted); font-size: 0.97rem; }

@@ -9,10 +9,12 @@ const SITE = "https://tsungwu.tw";
 const OUT = "personal-site";
 const LANGS = {
   en: { htmlLang: "en", hreflang: "en", label: "EN", locale: "en_US", brand: "Tsung-Ta Wu, MD",
-        nav: [["/en/concepts/", "Concepts"], ["/en/research/", "Research"], ["/en/about/", "About"]],
+        nav: [["/en/concepts/", "Concepts"], ["/en/research/", "Research"], ["/en/blog/", "Blog"], ["/en/about/", "About"]],
+        dateLocale: "en-GB", readMore: "All posts",
         footer: "Revised as the evidence moves." },
   zh: { htmlLang: "zh-Hant", hreflang: "zh-Hant", label: "中文", locale: "zh_TW", brand: "吳宗達 Tsung-Ta Wu, MD",
-        nav: [["/zh/concepts/", "概念"], ["/zh/research/", "研究"], ["/zh/about/", "關於"]],
+        nav: [["/zh/concepts/", "概念"], ["/zh/research/", "研究"], ["/zh/blog/", "Blog"], ["/zh/about/", "關於"]],
+        dateLocale: "zh-TW", readMore: "全部文章",
         footer: "隨證據更新而改寫。" },
 };
 
@@ -95,7 +97,7 @@ function layout({ lang, path, meta, main }) {
     <link rel="canonical" href="${SITE}${url}" />
 ${alternates}
     <link rel="alternate" hreflang="x-default" href="${alt("en")}" />
-    <meta property="og:type" content="${path.startsWith("concepts/") ? "article" : "website"}" />
+    <meta property="og:type" content="${/^(concepts|blog)\//.test(path) ? "article" : "website"}" />
     <meta property="og:site_name" content="Tsung-Ta Wu, MD" />
     <meta property="og:title" content="${esc(title)}" />
     <meta property="og:description" content="${esc(meta.description || "")}" />
@@ -141,13 +143,36 @@ function* walk(dir) {
   }
 }
 
+function fmtDate(lang, iso) {
+  if (!iso) return "";
+  return new Date(iso + "T00:00:00Z").toLocaleDateString(LANGS[lang].dateLocale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+}
+
+function readPosts(lang) {
+  const dir = join("content", lang, "blog");
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".md") && f !== "index.md")
+    .map((f) => {
+      const { meta } = parseFrontmatter(readFileSync(join(dir, f), "utf8"));
+      return { ...meta, url: `/${lang}/blog/${f.replace(/\.md$/, "")}/` };
+    })
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+}
+
 function buildPage(lang, file) {
   const rel = relative(join("content", lang), file).replace(/\.md$/, "").split(sep).join("/");
-  const path = rel === "index" ? "" : `${rel}/`;
+  const path = rel === "index" ? "" : `${rel.replace(/\/index$/, "")}/`;
   const { meta, body } = parseFrontmatter(readFileSync(file, "utf8"));
   let main;
   if (meta.layout === "home") {
     main = renderHome(meta, body);
+  } else if (meta.layout === "blog") {
+    const posts = readPosts(lang);
+    const list = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</li>`).join("\n");
+    main = `      <article>\n${marked.parse(body)}\n      </article>\n      <ul class="posts">\n${list}\n      </ul>`;
+  } else if (rel.startsWith("blog/")) {
+    main = `      <p class="kicker">${fmtDate(lang, meta.date)}</p>\n      <article>\n${marked.parse(body)}\n      </article>`;
   } else {
     const head = meta.track ? `      <p class="kicker">${esc(meta.track)}</p>\n` : "";
     main = `${head}      <article>\n${marked.parse(body)}\n      </article>`;
@@ -156,7 +181,7 @@ function buildPage(lang, file) {
   const dir = join(OUT, lang, path);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "index.html"), html);
-  return { lang, path, url: `/${lang}/${path}`, updated: meta.updated };
+  return { lang, path, url: `/${lang}/${path}`, updated: meta.updated || meta.date };
 }
 
 // ---- build ----
