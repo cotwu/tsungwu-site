@@ -22,6 +22,7 @@
   "homepage": "https://github.com/cotwu/tsungwu-site#readme",
   "private": "true",
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "marked": "^16.4.2"
   }
 }

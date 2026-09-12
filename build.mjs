@@ -6,6 +6,7 @@ import { join, relative, sep } from "node:path";
 import { marked } from "marked";
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { ogPng } from "./src/og.mjs";
 
 const SITE = "https://tsungwu.tw";
 const OUT = "personal-site";
@@ -127,7 +128,7 @@ ${alternates}
     <meta property="og:description" content="${esc(meta.description || "")}" />
     <meta property="og:url" content="${SITE}${url}" />
     <meta property="og:locale" content="${L.locale}" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
@@ -299,7 +300,12 @@ function buildPage(lang, file) {
     : path === "about/" ? "ProfilePage"
     : /^(concepts|blog|research)\/$/.test(path) ? "CollectionPage" : "WebPage";
   let head = jsonLd(lang, meta, path, kind);
-  if (meta.cover) head += `\n    <meta property="og:image" content="${SITE}${esc(meta.cover)}" />`;
+  // Open Graph image: generated PNG per page (FB/LINE/X need a raster image)
+  const ogName = `${lang}-${(path || "home").replace(/\/$/, "").replaceAll("/", "-")}.png`;
+  const kicker = meta.track || (path.startsWith("blog/") ? "Blog" : path === "" ? (lang === "zh" ? "概念筆記" : "Concept notebook") : "");
+  mkdirSync(join(OUT, "og"), { recursive: true });
+  writeFileSync(join(OUT, "og", ogName), ogPng({ title: meta.title, subtitle: path === "" ? meta.question : "", kicker, lang }));
+  head += `\n    <meta property="og:image" content="${SITE}/og/${ogName}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta name="twitter:image" content="${SITE}/og/${ogName}" />`;
   const html = layout({ lang, path, meta, main, head });
   const dir = join(OUT, lang, path);
   mkdirSync(dir, { recursive: true });
