@@ -38,9 +38,9 @@ surgery; dynamic preload variables in liver cirrhosis.
 ## Teaching
 
 I am the course director for undergraduate (UGY) medical students rotating through the
-Department of Anesthesiology at NTUH Hsinchu Branch. Beyond that role, teaching is
-something I enjoy rather than a job title: clinical skills and simulation, OSCE design,
-team resource management, and nurse-anesthetist training. I also like reading the
+Department of Anesthesiology at NTUH Hsinchu Branch. Beyond that role, I am also
+interested in clinical skills and simulation, OSCE design, team resource management,
+and nurse-anesthetist training. I also like reading the
 education-theory literature — cognitive load theory, multimedia learning, the
 worked-example effect — and keep those notes here alongside the clinical ones.
 
