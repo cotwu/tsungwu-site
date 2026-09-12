@@ -122,3 +122,11 @@ figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 8px; text-alig
 .sed td.small { font-size: 0.85rem; color: var(--muted); }
 .sed .rule { background: var(--accent-soft); border-radius: 6px; }
 @media (max-width: 640px) { .sed { font-size: 0.82rem; } .sed th.row { width: 4.2em; } }
+
+/* images never exceed the text column */
+img, svg, video { max-width: 100%; height: auto; }
+article img { display: block; margin: 20px auto; border-radius: 6px; }
+
+.byline { color: var(--text); }
+.posts.compact li { padding: 12px 0; }
+.posts.compact a { font-size: 1.05rem; }

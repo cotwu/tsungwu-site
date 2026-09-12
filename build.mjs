@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, copyFileSync, existsSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { marked } from "marked";
+import { execSync } from "node:child_process";
 
 const SITE = "https://tsungwu.tw";
 const OUT = "personal-site";
@@ -50,7 +51,22 @@ function parseFrontmatter(raw) {
 const esc = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
 // Home: sections split on `## `; "Tracks" bullets are `Title | /url/ | description`
-function renderHome(meta, body) {
+function latestEntries(lang) {
+  const items = [];
+  for (const sub of ["blog", "concepts"]) {
+    const dir = join("content", lang, sub);
+    if (!existsSync(dir)) continue;
+    for (const f of readdirSync(dir).filter((f) => f.endsWith(".md") && f !== "index.md")) {
+      const file = join(dir, f);
+      const { meta } = parseFrontmatter(readFileSync(file, "utf8"));
+      const date = meta.date || gitDate(file);
+      items.push({ title: meta.title, url: `/${lang}/${sub}/${f.replace(/\.md$/, "")}/`, date, kind: sub });
+    }
+  }
+  return items.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+}
+
+function renderHome(lang, meta, body) {
   const sections = body.split(/^## /m).filter((s) => s.trim());
   let html = `      <section class="hero">
         <p class="kicker">${esc(meta.kicker || "")}</p>
@@ -70,7 +86,9 @@ function renderHome(meta, body) {
       }).join("\n");
       html += `      <section><h2>${esc(heading)}</h2><ul class="tracks">\n${items}\n</ul></section>\n`;
     } else if (/^latest$|^最新$/i.test(heading)) {
-      html += `      <section><h2>${esc(heading)}</h2><div class="featured">${marked.parse(rest)}</div></section>\n`;
+      const kindLabel = { blog: lang === "zh" ? "Blog" : "Blog", concepts: lang === "zh" ? "概念" : "Concept" };
+      const list = latestEntries(lang).map((e) => `<li><a href="${e.url}">${esc(e.title)}</a><span class="date">${kindLabel[e.kind]} · ${fmtDate(lang, e.date)}</span></li>`).join("\n");
+      html += `      <section><h2>${esc(heading)}</h2><div class="featured">${marked.parse(rest)}</div><ul class="posts compact">\n${list}\n</ul></section>\n`;
     } else {
       html += `      <section><h2>${esc(heading)}</h2>${marked.parse(rest)}</section>\n`;
     }
@@ -78,7 +96,7 @@ function renderHome(meta, body) {
   return html;
 }
 
-function layout({ lang, path, meta, main }) {
+function layout({ lang, path, meta, main, head = "" }) {
   const L = LANGS[lang];
   const url = `/${lang}/${path}`;
   const has = (l) => l === lang || (EXISTS[l] && EXISTS[l].has(path));
@@ -113,6 +131,7 @@ ${alternates}
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
+    ${head}
   </head>
   <body>
     <header class="site-header">
@@ -148,6 +167,32 @@ function* walk(dir) {
   }
 }
 
+const AUTHOR = { en: "Tsung-Ta Wu, MD", zh: "吳宗達" };
+
+// last commit date (YYYY-MM-DD) of a content file; falls back to today for uncommitted files
+function gitDate(file) {
+  try {
+    const out = execSync(`git log -1 --format=%cs -- "${file}"`, { encoding: "utf8" }).trim();
+    if (out) return out;
+  } catch {}
+  return new Date().toISOString().slice(0, 10);
+}
+
+function jsonLd(lang, meta, url, kind) {
+  const d = {
+    "@context": "https://schema.org",
+    "@type": kind,
+    headline: meta.title,
+    description: meta.description || "",
+    inLanguage: LANGS[lang].htmlLang,
+    url: SITE + url,
+    author: { "@type": "Person", name: "Tsung-Ta Wu", alternateName: "吳宗達", url: SITE + "/en/about/" },
+  };
+  if (meta.date) d.datePublished = meta.date;
+  if (meta.updated) d.dateModified = meta.updated;
+  return `<script type="application/ld+json">${JSON.stringify(d)}</script>`;
+}
+
 function fmtDate(lang, iso) {
   if (!iso) return "";
   return new Date(iso + "T00:00:00Z").toLocaleDateString(LANGS[lang].dateLocale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
@@ -174,20 +219,32 @@ function buildPage(lang, file) {
   const rel = relative(join("content", lang), file).replace(/\.md$/, "").split(sep).join("/");
   const path = pathOf(lang, file);
   const { meta, body } = parseFrontmatter(readFileSync(file, "utf8"));
+  const isArticle = /^(concepts|blog)\//.test(path);
+  if (isArticle) meta.updated = gitDate(file);
+  const byline = (label) => `<span class="byline">${esc(label)}</span>`;
+  const revised = lang === "zh" ? "最後修訂" : "Last revised";
   let main;
   if (meta.layout === "home") {
-    main = renderHome(meta, body);
+    main = renderHome(lang, meta, body);
   } else if (meta.layout === "blog") {
     const posts = readPosts(lang);
     const list = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</li>`).join("\n");
     main = `      <article>\n${marked.parse(body)}\n      </article>\n      <ul class="posts">\n${list}\n      </ul>`;
   } else if (rel.startsWith("blog/")) {
-    main = `      <p class="kicker">${fmtDate(lang, meta.date)}${meta.origin ? ` · ${esc(meta.origin)}` : ""}</p>\n      <article>\n${marked.parse(body)}\n      </article>`;
+    const parts = [byline(AUTHOR[lang]), fmtDate(lang, meta.date)];
+    if (meta.origin) parts.push(esc(meta.origin));
+    main = `      <p class="kicker">${parts.join(" · ")}</p>\n      <article>\n${marked.parse(body)}\n      </article>`;
   } else {
-    const head = meta.track ? `      <p class="kicker">${esc(meta.track)}</p>\n` : "";
-    main = `${head}      <article>\n${marked.parse(body)}\n      </article>`;
+    const parts = [];
+    if (meta.track) parts.push(esc(meta.track));
+    if (isArticle) parts.push(byline(AUTHOR[lang]), `${revised} ${fmtDate(lang, meta.updated)}`);
+    const kicker = parts.length ? `      <p class="kicker">${parts.join(" · ")}</p>\n` : "";
+    // strip the hand-written "Last revised" footer line — the date is now automatic
+    const cleaned = body.replace(/\n---\n\n\*(Entries on this site are revised|本站條目會隨證據更新)[^\n]*\*\n?$/, "\n");
+    main = `${kicker}      <article>\n${marked.parse(cleaned)}\n      </article>`;
   }
-  const html = layout({ lang, path, meta, main });
+  const head = isArticle ? jsonLd(lang, meta, `/${lang}/${path}`, path.startsWith("blog/") ? "BlogPosting" : "Article") : "";
+  const html = layout({ lang, path, meta, main, head });
   const dir = join(OUT, lang, path);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, "index.html"), html);
