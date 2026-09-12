@@ -37,10 +37,12 @@ surgery; dynamic preload variables in liver cirrhosis.
 
 ## Teaching
 
-Clinical skills and simulation-based education — OSCE design, team resource management,
-undergraduate and nurse-anesthetist training. I also read the education-theory literature
-directly (cognitive load theory, the multimedia learning framework, the worked-example
-effect), and keep those notes on this site alongside the clinical ones.
+I am the course director for undergraduate (UGY) medical students rotating through the
+Department of Anesthesiology at NTUH Hsinchu Branch. Beyond that role, teaching is
+something I enjoy rather than a job title: clinical skills and simulation, OSCE design,
+team resource management, and nurse-anesthetist training. I also like reading the
+education-theory literature — cognitive load theory, multimedia learning, the
+worked-example effect — and keep those notes here alongside the clinical ones.
 
 ## Selected publications
 
