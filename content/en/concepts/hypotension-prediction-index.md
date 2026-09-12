@@ -22,14 +22,15 @@ track: Perioperative hemodynamics
 
 **Validation.** In the 2018 paper, using a case–control (backward) analysis, the index predicted a hypotensive event 15 minutes ahead with sensitivity 88% and specificity 87% (area under the curve 0.95); at 5 minutes, sensitivity and specificity were both around 90% ([Hatib et al. 2018](https://doi.org/10.1097/ALN.0000000000002300)).
 
-Expressed as likelihood ratios, which do not depend on prevalence:
+Expressed as likelihood ratios, which do not depend on prevalence, and using the developers' own 2024 re-validation with a forward (cohort) analysis of invasive waveform data, at the optimal cutoff ([Davies et al., *Anesthesiology* 2024](https://doi.org/10.1097/ALN.0000000000004989)):
 
-| | Sensitivity | Specificity | Positive LR | Negative LR |
+| Predicting hypotension 15 min ahead | Sensitivity | Specificity | Positive LR | Negative LR |
 |---|---|---|---|---|
-| HPI, 15 min ahead (original validation, backward analysis) — [Hatib 2018](https://doi.org/10.1097/ALN.0000000000002300) | 0.88 | 0.87 | **6.8** | **0.14** |
-| High-sensitivity troponin T, single measurement at presentation, for acute myocardial infarction — [Al-Saleh et al., *CMAJ Open* 2014](https://doi.org/10.9778/cmajo.20130074) (meta-analysis, 9 studies, 9,186 patients) | 0.94 | 0.73 | **3.5** | **0.08** |
+| HPI (forward analysis) | 0.87 | 0.84 | **5.4** | **0.15** |
+| MAP alone (forward analysis) | 0.88 | 0.84 | **5.5** | **0.14** |
+| *For comparison:* high-sensitivity troponin T, single measurement at presentation, for acute myocardial infarction — [Al-Saleh et al., *CMAJ Open* 2014](https://doi.org/10.9778/cmajo.20130074) (meta-analysis, 9 studies, 9,186 patients) | 0.94 | 0.73 | **3.5** | **0.08** |
 
-On these figures the index's discrimination for hypotension is of the same order as a single high-sensitivity troponin for myocardial infarction: a stronger positive ratio, a weaker negative one. Whether that discrimination is the index's own is the subject of the second act.
+On these figures the index's discrimination for hypotension is of the same order as a single high-sensitivity troponin for myocardial infarction: a stronger positive ratio, a weaker negative one. The same table also shows that MAP alone, analyzed the same way, has the same likelihood ratios. Whether the discrimination is the index's own is the subject of the second act.
 
 **The first randomized trial was positive.** In 68 patients undergoing elective noncardiac surgery, the index with a treatment protocol reduced time-weighted average (TWA) hypotension below 65 mmHg from 0.44 to 0.10 mmHg ([Wijnberge et al., HYPE trial, *JAMA* 2020](https://doi.org/10.1001/jama.2020.0592)).
 
