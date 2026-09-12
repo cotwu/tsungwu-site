@@ -14,7 +14,12 @@ track: 圍術期血流動力學
 
 > MAP − CVP = (MAP − Pcc) + (Pcc − Pmsf) + (Pmsf − CVP)
 
-第一項把血推過小動脈與微血管。第三項是 Guyton 描述的靜脈回流梯度（見 [Pmsf 條目](/zh/concepts/mean-systemic-filling-pressure/)）。中間那項就是 vascular waterfall 本身：在血管關閉點被「損失」掉的壓力，對兩側的血流都沒有貢獻。Castro、Pinsky 等人在 2026 年的回顧裡把這條壓力剖面明確畫了出來（[Castro et al., *J Crit Care* 2026](https://doi.org/10.1016/j.jcrc.2026.155485)，圖 1）。
+第一項把血推過小動脈與微血管。第三項是 Guyton 描述的靜脈回流梯度（見 [Pmsf 條目](/zh/concepts/mean-systemic-filling-pressure/)）。中間那項就是 vascular waterfall 本身：在血管關閉點被「損失」掉的壓力，對兩側的血流都沒有貢獻。Castro、Pinsky 等人在 2026 年的回顧裡把這條壓力剖面明確畫了出來（[Castro et al., *J Crit Care* 2026](https://doi.org/10.1016/j.jcrc.2026.155485)，圖 2）。
+
+<figure>
+<img src="/img/castro2026-fig2.jpg" width="1600" height="797" alt="從主動脈到腔靜脈的壓力剖面：動脈壓降到臨界關閉壓（組織灌流壓），跨過 vascular waterfall 降到平均系統充盈壓，再降到中心靜脈壓（靜脈回流驅動壓）。下方為從主動脈經小動脈、微血管、小靜脈到腔靜脈的血管示意圖。" loading="lazy">
+<figcaption>系統循環的壓力剖面。轉載自 Castro R, Retamal J, Hernández G, Kattan E, Pinsky MR. Critical closing pressure in the circulation: understanding the vascular waterfall phenomenon. <em>J Crit Care</em> 2026;93:155485, Fig. 2（<a href="https://doi.org/10.1016/j.jcrc.2026.155485">doi:10.1016/j.jcrc.2026.155485</a>），授權 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>，未經修改。</figcaption>
+</figure>
 
 **為什麼 waterfall 把兩側斷開。** Permutt 與 Riley 證明，一旦有張力的可塌陷血管成為限流段，流量只取決於上游壓減關閉壓；只要下游壓低於關閉點，下游壓就無關緊要（[Permutt & Riley, *J Appl Physiol* 1963](https://doi.org/10.1152/jappl.1963.18.5.924)）。肺提供了熟悉的類比：West 的 zone 2 裡，血流由動脈壓減肺泡壓決定，靜脈壓不進入方程式（[West, Dollery & Naimark, *J Appl Physiol* 1964](https://doi.org/10.1152/jappl.1964.19.4.713)）。在系統循環中，同樣的邏輯把動脈壓力系統和靜脈壓力系統分開。Andrei 等人把 waterfall 描述為「將動脈與靜脈循環斷開成兩個壓力系統」的東西（[Andrei et al., *Intensive Care Med Exp* 2023](https://doi.org/10.1186/s40635-023-00539-x)）。
 

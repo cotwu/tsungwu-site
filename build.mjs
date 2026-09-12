@@ -255,6 +255,10 @@ function buildPage(lang, file) {
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 copyFileSync("src/styles.css", join(OUT, "styles.css"));
+if (existsSync("src/img")) {
+  mkdirSync(join(OUT, "img"), { recursive: true });
+  for (const f of readdirSync("src/img")) copyFileSync(join("src/img", f), join(OUT, "img", f));
+}
 
 const EXISTS = {};
 for (const lang of Object.keys(LANGS)) {
