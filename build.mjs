@@ -385,7 +385,10 @@ for (const lang of Object.keys(LANGS)) {
   for (const f of walk(dir)) pages.push(buildPage(lang, f));
 }
 
-writeFileSync(join(OUT, "_redirects"), `/  /en/  301\n`);
+// "/" is handled by the Pages Function in functions/index.js (language-aware 302); _redirects kept for future rules
+writeFileSync(join(OUT, "_redirects"), "");
+mkdirSync(join(OUT, "functions"), { recursive: true });
+for (const f of readdirSync("src/functions")) copyFileSync(join("src/functions", f), join(OUT, "functions", f));
 writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 writeFileSync(join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
