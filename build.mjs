@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, copyFileSy
 import { join, relative, sep } from "node:path";
 import { marked } from "marked";
 import { execSync } from "node:child_process";
+import { createHash } from "node:crypto";
 
 const SITE = "https://tsungwu.tw";
 const OUT = "personal-site";
@@ -130,7 +131,7 @@ ${alternates}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles.css?v=${CSS_HASH}" />
     ${head}
   </head>
   <body>
@@ -257,6 +258,7 @@ function buildPage(lang, file) {
 }
 
 // ---- build ----
+const CSS_HASH = createHash("md5").update(readFileSync("src/styles.css")).digest("hex").slice(0, 8);
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 copyFileSync("src/styles.css", join(OUT, "styles.css"));
