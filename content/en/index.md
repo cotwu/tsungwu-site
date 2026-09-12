@@ -15,7 +15,7 @@ Entries are grouped into two tracks.
 
 ## Tracks
 
-- Perioperative hemodynamics | /en/concepts/#hemodynamics | How intraoperative hypotension is measured and predicted, the physiology of critical closing pressure and venous return, and where the evidence chain still has gaps.
+- Perioperative hemodynamics | /en/concepts/#hemodynamics | What pressure actually drives blood through tissue: from mean systemic filling pressure and critical closing pressure to tissue perfusion pressure; whether pulse pressure can stand in for cardiac output; and what an algorithm that predicts intraoperative hypotension is really predicting.
 - Medical education | /en/concepts/#medical-education | Clinical skills, simulation, OSCE design, and the learning-theory literature behind them.
 
 ## Latest
