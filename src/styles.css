@@ -206,3 +206,6 @@ article ol li { margin-bottom: 14px; }
 
 /* index pages: a thin band cropped from the hero artwork under the title */
 .band { display: block; width: 100%; height: auto; margin: 4px 0 22px; }
+
+/* home: more air between the hero question and the blog section */
+.hero + section > h2 { margin-top: 64px; }
