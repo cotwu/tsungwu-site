@@ -43,7 +43,7 @@ updated: 2026-09-12
 **把五篇並排後可以看到的三件事。**
 
 1. *估計值收斂。* 取樣解析度相差三個數量級以上——逐搏 120 Hz 對每小時平均——但每個世代的 Pcc 中位數都落在大約 36–45 mmHg。
-2. *兩篇方向相反，而 waterfall 模型剛好都預測到。* 體外循環後，Pcc 越高與腎損傷相關（Ayers 2025）；敗血症中，Pcc 越高與存活相關，且呈 U 形（Wang J-Y 2026）。用 waterfall 框架讀，這是同一條曲線的兩端：敗血症端的低 Pcc 代表 vasoplegia、waterfall 塌掉；心臟手術端的高 Pcc 代表張力過度。Wang J-Y 等人自己就報告了 U 形。
+2. *兩篇方向相反。* 體外循環後，Pcc 越高與腎損傷相關（Ayers 2025）；敗血症中，Pcc 越高與存活相關，且呈 U 形（Wang J-Y 2026）。為什麼 waterfall 模型兩個都預測到，在[組織灌流壓條目](/zh/concepts/tissue-perfusion-pressure/)裡討論。
 3. *只有一篇量了靜脈側。* Wang J-Y 等人同時估算了 Pmsf（CVP 對 PP × HR 的截距），因此能算出 waterfall 梯度 Pcc − Pmsf。其他世代只描述了動脈側。
 
 ## 未解問題

@@ -43,7 +43,7 @@ updated: 2026-09-12
 **Three observations that follow from placing the cohorts side by side.**
 
 1. *The estimates converge.* Sampling resolution differs by more than three orders of magnitude — beat-to-beat at 120 Hz versus hourly means — yet median Pcc falls in the range of roughly 36–45 mmHg in every cohort.
-2. *Two cohorts point in opposite directions, and the waterfall model predicts both.* After cardiopulmonary bypass, higher Pcc was associated with kidney injury (Ayers 2025). In sepsis, higher Pcc was associated with survival, with a U-shaped curve (Wang J-Y 2026). Read through the waterfall framework, these are two ends of the same curve: in sepsis a low Pcc marks vasoplegia and a collapsed waterfall; in cardiac surgery a high Pcc marks excessive tone. Wang J-Y and colleagues report the U-shape directly.
+2. *Two cohorts point in opposite directions.* After cardiopulmonary bypass, higher Pcc was associated with kidney injury (Ayers 2025); in sepsis, higher Pcc was associated with survival, with a U-shaped curve (Wang J-Y 2026). Why the waterfall model predicts both is taken up in the [tissue perfusion pressure entry](/en/concepts/tissue-perfusion-pressure/).
 3. *Only one cohort measured the venous side.* Wang J-Y et al. also estimated Pmsf (the intercept of CVP against PP × HR) and could therefore compute the waterfall gradient Pcc − Pmsf. The other cohorts characterise the arterial side only.
 
 ## Open questions

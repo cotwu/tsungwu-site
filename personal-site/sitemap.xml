@@ -29,6 +29,12 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/mean-systemic-filling-pressure/"/>
   </url>
   <url>
+    <loc>https://tsungwu.tw/en/concepts/tissue-perfusion-pressure/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/tissue-perfusion-pressure/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/"/>
+  </url>
+  <url>
     <loc>https://tsungwu.tw/en/concepts/</loc>
     <lastmod>2026-09-12</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/"/>
@@ -76,6 +82,12 @@
     <lastmod>2026-09-12</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/mean-systemic-filling-pressure/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/mean-systemic-filling-pressure/"/>
+  </url>
+  <url>
+    <loc>https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/</loc>
+    <lastmod>2026-09-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/concepts/tissue-perfusion-pressure/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/"/>
   </url>
   <url>
     <loc>https://tsungwu.tw/zh/concepts/</loc>
