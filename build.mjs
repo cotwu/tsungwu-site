@@ -229,9 +229,9 @@ function buildPage(lang, file) {
   } else if (meta.layout === "blog") {
     const posts = readPosts(lang);
     const list = posts.map((p) => {
+      const text = `<div class="post-text"><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</div>`;
       const thumb = p.cover ? `<a class="post-thumb" href="${p.url}" aria-hidden="true" tabindex="-1"><img src="${esc(p.cover)}" alt="" loading="lazy"></a>` : "";
-      const meta = `<div class="post-meta"><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</div>`;
-      return `<li class="post-row"><a class="post-title" href="${p.url}">${esc(p.title)}</a><div class="post-body">${thumb}${meta}</div></li>`;
+      return `<li class="post-row">${text}${thumb}</li>`;
     }).join("\n");
     main = `      <article>\n${marked.parse(body)}\n      </article>\n      <ul class="posts">\n${list}\n      </ul>`;
   } else if (rel.startsWith("blog/")) {
