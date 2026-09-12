@@ -182,7 +182,7 @@ function buildPage(lang, file) {
     const list = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span>${p.description ? `<p>${esc(p.description)}</p>` : ""}</li>`).join("\n");
     main = `      <article>\n${marked.parse(body)}\n      </article>\n      <ul class="posts">\n${list}\n      </ul>`;
   } else if (rel.startsWith("blog/")) {
-    main = `      <p class="kicker">${fmtDate(lang, meta.date)}</p>\n      <article>\n${marked.parse(body)}\n      </article>`;
+    main = `      <p class="kicker">${fmtDate(lang, meta.date)}${meta.origin ? ` · ${esc(meta.origin)}` : ""}</p>\n      <article>\n${marked.parse(body)}\n      </article>`;
   } else {
     const head = meta.track ? `      <p class="kicker">${esc(meta.track)}</p>\n` : "";
     main = `${head}      <article>\n${marked.parse(body)}\n      </article>`;
