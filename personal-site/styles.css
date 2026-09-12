@@ -212,3 +212,10 @@ article ol li { margin-bottom: 14px; }
 .hero-art h1 { font-size: 1.25rem; }
 .hero-art .lede { font-size: clamp(0.9rem, 1.2vw, 1rem); }
 .hero-art .question { font-size: clamp(1.25rem, 1.9vw, 1.7rem); }
+
+/* home: ordered concept list + blog list */
+.entries { padding-left: 24px; margin: 0; }
+.entries li { margin-bottom: 10px; }
+.entries a { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; color: var(--text); }
+.entries a:hover { color: var(--accent); text-decoration: none; }
+.more { margin: 12px 0 0; font-size: 0.95rem; }

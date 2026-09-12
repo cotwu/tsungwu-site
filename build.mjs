@@ -75,7 +75,7 @@ function latestEntries(lang) {
 }
 
 function renderHome(lang, meta, body) {
-  const sections = body.split(/^## /m).filter((s) => s.trim());
+  const zh = lang === "zh";
   const art = meta.hero ? `        <img class="hero-img" src="${esc(meta.hero)}" srcset="${esc(meta.hero)} 2400w, ${esc(meta.hero).replace("2400", "1400")} 1400w" sizes="(min-width: 1400px) 1400px, 100vw" alt="${esc(meta.heroAlt || "")}" fetchpriority="high" />\n` : "";
   let html = `      <section class="hero${meta.hero ? " hero-art" : ""}">
 ${art}        <div class="hero-text">
@@ -85,27 +85,26 @@ ${art}        <div class="hero-text">
         <p class="question">${esc(meta.question || "")}</p>
         </div>
       </section>\n`;
-  for (const s of sections) {
-    const nl = s.indexOf("\n");
-    const heading = s.slice(0, nl).trim();
-    const rest = s.slice(nl + 1);
-    const bullets = rest.split("\n").filter((l) => l.startsWith("- ") && l.includes(" | "));
-    if (bullets.length) {
-      const items = bullets.map((l) => {
-        const [t, url, d] = l.slice(2).split("|").map((x) => x.trim());
-        return `<li><h3><a href="${url}">${marked.parseInline(t)}</a></h3><p>${marked.parseInline(d || "")}</p></li>`;
-      }).join("\n");
-      html += `      <section><h2>${esc(heading)}</h2><ul class="tracks">\n${items}\n</ul></section>\n`;
-    } else if (/^latest$|^最新$/i.test(heading)) {
-      const kindLabel = { blog: lang === "zh" ? "Blog" : "Blog", concepts: lang === "zh" ? "概念" : "Concept" };
-      const list = latestEntries(lang).map((e) => `<li><a href="${e.url}">${esc(e.title)}</a><span class="date">${kindLabel[e.kind]} · ${fmtDate(lang, e.date)}</span></li>`).join("\n");
-      html += `      <section><h2>${esc(heading)}</h2><div class="featured">${marked.parse(rest)}</div><ul class="posts compact">\n${list}\n</ul></section>\n`;
-    } else {
-      html += `      <section><h2>${esc(heading)}</h2>${marked.parse(rest)}</section>\n`;
-    }
+  // Concept entries, in the order of the hand-written index (the order is the argument)
+  const seq = SEQUENCE[lang].filter((p) => META[lang][p]);
+  if (seq.length) {
+    const items = seq.map((p) => `<li><a href="/${lang}/${p}">${esc(META[lang][p].title)}</a></li>`).join("\n");
+    html += `      <section><h2>${zh ? "概念條目" : "Concept entries"}</h2><ol class="entries">\n${items}\n</ol><p class="more"><a href="/${lang}/concepts/">${zh ? "全部條目 →" : "All entries →"}</a></p></section>\n`;
+  }
+  // Blog, newest first
+  const posts = readPosts(lang).slice(0, 5);
+  if (posts.length) {
+    const items = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span></li>`).join("\n");
+    html += `      <section><h2>Blog</h2><ul class="posts compact">\n${items}\n</ul><p class="more"><a href="/${lang}/blog/">${zh ? "全部文章 →" : "All posts →"}</a></p></section>\n`;
+  }
+  // any remaining hand-written sections in index.md still render below
+  for (const s of body.split(/^## /m).filter((x) => x.trim())) {
+    const nl = s.indexOf("\n"); const heading = s.slice(0, nl).trim(); const rest = s.slice(nl + 1);
+    html += `      <section><h2>${esc(heading)}</h2>${marked.parse(rest)}</section>\n`;
   }
   return html;
 }
+
 
 function layout({ lang, path, meta, main, head = "" }) {
   const L = LANGS[lang];
