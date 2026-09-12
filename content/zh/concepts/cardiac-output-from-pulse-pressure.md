@@ -24,7 +24,7 @@ track: 圍術期血流動力學
 
 **2009 年——全部拿來考。** Sun 等人以 MIMIC-II 資料庫建立公開測試集——120 位 ICU 病人的橈動脈波形與同時的熱稀釋測量——跑了八種脈壓與 pulse contour 演算法。八種在追蹤變化*方向*上都優於平均動脈壓。但只有一種在*定量*估計上顯著優於 MAP：1928 年 Liljestrand 與 Zander 的公式（[Sun et al., *Crit Care Med* 2009](https://doi.org/10.1097/CCM.0b013e3181930174)）。一個八十一年前對順應性的手工修正，贏過了之後所有的方法。
 
-**2012 年——重新推導它。** 從收縮期的質量守恆出發，Papaioannou 等人推導出「systolic volume balance」估計式，其簡化形式為 CO = k × C × PP / T。順應性 C 明明白白出現在式子裡，也必然如此（[Papaioannou et al., *Am J Physiol Heart Circ Physiol* 2012](https://doi.org/10.1152/ajpheart.00052.2012)）。
+**2012 年——重新推導它。** 從收縮期的質量守恆出發，Papaioannou 等人推導出「systolic volume balance」估計式，其簡化形式為 CO = k × C × PP / T。順應性 C 仍然出現在式子裡（[Papaioannou et al., *Am J Physiol Heart Circ Physiol* 2012](https://doi.org/10.1152/ajpheart.00052.2012)）。
 
 **2015 年——帶出 ICU。** 應用於 67 位健康年輕人的逐搏血壓，Liljestrand–Zander 公式與 Modelflow 心輸出量的相關只有中等（整體 r = 0.42），男性優於女性（[Koenig et al., *Biomed Sci Instrum* 2015](https://pubmed.ncbi.nlm.nih.gov/25996703/)）。離開它被校正的場域，那個修正就不夠了。
 
