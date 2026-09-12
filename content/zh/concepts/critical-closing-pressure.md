@@ -1,19 +1,21 @@
 ---
-title: 臨界關閉壓（Pcc）與 vascular waterfall
+title: 臨界關閉壓（Pcc）
 description: 什麼是臨界關閉壓、為什麼它讓「全身血管阻力」成為定義不清的量、床邊如何用脈壓 × 心率估算 Pcc，以及近年五個世代研究確立了什麼、還沒確立什麼。
 track: 圍術期血流動力學
 updated: 2026-09-12
 ---
 
-# 臨界關閉壓（Pcc）與 vascular waterfall
+# 臨界關閉壓（Pcc）
 
 <p class="lede">血流不是在動脈壓降到靜脈壓時才停止，而是更早——在一個由血管張力與周圍組織決定的壓力就停了。那個壓力就是臨界關閉壓（critical closing pressure, Pcc），它改變了「阻力」與「灌流壓」的意義。</p>
 
 ## 機制
 
-**歷史線。** 1914 年，Patterson 與 Starling 為了維持離體心臟的冠脈灌流，把降主動脈放進一個加壓腔，發現舒張壓降不到腔壓以下（[Patterson & Starling, *J Physiol* 1914](https://doi.org/10.1113/jphysiol.1914.sp001669)）。Burton 在 1951 年把這個概念形式化：具有主動壁張力的小血管，存在一個壓力，低於它血管就關閉——即*臨界關閉壓*（[Burton, *Am J Physiol* 1951](https://doi.org/10.1152/ajplegacy.1951.164.2.319)）。Permutt 與 Riley 接著在 1963 年證明，有張力的可塌陷血管表現得像瀑布：流量取決於上游壓到關閉點的壓差，只要下游壓低於關閉點，下游壓就與流量無關（[Permutt & Riley, *J Appl Physiol* 1963](https://doi.org/10.1152/jappl.1963.18.5.924)）。
+**歷史線。** 1914 年，Patterson 與 Starling 為了維持離體心臟的冠脈灌流，把降主動脈放進一個加壓腔，發現舒張壓降不到腔壓以下（[Patterson & Starling, *J Physiol* 1914](https://doi.org/10.1113/jphysiol.1914.sp001669)）。Burton 在 1951 年把這個概念形式化：具有主動壁張力的小血管，存在一個壓力，低於它血管就關閉——即*臨界關閉壓*（[Burton, *Am J Physiol* 1951](https://doi.org/10.1152/ajplegacy.1951.164.2.319)）。
 
 **血管層面發生什麼。** 當血管周圍的壓力（來自管壁張力或組織間壓）超過管內壓，血管塌陷、血流暫停；管內壓隨後回升到上游值，血管重新開通、血流恢復，循環再來一次。這種*斷續（stuttering）*行為，就是 Pcc 作為循環有效背壓的直接證據。2026 年一篇開放取用的敘述性回顧，把生理模型與它的力學基礎接了起來（[Castro et al., *J Crit Care* 2026](https://doi.org/10.1016/j.jcrc.2026.155485)）。
+
+**Vascular waterfall。** Permutt 與 Riley 在 1963 年證明，有張力的可塌陷血管表現得像瀑布：流量取決於上游壓到關閉點的壓差，只要下游壓低於關閉點，下游壓就與流量無關（[Permutt & Riley, *J Appl Physiol* 1963](https://doi.org/10.1152/jappl.1963.18.5.924)）。Pcc 是這道瀑布在動脈側的高度；靜脈側對應的量是[平均系統充盈壓（Pmsf）](/zh/concepts/mean-systemic-filling-pressure/)，而 Pcc − Pmsf 這段落差就是瀑布本身損失掉的壓力。
 
 **兩個床邊重要的後果。**
 

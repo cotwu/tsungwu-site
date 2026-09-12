@@ -15,7 +15,7 @@ the evidence has actually shown, and from what remains open. Each entry has thos
 parts, every citation carries a DOI link, and entries are revised as the literature moves rather
 than left as dated posts.
 
-The first entry is on [critical closing pressure and the vascular waterfall](/en/concepts/critical-closing-pressure/).
+The first entry is on [critical closing pressure](/en/concepts/critical-closing-pressure/).
 More will follow on how intraoperative hypotension is measured and predicted.
 
 Entries are written in English first; a Traditional Chinese version accompanies each page.

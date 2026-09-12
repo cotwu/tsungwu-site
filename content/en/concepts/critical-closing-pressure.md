@@ -1,19 +1,21 @@
 ---
-title: Critical closing pressure (Pcc) and the vascular waterfall
+title: Critical closing pressure (Pcc)
 description: What critical closing pressure is, why it makes systemic vascular resistance an ill-defined quantity, how bedside estimates of Pcc are derived from pulse pressure × heart rate, and what five recent cohorts do and do not establish.
 track: Perioperative hemodynamics
 updated: 2026-09-12
 ---
 
-# Critical closing pressure (Pcc) and the vascular waterfall
+# Critical closing pressure (Pcc)
 
 <p class="lede">Blood flow does not stop when arterial pressure reaches venous pressure. It stops earlier — at a pressure set by vessel tone and surrounding tissue. That pressure is the critical closing pressure, and it changes what "resistance" and "perfusion pressure" mean.</p>
 
 ## Mechanism
 
-**Historical line.** In 1914, Patterson and Starling placed the descending aorta of an isolated heart preparation inside a pressurised chamber and observed that diastolic pressure could not fall below chamber pressure ([Patterson & Starling, *J Physiol* 1914](https://doi.org/10.1113/jphysiol.1914.sp001669)). Burton formalised the idea in 1951: a small vessel with active wall tension has a pressure below which it closes, the *critical closing pressure* ([Burton, *Am J Physiol* 1951](https://doi.org/10.1152/ajplegacy.1951.164.2.319)). Permutt and Riley then showed in 1963 that a collapsible vessel with tone behaves like a waterfall: flow depends on the pressure drop from upstream to the closing point, and downstream pressure is irrelevant as long as it stays below that point ([Permutt & Riley, *J Appl Physiol* 1963](https://doi.org/10.1152/jappl.1963.18.5.924)).
+**Historical line.** In 1914, Patterson and Starling placed the descending aorta of an isolated heart preparation inside a pressurised chamber and observed that diastolic pressure could not fall below chamber pressure ([Patterson & Starling, *J Physiol* 1914](https://doi.org/10.1113/jphysiol.1914.sp001669)). Burton formalised the idea in 1951: a small vessel with active wall tension has a pressure below which it closes, the *critical closing pressure* ([Burton, *Am J Physiol* 1951](https://doi.org/10.1152/ajplegacy.1951.164.2.319)).
 
 **What happens at the vessel.** When the pressure surrounding a vessel — from wall tone or interstitial pressure — exceeds the pressure inside it, the vessel collapses and flow pauses. Intraluminal pressure then rebuilds toward the upstream value, the vessel reopens, flow resumes, and the cycle repeats. This *stuttering* behaviour is the direct signature of Pcc acting as the effective back-pressure of the circulation. A 2026 narrative review connects the physiological model to its mechanical basis and is open access ([Castro et al., *J Crit Care* 2026](https://doi.org/10.1016/j.jcrc.2026.155485)).
+
+**The vascular waterfall.** Permutt and Riley showed in 1963 that a collapsible vessel with tone behaves like a waterfall: flow depends on the pressure drop from upstream to the closing point, and downstream pressure is irrelevant as long as it stays below that point ([Permutt & Riley, *J Appl Physiol* 1963](https://doi.org/10.1152/jappl.1963.18.5.924)). Pcc is the height of that waterfall on the arterial side; on the venous side the corresponding quantity is the [mean systemic filling pressure (Pmsf)](/en/concepts/mean-systemic-filling-pressure/), and the gap Pcc − Pmsf is the pressure lost across the waterfall itself.
 
 **Two consequences that matter at the bedside.**
 

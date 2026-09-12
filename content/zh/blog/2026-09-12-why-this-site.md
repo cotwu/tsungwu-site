@@ -12,7 +12,7 @@ date: 2026-09-12
 概念條目只守一條規則：把「機制上已確立的」、「證據實際證明的」、和「仍然未解的」分開寫。
 每篇都有這三層，每個引用都附 DOI 連結，條目會隨文獻更新而改寫，而不是留成過期的貼文。
 
-第一篇是[臨界關閉壓與 vascular waterfall](/zh/concepts/critical-closing-pressure/)。
+第一篇是[臨界關閉壓](/zh/concepts/critical-closing-pressure/)。
 接下來會寫術中低血壓怎麼量、怎麼預測。
 
 條目以英文為主，每頁都附繁體中文版。
