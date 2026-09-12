@@ -26,7 +26,7 @@ The first half of the day covered a fair amount of SEO and GEO basics: how to st
 
 The most important sentence was this: **the core of an online personal brand should come from the accumulation of your professional work, not from traffic.**
 
-I had some resistance to the idea of "writing articles continuously." It sounded like a second job, writing for exposure about things I might not want to say. Listening to the instructor turned that around: it is simply recording one's own thinking. Every day in clinical work there are judgements being made; every day in research there is literature being read and gaps being noticed. That thinking is already happening; it just is not written down, and so it dissipates.
+I had some resistance to the idea of "writing articles continuously." It sounded like a second job, writing for exposure; and what gets forced out that way is not necessarily what one wants to say. It never felt quite sincere. Listening to the instructor turned that around: it is simply recording one's own thinking. Every day in clinical work there are judgements being made; every day in research there is literature being read and gaps being noticed. That thinking is already happening; it just is not written down, and so it dissipates.
 
 Writing it down accumulates a record of one's professional reasoning. And that process is, in itself, a footprint left in the world. Not for the sake of how many people see it, but so that the ideas existed, can be found, and can be built on. In a digital world these small accumulations are gradually recognised.
 
