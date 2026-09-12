@@ -1,6 +1,7 @@
 ---
 title: "Estimating cardiac output from pulse pressure: a 120-year genealogy"
 description: From Erlanger and Hooker in 1904 to the tissue-perfusion-pressure method of 2023, every attempt to read cardiac output from the arterial pulse has run into the same constant, arterial compliance. How each generation handled it, and why the newest method rests on the oldest assumption.
+about: Q596579 Q1759415 Q488128
 track: Perioperative hemodynamics
 ---
 

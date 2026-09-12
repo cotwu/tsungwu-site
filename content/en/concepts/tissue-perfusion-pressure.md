@@ -1,6 +1,7 @@
 ---
 title: "Tissue perfusion pressure: MAP − Pcc, or Pcc − Pmsf?"
 description: Two research groups use the phrase "the pressure driving tissue perfusion" for two different gradients: MAP − Pcc and Pcc − Pmsf. What each one measures, what the evidence for each shows, and why a MAP target alone cannot tell them apart.
+about: Q5186699 Q275419 Q1642137
 track: Perioperative hemodynamics
 ---
 

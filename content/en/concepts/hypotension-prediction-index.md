@@ -1,6 +1,7 @@
 ---
 title: "The Hypotension Prediction Index, 2018–2026"
 description: A machine-learning index that predicts intraoperative hypotension minutes ahead: its 2018 validation, the trials that followed, the critique that its performance is largely that of mean arterial pressure itself, and the 2025–2026 trials that tested it against outcomes and against a simple MAP trigger.
+about: Q275419 Q615057
 track: Perioperative hemodynamics
 ---
 

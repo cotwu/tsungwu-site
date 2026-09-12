@@ -1,6 +1,7 @@
 ---
 title: Mean systemic filling pressure (Pmsf)
 description: What mean systemic filling pressure is, why it, not central venous pressure, is the upstream pressure driving venous return, how it has been measured in humans, and where the estimates disagree.
+about: Q3506185 Q1642137
 track: Perioperative hemodynamics
 updated: 2026-09-12
 ---

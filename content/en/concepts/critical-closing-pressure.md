@@ -1,6 +1,7 @@
 ---
 title: Critical closing pressure (Pcc)
 description: What critical closing pressure is, why it makes systemic vascular resistance an ill-defined quantity, how bedside estimates of Pcc are derived from pulse pressure × heart rate, and what five recent cohorts do and do not establish.
+about: Q5186699 Q1642137
 track: Perioperative hemodynamics
 updated: 2026-09-12
 ---

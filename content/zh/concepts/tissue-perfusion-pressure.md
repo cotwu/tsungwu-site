@@ -1,6 +1,7 @@
 ---
 title: 組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？
 description: 兩個研究團隊都把「驅動組織灌流的壓力」這句話用在不同的差值上：MAP − Pcc 與 Pcc − Pmsf。各自量的是什麼、證據說了什麼、以及為什麼單靠 MAP 目標分不出兩者。
+about: Q5186699 Q275419 Q1642137
 track: 圍術期血流動力學
 ---
 

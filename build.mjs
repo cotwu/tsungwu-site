@@ -179,19 +179,66 @@ function gitDate(file) {
   return new Date().toISOString().slice(0, 10);
 }
 
-function jsonLd(lang, meta, url, kind) {
-  const d = {
-    "@context": "https://schema.org",
-    "@type": kind,
-    headline: meta.title,
-    description: meta.description || "",
-    inLanguage: LANGS[lang].htmlLang,
-    url: SITE + url,
-    author: { "@type": "Person", name: "Tsung-Ta Wu", alternateName: "吳宗達", url: SITE + "/en/about/" },
-  };
-  if (meta.date) d.datePublished = meta.date;
-  if (meta.updated) d.dateModified = meta.updated;
-  return `<script type="application/ld+json">${JSON.stringify(d)}</script>`;
+// ---- entity graph -------------------------------------------------------
+// One Person node and one WebSite node, referenced by @id from every page, so search
+// engines and AI systems can connect all pages to the same entity.
+const PERSON_ID = `${SITE}/#person`;
+const SITE_ID = `${SITE}/#website`;
+const ORG_ID = `${SITE}/#affiliation`;
+const WD = (q) => `https://www.wikidata.org/wiki/${q}`;
+const ENTITIES = {
+  Q5186699: "critical closing pressure", Q596579: "cardiac output", Q1759415: "pulse pressure",
+  Q275419: "hypotension", Q488128: "Windkessel effect", Q3506185: "venous return curve",
+  Q1642137: "hemodynamics", Q615057: "anesthesiology", Q126945: "medical education",
+};
+const personNode = () => ({
+  "@type": "Person", "@id": PERSON_ID,
+  name: "Tsung-Ta Wu", alternateName: "吳宗達", honorificSuffix: "MD",
+  jobTitle: ["Attending anesthesiologist", "Intensivist", "Course director for undergraduate medical students"],
+  worksFor: { "@id": ORG_ID }, affiliation: { "@id": ORG_ID },
+  url: `${SITE}/en/about/`,
+  sameAs: ["https://scholar.google.com/citations?user=6eNYe2QAAAAJ"],
+  knowsAbout: ["Q1642137", "Q615057", "Q596579", "Q275419", "Q126945"].map((q) => ({ "@type": "Thing", name: ENTITIES[q], sameAs: WD(q) })),
+});
+const orgNode = () => ({
+  "@type": "Hospital", "@id": ORG_ID,
+  name: "National Taiwan University Hospital Hsinchu Branch", alternateName: "新竹台大分院",
+  url: "https://www.hch.gov.tw/", sameAs: WD("Q123584454"),
+  parentOrganization: { "@type": "Hospital", name: "National Taiwan University Hospital", sameAs: WD("Q1418766") },
+});
+const siteNode = () => ({
+  "@type": "WebSite", "@id": SITE_ID, name: "Tsung-Ta Wu, MD", alternateName: "吳宗達 Tsung-Ta Wu, MD",
+  url: `${SITE}/`, inLanguage: ["en", "zh-Hant"], author: { "@id": PERSON_ID }, publisher: { "@id": PERSON_ID },
+});
+function breadcrumb(lang, path, meta) {
+  const L = LANGS[lang];
+  const items = [{ name: L.nav.length ? (lang === "zh" ? "首頁" : "Home") : "Home", url: `${SITE}/${lang}/` }];
+  const seg = path.split("/")[0];
+  const section = L.nav.find(([href]) => href === `/${lang}/${seg}/`);
+  if (section && path !== `${seg}/`) items.push({ name: section[1], url: `${SITE}${section[0]}` });
+  if (path) items.push({ name: meta.title, url: `${SITE}/${lang}/${path}` });
+  return { "@type": "BreadcrumbList", itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: it.url })) };
+}
+function jsonLd(lang, meta, path, kind) {
+  const url = `${SITE}/${lang}/${path}`;
+  const graph = [siteNode(), personNode(), orgNode()];
+  const page = { "@id": url, url, name: meta.title, description: meta.description || "", inLanguage: LANGS[lang].htmlLang, isPartOf: { "@id": SITE_ID } };
+  if (kind === "Article" || kind === "BlogPosting") {
+    Object.assign(page, { "@type": kind, headline: meta.title, author: { "@id": PERSON_ID }, publisher: { "@id": PERSON_ID }, mainEntityOfPage: url });
+    if (meta.date) page.datePublished = meta.date;
+    if (meta.updated) page.dateModified = meta.updated;
+    if (meta.cover) page.image = `${SITE}${meta.cover}`;
+    if (meta.about) page.about = meta.about.split(/[,\s]+/).filter(Boolean).map((q) => ({ "@type": "Thing", name: ENTITIES[q] || q, sameAs: WD(q) }));
+  } else if (kind === "ProfilePage") {
+    Object.assign(page, { "@type": "ProfilePage", mainEntity: { "@id": PERSON_ID } });
+  } else if (kind === "CollectionPage") {
+    Object.assign(page, { "@type": "CollectionPage" });
+  } else {
+    Object.assign(page, { "@type": "WebPage", about: { "@id": PERSON_ID } });
+  }
+  graph.push(page);
+  if (path) graph.push(breadcrumb(lang, path, meta));
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
 function fmtDate(lang, iso) {
@@ -248,7 +295,10 @@ function buildPage(lang, file) {
     const cleaned = body.replace(/\n---\n\n\*(Entries on this site are revised|本站條目會隨證據更新)[^\n]*\*\n?$/, "\n");
     main = `${kicker}      <article>\n${marked.parse(cleaned)}\n      </article>`;
   }
-  let head = isArticle ? jsonLd(lang, meta, `/${lang}/${path}`, path.startsWith("blog/") ? "BlogPosting" : "Article") : "";
+  const kind = isArticle ? (path.startsWith("blog/") ? "BlogPosting" : "Article")
+    : path === "about/" ? "ProfilePage"
+    : /^(concepts|blog|research)\/$/.test(path) ? "CollectionPage" : "WebPage";
+  let head = jsonLd(lang, meta, path, kind);
   if (meta.cover) head += `\n    <meta property="og:image" content="${SITE}${esc(meta.cover)}" />`;
   const html = layout({ lang, path, meta, main, head });
   const dir = join(OUT, lang, path);
