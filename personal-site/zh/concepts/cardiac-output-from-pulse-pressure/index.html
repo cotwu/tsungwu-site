@@ -19,7 +19,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=8b2d0ef6" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=31b81a08" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tsungwu.tw/#website","name":"Tsung-Ta Wu, MD","alternateName":"吳宗達 Tsung-Ta Wu, MD","url":"https://tsungwu.tw/","inLanguage":["en","zh-Hant"],"author":{"@id":"https://tsungwu.tw/#person"},"publisher":{"@id":"https://tsungwu.tw/#person"}},{"@type":"Person","@id":"https://tsungwu.tw/#person","name":"Tsung-Ta Wu","alternateName":"吳宗達","honorificSuffix":"MD","jobTitle":["Attending anesthesiologist","Intensivist","Course director for undergraduate medical students"],"worksFor":{"@id":"https://tsungwu.tw/#affiliation"},"affiliation":{"@id":"https://tsungwu.tw/#affiliation"},"url":"https://tsungwu.tw/en/about/","sameAs":["https://scholar.google.com/citations?user=6eNYe2QAAAAJ"],"knowsAbout":[{"@type":"Thing","name":"hemodynamics","sameAs":"https://www.wikidata.org/wiki/Q1642137"},{"@type":"Thing","name":"anesthesiology","sameAs":"https://www.wikidata.org/wiki/Q615057"},{"@type":"Thing","name":"cardiac output","sameAs":"https://www.wikidata.org/wiki/Q596579"},{"@type":"Thing","name":"hypotension","sameAs":"https://www.wikidata.org/wiki/Q275419"},{"@type":"Thing","name":"medical education","sameAs":"https://www.wikidata.org/wiki/Q126945"}]},{"@type":"Hospital","@id":"https://tsungwu.tw/#affiliation","name":"National Taiwan University Hospital Hsinchu Branch","alternateName":"新竹台大分院","url":"https://www.hch.gov.tw/","sameAs":"https://www.wikidata.org/wiki/Q123584454","parentOrganization":{"@type":"Hospital","name":"National Taiwan University Hospital","sameAs":"https://www.wikidata.org/wiki/Q1418766"}},{"@id":"https://tsungwu.tw/zh/concepts/cardiac-output-from-pulse-pressure/","url":"https://tsungwu.tw/zh/concepts/cardiac-output-from-pulse-pressure/","name":"以脈壓（Pulse Pressure）估算心輸出量：120 年的系譜","description":"從 1904 年 Erlanger 與 Hooker 到 2023 年的組織灌流壓方法，每一次想從動脈脈搏讀出心輸出量的嘗試，都撞到同一個常數：動脈順應性。每一代人怎麼處理它，以及為什麼最新的方法建立在最古老的假設上。","inLanguage":"zh-Hant","isPartOf":{"@id":"https://tsungwu.tw/#website"},"@type":"Article","headline":"以脈壓（Pulse Pressure）估算心輸出量：120 年的系譜","author":{"@id":"https://tsungwu.tw/#person"},"publisher":{"@id":"https://tsungwu.tw/#person"},"mainEntityOfPage":"https://tsungwu.tw/zh/concepts/cardiac-output-from-pulse-pressure/","dateModified":"2026-09-12","about":[{"@type":"Thing","name":"cardiac output","sameAs":"https://www.wikidata.org/wiki/Q596579"},{"@type":"Thing","name":"pulse pressure","sameAs":"https://www.wikidata.org/wiki/Q1759415"},{"@type":"Thing","name":"Windkessel effect","sameAs":"https://www.wikidata.org/wiki/Q488128"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://tsungwu.tw/zh/"},{"@type":"ListItem","position":2,"name":"概念","item":"https://tsungwu.tw/zh/concepts/"},{"@type":"ListItem","position":3,"name":"以脈壓（Pulse Pressure）估算心輸出量：120 年的系譜","item":"https://tsungwu.tw/zh/concepts/cardiac-output-from-pulse-pressure/"}]}]}</script>
     <meta property="og:image" content="https://tsungwu.tw/og/zh-concepts-cardiac-output-from-pulse-pressure.png" />
     <meta property="og:image:width" content="1200" />
@@ -42,14 +45,15 @@
 
     <main class="wrap">
       <p class="kicker">圍術期血流動力學 · <span class="byline">吳宗達</span> · 最後修訂 2026年9月12日</p>
+      <nav class="sections" aria-label="本頁章節"><a href="#mechanism">機制</a><span aria-hidden="true">·</span><a href="#evidence">證據</a><span aria-hidden="true">·</span><a href="#open-questions">未解問題</a></nav>
       <article>
 <h1>以脈壓（Pulse Pressure）估算心輸出量：120 年的系譜</h1>
 <p class="lede">脈壓乘以心率與心輸出量成比例，比例常數是動脈的順應性。這句話以不同的形式，在 1904 年、1928 年、1993 年、2023 年各被寫過一次。每次改變的不是這條關係，而是那個常數被怎麼處理。</p>
 
-<h2>機制</h2>
+<h2 id="mechanism">機制</h2>
 <p><strong>這條關係從哪裡來。</strong> 1899 年 Otto Frank 把動脈系統描述成一個 <em>Windkessel</em>：一個彈性腔室，收縮期儲存一部分每搏輸出量，舒張期再釋放出來。在這個模型裡，一次搏出造成的壓力上升等於容積除以腔室的順應性，PP ≈ SV / C，所以脈壓是透過血管壁的順應性在讀每搏輸出量（<a href="https://doi.org/10.1016/0022-2828(90)91459-K">Frank 1899；Sagawa 等人的英譯，<em>J Mol Cell Cardiol</em> 1990</a>）。乘上心率，同一個常數跟著過來：PP × HR ≈ CO / C。</p>
 <p><strong>這個常數不是常數。</strong> 動脈順應性隨壓力上升而下降（血管壁被撐開時變硬）、隨年齡下降、也隨血管張力急性改變。任何從脈壓讀流量的方法，因此都必須在四件事中選一件：量 C、建模 C、修正 C、或假設它在測量期間不變。下面的歷史，就是這四種選擇的歷史。</p>
-<h2>證據</h2>
+<h2 id="evidence">證據</h2>
 <p><strong>1904 年：假設它。</strong> Erlanger 與 Hooker 研究人體的血壓與脈壓，提出脈壓可作為每搏輸出量的指標、脈壓 × 心率可作為心輸出量的指標（Erlanger J, Hooker DR. An experimental study of blood-pressure and of pulse-pressure in man. <em>Johns Hopkins Hosp Rep</em> 1904;12:145–378）。比例常數被留在暗處。</p>
 <p><strong>1928 年：修正它。</strong> Liljestrand 與 Zander 把脈壓估計值與 Fick 法測量相比，提出先把脈壓除以收縮壓與舒張壓之和，對順應性隨壓力下降的經驗性修正，再乘以心率（<a href="https://doi.org/10.1007/BF02608853">Liljestrand &amp; Zander, <em>Z Ges Exp Med</em> 1928</a>）。同一篇論文裡，他們點名了整個方法的主要限制：動脈可擴張性，並引 Recklinghausen 的關係式：振幅 × 頻率 ＝ 每分輸出量 ÷ 可擴張性。</p>
 <p><strong>1993 年：建模它。</strong> Wesseling 等人用非線性三元件 Windkessel 從壓力波形算出主動脈血流，其中主動脈順應性是壓力、年齡與性別的函數，即 Modelflow 方法，也是今日 pulse contour 監測儀的祖先（<a href="https://doi.org/10.1152/jappl.1993.74.5.2566">Wesseling et al., <em>J Appl Physiol</em> 1993</a>）。後續的商用儀器分成兩支：一支以獨立測得的心輸出量校正順應性項，另一支只從病人特徵估計它。兩者的相對準確度自成一個文獻領域，本文不回顧。</p>
@@ -58,12 +62,14 @@
 <p><strong>2015 年：帶出 ICU。</strong> 應用於 67 位健康年輕人的逐搏血壓，Liljestrand–Zander 公式與 Modelflow 心輸出量的相關只有中等（整體 r = 0.42），男性優於女性（<a href="https://pubmed.ncbi.nlm.nih.gov/25996703/">Koenig et al., <em>Biomed Sci Instrum</em> 2015</a>）。離開它被校正的場域，那個修正就不夠了。</p>
 <p><strong>2020 年：看著它移動。</strong> 脈壓與每搏輸出量的比值，依定義就是有效動脈彈性 Ea，也就是上面那個順應性項的倒數。在裝了電導導管的豬身上，Monge García 等人證明這個比值與它的動態版本 Eadyn，會隨 phenylephrine 與 nitroprusside、失血與輸液、esmolol 與 dobutamine 而改變（<a href="https://doi.org/10.3389/fphys.2020.00284">Monge García et al., <em>Front Physiol</em> 2020</a>）。這個常數會動，而讓它動的，正是開刀房裡在用的那些介入。</p>
 <p><strong>2023 年：只需要成比例。</strong> Chandrasekhar 等人沒有用脈壓 × 心率去估心輸出量。他們把它當作脈動性流量的<em>替代物</em>，用來外推臨界關閉壓：任何與流量成比例、且流量為零時也歸零的量，都會給出同一個零流量截距，因為比例常數被吸收進斜率（<a href="https://doi.org/10.1038/s41591-023-02474-6">Chandrasekhar et al., <em>Nat Med</em> 2023</a>）。所以這個方法不需要知道 C，但它需要 C 在取樣窗內維持不變，斜率才會是單一一個數字。這就是 1904 年的假設，換成一分鐘的視窗重述一次；也是 Liljestrand 與 Zander 在 1928 年寫下的那個限制。這個論證在 <a href="/zh/concepts/critical-closing-pressure/">Pcc 條目</a>有進一步討論。</p>
-<h2>未解問題</h2>
+<h2 id="open-questions">未解問題</h2>
 <p>在麻醉與手術中，誘導、升壓劑、失血與正壓通氣都在作用，動脈順應性在一分鐘的視窗內是否夠穩定，在 2023 年方法目前被應用的場域裡還沒有人測過。</p>
 <p>1928 年的修正（除以收縮壓加舒張壓）是在少數受試者身上擬合出來的，從未由生理模型重新推導；它為什麼在 ICU 資料中勝過後來的演算法，沒有解釋。</p>
 <p>沒有研究在估算臨界關閉壓所用的同一組操作中，把脈壓法的流量替代物與直接測得的流量相比較。</p>
 
       </article>
+      <nav class="pager"><a class="prev" href="/zh/concepts/tissue-perfusion-pressure/"><span>上一篇</span>組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？</a><a class="next" href="/zh/concepts/hypotension-prediction-index/"><span>下一篇</span>Hypotension Prediction Index：從 2018 到 2026</a></nav>
+
     </main>
 
     <footer>

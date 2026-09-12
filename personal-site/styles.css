@@ -144,3 +144,29 @@ figcaption { text-align: left; line-height: 1.5; }
 .post-thumb { flex: 0 0 auto; width: 132px; height: 88px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); }
 .post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; border-radius: 0; }
 @media (max-width: 640px) { .post-body { gap: 14px; } .post-thumb { width: 96px; height: 64px; } }
+
+/* --- UX pass 2026-09-12 --- */
+/* A2/A3: breathing room under the header on phones; kicker wraps gracefully */
+.kicker { line-height: 1.6; }
+@media (max-width: 640px) {
+  main { padding-top: 24px; }
+  .kicker { letter-spacing: 0.06em; font-size: 0.74rem; }
+}
+/* A5: on phones the blog thumbnail goes under the summary instead of squeezing it */
+@media (max-width: 640px) {
+  .post-body { flex-direction: column; }
+  .post-thumb { width: 100%; max-width: 320px; height: auto; aspect-ratio: 3 / 2; }
+}
+/* B6: one-line descriptions in the concept index */
+article ol li .desc, article ul li .desc { display: block; color: var(--muted); font-size: 0.93rem; margin-top: 2px; }
+article ol li { margin-bottom: 14px; }
+/* B7: section links under the title */
+.sections { display: flex; flex-wrap: wrap; gap: 10px; margin: -6px 0 22px; font-size: 0.9rem; color: var(--muted); }
+.sections a { color: var(--muted); }
+.sections a:hover { color: var(--accent); }
+/* B8: previous / next entry */
+.pager { display: flex; justify-content: space-between; gap: 16px; margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); }
+.pager a { flex: 1 1 0; color: var(--text); font-family: var(--serif); font-weight: 600; line-height: 1.35; }
+.pager a span { display: block; font-family: var(--sans); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.pager a.next { text-align: right; }
+.pager a:hover { color: var(--accent); text-decoration: none; }

@@ -19,7 +19,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=8b2d0ef6" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=31b81a08" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tsungwu.tw/#website","name":"Tsung-Ta Wu, MD","alternateName":"吳宗達 Tsung-Ta Wu, MD","url":"https://tsungwu.tw/","inLanguage":["en","zh-Hant"],"author":{"@id":"https://tsungwu.tw/#person"},"publisher":{"@id":"https://tsungwu.tw/#person"}},{"@type":"Person","@id":"https://tsungwu.tw/#person","name":"Tsung-Ta Wu","alternateName":"吳宗達","honorificSuffix":"MD","jobTitle":["Attending anesthesiologist","Intensivist","Course director for undergraduate medical students"],"worksFor":{"@id":"https://tsungwu.tw/#affiliation"},"affiliation":{"@id":"https://tsungwu.tw/#affiliation"},"url":"https://tsungwu.tw/en/about/","sameAs":["https://scholar.google.com/citations?user=6eNYe2QAAAAJ"],"knowsAbout":[{"@type":"Thing","name":"hemodynamics","sameAs":"https://www.wikidata.org/wiki/Q1642137"},{"@type":"Thing","name":"anesthesiology","sameAs":"https://www.wikidata.org/wiki/Q615057"},{"@type":"Thing","name":"cardiac output","sameAs":"https://www.wikidata.org/wiki/Q596579"},{"@type":"Thing","name":"hypotension","sameAs":"https://www.wikidata.org/wiki/Q275419"},{"@type":"Thing","name":"medical education","sameAs":"https://www.wikidata.org/wiki/Q126945"}]},{"@type":"Hospital","@id":"https://tsungwu.tw/#affiliation","name":"National Taiwan University Hospital Hsinchu Branch","alternateName":"新竹台大分院","url":"https://www.hch.gov.tw/","sameAs":"https://www.wikidata.org/wiki/Q123584454","parentOrganization":{"@type":"Hospital","name":"National Taiwan University Hospital","sameAs":"https://www.wikidata.org/wiki/Q1418766"}},{"@id":"https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/","url":"https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/","name":"組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？","description":"兩個研究團隊都把「驅動組織灌流的壓力」這句話用在不同的差值上：MAP − Pcc 與 Pcc − Pmsf。各自量的是什麼、證據說了什麼、以及為什麼單靠 MAP 目標分不出兩者。","inLanguage":"zh-Hant","isPartOf":{"@id":"https://tsungwu.tw/#website"},"@type":"Article","headline":"組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？","author":{"@id":"https://tsungwu.tw/#person"},"publisher":{"@id":"https://tsungwu.tw/#person"},"mainEntityOfPage":"https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/","dateModified":"2026-09-12","about":[{"@type":"Thing","name":"critical closing pressure","sameAs":"https://www.wikidata.org/wiki/Q5186699"},{"@type":"Thing","name":"hypotension","sameAs":"https://www.wikidata.org/wiki/Q275419"},{"@type":"Thing","name":"hemodynamics","sameAs":"https://www.wikidata.org/wiki/Q1642137"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://tsungwu.tw/zh/"},{"@type":"ListItem","position":2,"name":"概念","item":"https://tsungwu.tw/zh/concepts/"},{"@type":"ListItem","position":3,"name":"組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？","item":"https://tsungwu.tw/zh/concepts/tissue-perfusion-pressure/"}]}]}</script>
     <meta property="og:image" content="https://tsungwu.tw/og/zh-concepts-tissue-perfusion-pressure.png" />
     <meta property="og:image:width" content="1200" />
@@ -42,11 +45,12 @@
 
     <main class="wrap">
       <p class="kicker">圍術期血流動力學 · <span class="byline">吳宗達</span> · 最後修訂 2026年9月12日</p>
+      <nav class="sections" aria-label="本頁章節"><a href="#mechanism">機制</a><span aria-hidden="true">·</span><a href="#evidence">證據</a><span aria-hidden="true">·</span><a href="#open-questions">未解問題</a></nav>
       <article>
 <h1>組織灌流壓：MAP − Pcc，還是 Pcc − Pmsf？</h1>
 <p class="lede">從主動脈到腔靜脈，壓力分三段往下掉：從動脈壓降到臨界關閉壓、跨過 vascular waterfall 降到平均系統充盈壓、再從那裡降到右心房。兩個研究團隊各自把前兩段中的一段稱為「驅動組織灌流的壓力」。他們量的不是同一個東西。</p>
 
-<h2>機制</h2>
+<h2 id="mechanism">機制</h2>
 <p><strong>三段串聯的壓差。</strong> 把整條迴路寫出來：</p>
 <blockquote>
 <p>MAP − CVP = (MAP − Pcc) + (Pcc − Pmsf) + (Pmsf − CVP)</p>
@@ -62,20 +66,22 @@
 <p><strong>「灌流壓」的兩種定義。</strong></p>
 <div class="table-wrap"><table><thead><tr><th></th><th>Chandrasekhar 等（2023–2026）</th><th>Andrei、Guinot 等（2023–2026）</th></tr></thead><tbody><tr><td>量</td><td><strong>組織灌流壓 TPP = MAP − Pcc</strong></td><td><strong>Vascular waterfall VW = Pcc − Pmsf</strong></td></tr><tr><td>怎麼量</td><td>脈壓 × 心率對 MAP 的截距；只有動脈側</td><td>吸氣暫停操作；Pcc 與 Pmsf 都量</td></tr><tr><td>描述為</td><td>可用來推動血流過組織的壓力</td><td>「驅動微循環血流的壓力梯度」</td></tr><tr><td>連結到</td><td>急性腎損傷、死亡率、腎臟替代治療</td><td>norepinephrine 反應、微血管再充填時間、pCO₂ gap</td></tr></tbody></table></div>
 <p>前者是瀑布<em>上方</em>那一段，後者是瀑布<em>本身</em>。兩組人用的是同一個物理模型，只是切在不同的地方。兩者從未在同一群病人身上被比較過。</p>
-<h2>證據</h2>
+<h2 id="evidence">證據</h2>
 <p><strong>Vasoplegia 時瀑布很低，而 norepinephrine 不一定能重建它。</strong> 三十位心臟術後、輸液無效的 vasoplegic 低血壓病人，基線的 Pcc − Pmsf 只有幾 mmHg。Norepinephrine 在所有人身上都拉高了動脈壓與總周邊阻力。但只有 30 人中的 19 人（63%）瀑布上升，從 3.5 到 43.6 mmHg，而這些人的心臟指數、微血管再充填時間、pCO₂ gap 都改善了。另外 11 人 MAP 一樣上升，瀑布卻沒動，灌流指標也沒變。沒有任何基線參數能預測病人會落在哪一組（<a href="https://doi.org/10.1186/s40635-023-00539-x">Andrei et al. 2023</a>）。</p>
 <p><strong>微血管再充填時間跟著瀑布走，透過它的動脈端。</strong> 在 74 位心臟術後病人的較大世代中，依表型分別給 norepinephrine、輸液或 dobutamine；再充填時間延長的病人瀑布較低（2.8 vs 18.3 mmHg），再充填時間的變化與瀑布的變化相關（ρ = −0.40）。相關的是 ΔPcc（ρ = −0.42），不是 ΔPmsf（ρ = −0.03）（<a href="https://doi.org/10.1016/j.aicoj.2026.100105">Andrei et al., <em>Ann Intensive Care</em> 2026</a>）。</p>
 <p><strong>TPP 比 MAP 多告訴我們一些事。</strong> 在提出這個指標的世代裡，TPP &lt; 34 與 MAP &lt; 74 mmHg 都能預測預後，但外部驗證中只有 TPP 仍然顯著（<a href="https://doi.org/10.1038/s41591-023-02474-6">Chandrasekhar et al., <em>Nat Med</em> 2023</a>）。心臟術後，TPP &lt; 38 mmHg 與急性腎損傷相關（<a href="https://doi.org/10.1016/j.jtcvs.2025.07.009">Miles et al., <em>J Thorac Cardiovasc Surg</em> 2026</a>）。心臟移植後，以熱稀釋實測而非估計的心輸出量計算，TPP 對腎臟替代治療風險的重分類優於 MAP（<a href="https://doi.org/10.1016/j.healun.2026.07.025">Wang C-C et al., <em>J Heart Lung Transplant</em> 2026</a>）。</p>
 <p><strong>同一個世代裡的瀑布兩端。</strong> 只有一個研究大規模地同時估算了 Pcc 與 Pmsf：6,769 位敗血症病人，Pmsf 取 CVP 對脈壓 × 心率的截距，得到每位病人的瀑布梯度，閾值約 17 mmHg（<a href="https://doi.org/10.1097/ALN.0000000000005881">Wang J-Y et al., <em>Anesthesiology</em> 2026</a>）。</p>
 <p><strong>兩個方向相反的世代，而 waterfall 模型兩個都預測到。</strong> 體外循環後，上機前 Pcc <em>越高</em>與急性腎損傷相關（<a href="https://doi.org/10.1053/j.jvca.2024.11.010">Ayers et al., <em>J Cardiothorac Vasc Anesth</em> 2025</a>）。敗血症中，Pcc <em>越低</em>與死亡相關，且呈 U 形（<a href="https://doi.org/10.1097/ALN.0000000000005881">Wang J-Y et al. 2026</a>）。用 waterfall 模型讀，這是同一條曲線的兩端：低 Pcc 代表 vasoplegia、瀑布塌掉；高 Pcc 代表張力過度、瀑布太高，同樣的 MAP 已經越不過去。Wang J-Y 等人自己就報告了 U 形。</p>
 <p><strong>這對 MAP 目標意味著什麼。</strong> 上面每一項發現都指向同一件事。一個 MAP 目標分不出 Pcc 是 25 mmHg 還是 55 mmHg 的病人，在同樣的 MAP 下，兩人的 TPP 差了 30 mmHg。它也分不出瀑布被重建的 norepinephrine responder，和只有 MAP 上升的 non-responder。被設為目標的壓力，和灌流組織的壓力，不是同一個數字。</p>
-<h2>未解問題</h2>
+<h2 id="open-questions">未解問題</h2>
 <p>哪一段才是「灌流壓」尚未定論，因為兩種定義從未在同一群病人身上被量過。脈壓法只給動脈側，算不出 Pcc − Pmsf；吸氣暫停法需要機械通氣與暫停呼吸，手術中不可行。每種方法都有它到不了的場域。</p>
 <p>Norepinephrine non-response 的機制不明；作者指出沒有基線參數能預測它（<a href="https://doi.org/10.1186/s40635-023-00539-x">Andrei et al. 2023</a>）。</p>
 <p>以脈壓 × 心率估算 Pcc 尚未對照停流測量驗證；隨附社論寫道這個準確性「需要被驗證」（<a href="https://doi.org/10.1097/ALN.0000000000005908">Pinsky, <em>Anesthesiology</em> 2026</a>）。Waterfall 模型本身假設穩態與固定的 Pcc，其作者把數個提出的機制標為 informed speculation（<a href="https://doi.org/10.1016/j.jcrc.2026.155485">Castro et al. 2026</a>）。</p>
 <p>沒有任何試驗以 TPP 或瀑布梯度作為治療目標。</p>
 
       </article>
+      <nav class="pager"><a class="prev" href="/zh/concepts/critical-closing-pressure/"><span>上一篇</span>臨界關閉壓（Pcc）</a><a class="next" href="/zh/concepts/cardiac-output-from-pulse-pressure/"><span>下一篇</span>以脈壓（Pulse Pressure）估算心輸出量：120 年的系譜</a></nav>
+
     </main>
 
     <footer>

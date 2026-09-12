@@ -7,6 +7,7 @@ import { marked } from "marked";
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { ogPng } from "./src/og.mjs";
+import { Resvg } from "@resvg/resvg-js";
 
 const SITE = "https://tsungwu.tw";
 const OUT = "personal-site";
@@ -21,13 +22,18 @@ const LANGS = {
         footer: "隨證據更新而改寫。" },
 };
 
-// `## Heading {#id}` → <h2 id="id">
+const H2_IDS = { Mechanism: "mechanism", Evidence: "evidence", "Open questions": "open-questions", "機制": "mechanism", "證據": "evidence", "未解問題": "open-questions" };
+// `## Heading {#id}` → <h2 id="id">; plain h2s get an auto id
 const renderer = {
   heading({ tokens, depth }) {
     let text = this.parser.parseInline(tokens);
     let id = "";
     const m = text.match(/\s*\{#([\w-]+)\}\s*$/);
     if (m) { id = m[1]; text = text.slice(0, m.index); }
+    else if (depth === 2) {
+      const plain = text.replace(/<[^>]+>/g, "").trim();
+      id = H2_IDS[plain] || plain.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-").replace(/^-|-$/g, "");
+    }
     return `<h${depth}${id ? ` id="${id}"` : ""}>${text}</h${depth}>\n`;
   },
   table({ header, rows }) {
@@ -132,6 +138,9 @@ ${alternates}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="stylesheet" href="/styles.css?v=${CSS_HASH}" />
     ${head}
   </head>
@@ -268,7 +277,7 @@ function buildPage(lang, file) {
   const rel = relative(join("content", lang), file).replace(/\.md$/, "").split(sep).join("/");
   const path = pathOf(lang, file);
   const { meta, body } = parseFrontmatter(readFileSync(file, "utf8"));
-  const isArticle = /^(concepts|blog)\//.test(path);
+  const isArticle = /^(concepts|blog)\/.+/.test(path);
   if (isArticle) meta.updated = gitDate(file);
   const byline = (label) => `<span class="byline">${esc(label)}</span>`;
   const revised = lang === "zh" ? "最後修訂" : "Last revised";
@@ -294,7 +303,25 @@ function buildPage(lang, file) {
     const kicker = parts.length ? `      <p class="kicker">${parts.join(" · ")}</p>\n` : "";
     // strip the hand-written "Last revised" footer line — the date is now automatic
     const cleaned = body.replace(/\n---\n\n\*(Entries on this site are revised|本站條目會隨證據更新)[^\n]*\*\n?$/, "\n");
-    main = `${kicker}      <article>\n${marked.parse(cleaned)}\n      </article>`;
+    let html = marked.parse(cleaned);
+    let nav = "", pager = "";
+    if (path.startsWith("concepts/") && isArticle) {
+      // section links: Mechanism · Evidence · Open questions
+      const h2s = [...html.matchAll(/<h2 id="([^"]+)">(.*?)<\/h2>/g)].map((m) => `<a href="#${m[1]}">${m[2].replace(/<[^>]+>/g, "")}</a>`);
+      if (h2s.length) nav = `      <nav class="sections" aria-label="${lang === "zh" ? "本頁章節" : "On this page"}">${h2s.join('<span aria-hidden="true">·</span>')}</nav>\n`;
+      // previous / next entry in the track order
+      const seq = SEQUENCE[lang], i = seq.indexOf(path);
+      const link = (p, cls, label) => p ? `<a class="${cls}" href="/${lang}/${p}"><span>${label}</span>${esc(META[lang][p]?.title || p)}</a>` : "<span></span>";
+      if (i >= 0) pager = `      <nav class="pager">${link(seq[i - 1], "prev", lang === "zh" ? "上一篇" : "Previous")}${link(seq[i + 1], "next", lang === "zh" ? "下一篇" : "Next")}</nav>\n`;
+    }
+    if (path === "concepts/") {
+      // index: add each entry's one-line description under its link
+      html = html.replace(new RegExp(`<li><a href="(/${lang}/concepts/[^"]+/)">(.*?)</a></li>`, "g"), (m, href, t) => {
+        const d = META[lang][href.replace(`/${lang}/`, "")]?.description;
+        return `<li><a href="${href}">${t}</a>${d ? `<span class="desc">${esc(d)}</span>` : ""}</li>`;
+      });
+    }
+    main = `${kicker}${nav}      <article>\n${html}\n      </article>\n${pager}`;
   }
   const kind = isArticle ? (path.startsWith("blog/") ? "BlogPosting" : "Article")
     : path === "about/" ? "ProfilePage"
@@ -318,17 +345,32 @@ const CSS_HASH = createHash("md5").update(readFileSync("src/styles.css")).digest
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 copyFileSync("src/styles.css", join(OUT, "styles.css"));
+// favicon: monogram, rendered from one SVG
+const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#0f6e63"/><text x="32" y="45" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="40" fill="#fbfaf7">W</text></svg>`;
+writeFileSync(join(OUT, "favicon.svg"), FAVICON_SVG);
+writeFileSync(join(OUT, "favicon-32.png"), new Resvg(FAVICON_SVG, { fitTo: { mode: "width", value: 32 }, font: { loadSystemFonts: true } }).render().asPng());
+writeFileSync(join(OUT, "apple-touch-icon.png"), new Resvg(FAVICON_SVG, { fitTo: { mode: "width", value: 180 }, font: { loadSystemFonts: true } }).render().asPng());
 if (existsSync("src/img")) {
   mkdirSync(join(OUT, "img"), { recursive: true });
   for (const f of readdirSync("src/img")) copyFileSync(join("src/img", f), join(OUT, "img", f));
 }
 
-const EXISTS = {};
+const EXISTS = {}, META = {};
 for (const lang of Object.keys(LANGS)) {
-  EXISTS[lang] = new Set();
+  EXISTS[lang] = new Set(); META[lang] = {};
   const dir = join("content", lang);
   if (!existsSync(dir)) continue;
-  for (const f of walk(dir)) EXISTS[lang].add(pathOf(lang, f));
+  for (const f of walk(dir)) {
+    const p = pathOf(lang, f);
+    EXISTS[lang].add(p);
+    META[lang][p] = parseFrontmatter(readFileSync(f, "utf8")).meta;
+  }
+}
+// ordered list of concept entries per language, taken from the hand-written index (content/<lang>/concepts.md)
+const SEQUENCE = {};
+for (const lang of Object.keys(LANGS)) {
+  const f = join("content", lang, "concepts.md");
+  SEQUENCE[lang] = existsSync(f) ? [...readFileSync(f, "utf8").matchAll(new RegExp(`\\]\\(/${lang}/(concepts/[^)]+/)\\)`, "g"))].map((m) => m[1]) : [];
 }
 
 const pages = [];

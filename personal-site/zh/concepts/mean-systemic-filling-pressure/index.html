@@ -19,7 +19,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=8b2d0ef6" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=31b81a08" />
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://tsungwu.tw/#website","name":"Tsung-Ta Wu, MD","alternateName":"吳宗達 Tsung-Ta Wu, MD","url":"https://tsungwu.tw/","inLanguage":["en","zh-Hant"],"author":{"@id":"https://tsungwu.tw/#person"},"publisher":{"@id":"https://tsungwu.tw/#person"}},{"@type":"Person","@id":"https://tsungwu.tw/#person","name":"Tsung-Ta Wu","alternateName":"吳宗達","honorificSuffix":"MD","jobTitle":["Attending anesthesiologist","Intensivist","Course director for undergraduate medical students"],"worksFor":{"@id":"https://tsungwu.tw/#affiliation"},"affiliation":{"@id":"https://tsungwu.tw/#affiliation"},"url":"https://tsungwu.tw/en/about/","sameAs":["https://scholar.google.com/citations?user=6eNYe2QAAAAJ"],"knowsAbout":[{"@type":"Thing","name":"hemodynamics","sameAs":"https://www.wikidata.org/wiki/Q1642137"},{"@type":"Thing","name":"anesthesiology","sameAs":"https://www.wikidata.org/wiki/Q615057"},{"@type":"Thing","name":"cardiac output","sameAs":"https://www.wikidata.org/wiki/Q596579"},{"@type":"Thing","name":"hypotension","sameAs":"https://www.wikidata.org/wiki/Q275419"},{"@type":"Thing","name":"medical education","sameAs":"https://www.wikidata.org/wiki/Q126945"}]},{"@type":"Hospital","@id":"https://tsungwu.tw/#affiliation","name":"National Taiwan University Hospital Hsinchu Branch","alternateName":"新竹台大分院","url":"https://www.hch.gov.tw/","sameAs":"https://www.wikidata.org/wiki/Q123584454","parentOrganization":{"@type":"Hospital","name":"National Taiwan University Hospital","sameAs":"https://www.wikidata.org/wiki/Q1418766"}},{"@id":"https://tsungwu.tw/zh/concepts/mean-systemic-filling-pressure/","url":"https://tsungwu.tw/zh/concepts/mean-systemic-filling-pressure/","name":"平均系統充盈壓（Pmsf）","description":"什麼是平均系統充盈壓、為什麼驅動靜脈回流的上游壓力是它而不是中心靜脈壓、人體怎麼量、以及各種估計方法在哪裡不一致。","inLanguage":"zh-Hant","isPartOf":{"@id":"https://tsungwu.tw/#website"},"@type":"Article","headline":"平均系統充盈壓（Pmsf）","author":{"@id":"https://tsungwu.tw/#person"},"publisher":{"@id":"https://tsungwu.tw/#person"},"mainEntityOfPage":"https://tsungwu.tw/zh/concepts/mean-systemic-filling-pressure/","dateModified":"2026-09-12","about":[{"@type":"Thing","name":"venous return curve","sameAs":"https://www.wikidata.org/wiki/Q3506185"},{"@type":"Thing","name":"hemodynamics","sameAs":"https://www.wikidata.org/wiki/Q1642137"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://tsungwu.tw/zh/"},{"@type":"ListItem","position":2,"name":"概念","item":"https://tsungwu.tw/zh/concepts/"},{"@type":"ListItem","position":3,"name":"平均系統充盈壓（Pmsf）","item":"https://tsungwu.tw/zh/concepts/mean-systemic-filling-pressure/"}]}]}</script>
     <meta property="og:image" content="https://tsungwu.tw/og/zh-concepts-mean-systemic-filling-pressure.png" />
     <meta property="og:image:width" content="1200" />
@@ -42,16 +45,17 @@
 
     <main class="wrap">
       <p class="kicker">圍術期血流動力學 · <span class="byline">吳宗達</span> · 最後修訂 2026年9月12日</p>
+      <nav class="sections" aria-label="本頁章節"><a href="#mechanism">機制</a><span aria-hidden="true">·</span><a href="#evidence">證據</a><span aria-hidden="true">·</span><a href="#open-questions">未解問題</a></nav>
       <article>
 <h1>平均系統充盈壓（Pmsf）</h1>
 <p class="lede">如果心臟停止、循環各處的壓力達到平衡，剩下的那一個壓力就是平均系統充盈壓（mean systemic filling pressure, Pmsf）。它是血液容積對容納它的血管所施加的壓力，也是把血液推回心臟的上游壓力。</p>
 
-<h2>機制</h2>
+<h2 id="mechanism">機制</h2>
 <p><strong>定義。</strong> Pmsf 是系統循環在零流量時的平衡壓力。它只取決於兩件事：<em>應力容積</em>（stressed volume），也就是真正把血管壁撐開的那部分血量，以及容納它的血管順應性。只是填滿血管而沒有撐開它的血量（<em>非應力容積</em>）對 Pmsf 沒有貢獻。因為靜脈容納了大部分血液、順應性又遠高於動脈，Pmsf 是一個靜脈側的量，數值接近靜脈壓而非動脈壓（<a href="https://doi.org/10.1186/s13054-016-1438-7">Magder, <em>Crit Care</em> 2016</a>）。</p>
 <p><strong>靜脈回流。</strong> Guyton 在 1950 年代的實驗確立：靜脈回流由 Pmsf 到右心房壓的梯度、除以靜脈回流阻力所決定：VR = (Pmsf − CVP) / RVR（<a href="https://doi.org/10.1152/ajplegacy.1955.180.3.463">Guyton, Lindsey &amp; Kaufmann, <em>Am J Physiol</em> 1955</a>）。心輸出量就是這條靜脈回流曲線與心功能曲線的交點（<a href="https://doi.org/10.1152/physrev.1955.35.1.123">Guyton, <em>Physiol Rev</em> 1955</a>）。兩個後果：第一，中心靜脈壓是靜脈回流的<em>下游</em>壓力：Pmsf 不變而 CVP 上升，靜脈回流是<em>減少</em>的，不代表血量變多。第二，這個驅動梯度平常很小，只有幾 mmHg，所以任一項的小變化都有影響。</p>
 <p><strong>什麼會改變 Pmsf。</strong> 輸液增加應力容積，Pmsf 上升。靜脈收縮劑把非應力容積轉成應力容積，不加一滴水也能拉高 Pmsf。靜脈擴張（敗血症、麻醉誘導、交感阻斷）則相反：同樣的血量施加的壓力變小，Pmsf 下降，即使心臟本身沒變，靜脈回流也跟著下降。正壓通氣會拉高 CVP；靜脈回流會不會掉，取決於 Pmsf 有沒有一起上升（<a href="https://doi.org/10.1152/jappl.2000.88.3.926">Jellinek et al., <em>J Appl Physiol</em> 2000</a>；<a href="https://doi.org/10.1152/ajpheart.00931.2015">Berger et al., <em>Am J Physiol Heart Circ Physiol</em> 2016</a>）。</p>
 <p><strong>與臨界關閉壓的關係。</strong> Pmsf 是壓力剖面的靜脈端；動脈端對應的量是<a href="/zh/concepts/critical-closing-pressure/">臨界關閉壓（Pcc）</a>。兩者之間就是 vascular waterfall。流過組織的血流取決於 MAP − Pcc；流回心臟的血流取決於 Pmsf − CVP；而 Pcc − Pmsf 這段落差，就是 waterfall 本身損失掉的壓力。Vasoplegia 時 Pcc 塌向 Pmsf，這段落差消失。</p>
-<h2>證據</h2>
+<h2 id="evidence">證據</h2>
 <p><strong>人體怎麼量 Pmsf。</strong> 用過四種方法，數字並不一致。</p>
 <ol>
 <li><em>循環停止。</em> 在植入式去顫器測試時誘發的心室顫動中，動脈壓與靜脈壓在數秒內收斂到約 10 mmHg 的靜態充盈壓（<a href="https://doi.org/10.1152/ajpheart.00604.2003">Schipke et al., <em>Am J Physiol Heart Circ Physiol</em> 2003</a>；<a href="https://doi.org/10.1152/jappl.2000.88.3.926">Jellinek et al. 2000</a>）。在重症病人死亡後不久測得的平衡壓平均約 13 mmHg，個體差異很大，且無法由常見的臨床變項解釋（<a href="https://doi.org/10.1152/ajpheart.00413.2015">Repessé et al., <em>Am J Physiol Heart Circ Physiol</em> 2015</a>）。</li>
@@ -62,12 +66,14 @@
 <p>後三種方法在同一群病人身上比較時，絕對值不同，但變化方向彼此一致（<a href="https://doi.org/10.1007/s00134-012-2586-0">Maas et al., <em>Intensive Care Med</em> 2012</a>）。一篇臨床方法的系統性回顧得到同樣結論：方法之間的一致性有限，而且沒有任何一種在完整循環中對照過真正的零流量參考值（<a href="https://doi.org/10.1186/s13613-018-0418-2">Wijnberge et al., <em>Ann Intensive Care</em> 2018</a>）。在動物模型中，吸氣暫停法的估計值會隨容積狀態改變而偏離直接測量值（<a href="https://doi.org/10.1152/japplphysiol.00897.2018">Werner-Moller et al., <em>J Appl Physiol</em> 2019</a>）。</p>
 <p><strong>輸液挑戰時的 Pmsf。</strong> 在外科 ICU 病人，一次輸液使模型推算的 Pmsf 在有反應者與無反應者都上升；區分兩者的是 Pmsf − CVP 這個梯度：有反應者梯度變大，無反應者的 CVP 則與 Pmsf 同步上升（<a href="https://doi.org/10.1007/s00134-013-2928-6">Cecconi et al., <em>Intensive Care Med</em> 2013</a>）。後續研究用同一個類比值描述心臟術後心臟相對於靜脈回流的「效率」（<a href="https://doi.org/10.1007/s00134-014-3611-2">Gupta et al., <em>Intensive Care Med</em> 2015</a>）。</p>
 <p><strong>Waterfall 的靜脈端。</strong> 在一個大型敗血症世代中，Pmsf 以 CVP 對脈壓 × 心率的截距估算，也就是估 Pcc 那個動脈側方法的靜脈側對應版，因此能算出每位病人的 Pcc − Pmsf 梯度。這是迄今唯一同時估出 waterfall 兩端的世代（<a href="https://doi.org/10.1097/ALN.0000000000005881">Wang J-Y et al., <em>Anesthesiology</em> 2026</a>）。</p>
-<h2>未解問題</h2>
+<h2 id="open-questions">未解問題</h2>
 <p>人體循環停止法的測量值聚在 10–13 mmHg；通氣中病人用操作法的估計值較高。這個差異反映的是真實生理（正壓通氣、交感張力、術後狀態）還是外推方法本身，尚未釐清。系統性回顧指出，臨床方法都沒有在完整循環中對照過零流量參考值（<a href="https://doi.org/10.1186/s13613-018-0418-2">Wijnberge et al. 2018</a>）。</p>
 <p>生理上真正重要的量是 Pmsf − CVP 這個梯度，不是 Pmsf 本身。床邊方法若報出的 Pmsf 誤差達數 mmHg，可能就無法分辨一個本身只有幾 mmHg 寬的梯度。</p>
 <p>沒有任何試驗檢驗過以 Pmsf 指引輸液或升壓劑是否改善病人預後。以脈壓 × 心率估算 Pmsf 的方法，繼承了 <a href="/zh/concepts/critical-closing-pressure/">Pcc 條目</a>討論過的同一個比例假設，也還沒和循環停止法對照過。</p>
 
       </article>
+      <nav class="pager"><span></span><a class="next" href="/zh/concepts/critical-closing-pressure/"><span>下一篇</span>臨界關閉壓（Pcc）</a></nav>
+
     </main>
 
     <footer>
