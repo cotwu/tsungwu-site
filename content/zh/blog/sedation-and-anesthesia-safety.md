@@ -1,6 +1,7 @@
 ---
 title: 鎮靜與麻醉安全
 description: 什麼是鎮靜、什麼是麻醉？從輕度鎮靜到全身麻醉是同一條光譜；愈深，對呼吸循環的影響愈大。這也是為什麼手術與鎮靜麻醉應由不同的人負責。
+tags: 麻醉安全, 衛教
 date: 2019-06-04
 origin: 發表於個人臉書
 cover: /img/sedation-cover.svg

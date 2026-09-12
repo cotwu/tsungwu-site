@@ -1,6 +1,7 @@
 ---
 title: "Rebuilding this site in a day: notes from the APEX workshop"
 description: On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic, and writing turns out to be nothing more than recording one's own thinking.
+tags: workshop notes, personal brand
 date: 2026-09-12
 ---
 

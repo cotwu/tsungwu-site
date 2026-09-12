@@ -238,6 +238,7 @@ function jsonLd(lang, meta, path, kind) {
     if (meta.date) page.datePublished = meta.date;
     if (meta.updated) page.dateModified = meta.updated;
     if (meta.cover) page.image = `${SITE}${meta.cover}`;
+    if (meta.tags) page.keywords = meta.tags.split(/[,，]\s*/).map((t) => t.trim()).filter(Boolean);
     if (meta.about) page.about = meta.about.split(/[,\s]+/).filter(Boolean).map((q) => ({ "@type": "Thing", name: ENTITIES[q] || q, sameAs: WD(q) }));
   } else if (kind === "ProfilePage") {
     Object.assign(page, { "@type": "ProfilePage", mainEntity: { "@id": PERSON_ID } });
@@ -323,6 +324,7 @@ function buildPage(lang, file) {
     }
     main = `${kicker}${nav}      <article>\n${html}\n      </article>\n${pager}`;
   }
+  if (isArticle && path.startsWith("blog/") && !meta.tags) console.warn(`⚠ no tags: ${file}  (add "tags: a, b" to the frontmatter)`);
   const kind = isArticle ? (path.startsWith("blog/") ? "BlogPosting" : "Article")
     : path === "about/" ? "ProfilePage"
     : /^(concepts|blog|research)\/$/.test(path) ? "CollectionPage" : "WebPage";
