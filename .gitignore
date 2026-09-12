@@ -3,3 +3,7 @@
 .Rhistory
 **/.Rhistory
 node_modules/
+# never commit credentials
+*-sa.json
+sa.json
+**/tsungwu-gsc-*.json
