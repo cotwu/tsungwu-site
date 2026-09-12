@@ -89,7 +89,7 @@ ${art}        <div class="hero-text">
   const posts = readPosts(lang).slice(0, 5);
   if (posts.length) {
     const items = posts.map((p) => `<li><a href="${p.url}">${esc(p.title)}</a><span class="date">${fmtDate(lang, p.date)}</span></li>`).join("\n");
-    html += `      <section><h2>Blog</h2><ul class="posts compact">\n${items}\n</ul><p class="more"><a href="/${lang}/blog/">${zh ? "全部文章 →" : "All posts →"}</a></p></section>\n`;
+    html += `      <section><h2>${zh ? "Blog 最新" : "Latest on the blog"}</h2><ul class="posts compact">\n${items}\n</ul><p class="more"><a href="/${lang}/blog/">${zh ? "全部文章 →" : "All posts →"}</a></p></section>\n`;
   }
   // any remaining hand-written sections in index.md still render below
   for (const s of body.split(/^## /m).filter((x) => x.trim())) {
