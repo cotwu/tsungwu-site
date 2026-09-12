@@ -1,15 +1,12 @@
 ---
 title: Concepts
 description: Concept entries on perioperative hemodynamics and medical education. Each entry has three parts (mechanism, evidence, open questions), with DOI-linked references.
+band: /img/hero-2400.jpg
 ---
 
 # Concepts
 
-Each entry follows the same three-part structure: **Mechanism** (what is physiologically or
-methodologically established), **Evidence** (key trials and reviews, with DOI links), and
-**Open questions** (where the literature is inconclusive). Entries are revised as the evidence moves.
-
-Further entries are in preparation and will appear here as they are published.
+Each entry follows the same three-part structure: **Mechanism**, **Evidence** (with DOI links), and **Open questions**. Entries are revised as the evidence moves.
 
 ## Perioperative hemodynamics {#hemodynamics}
 

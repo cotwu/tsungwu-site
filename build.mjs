@@ -304,6 +304,7 @@ function buildPage(lang, file) {
     if (meta.track) parts.push(esc(meta.track));
     if (isArticle) parts.push(byline(AUTHOR[lang]), `${revised} ${fmtDate(lang, meta.updated)}`);
     const kicker = parts.length ? `      <p class="kicker">${parts.join(" · ")}</p>\n` : "";
+    const band = meta.band ? `      <img class="band" src="${esc(meta.band)}" srcset="${esc(meta.band)} 2400w, ${esc(meta.band).replace("2400", "1400")} 1400w" sizes="(min-width: 800px) 760px, 100vw" alt="" />\n` : "";
     // strip the hand-written "Last revised" footer line — the date is now automatic
     const cleaned = body.replace(/\n---\n\n\*(Entries on this site are revised|本站條目會隨證據更新)[^\n]*\*\n?$/, "\n");
     let html = marked.parse(cleaned);
@@ -325,6 +326,7 @@ function buildPage(lang, file) {
       });
     }
     main = `${kicker}${nav}      <article>\n${html}\n      </article>\n${pager}`;
+    if (band) main = main.replace(/(<h1>.*?<\/h1>\n)/, `$1${band}`);
   }
   if (isArticle && path.startsWith("blog/") && !meta.tags) console.warn(`⚠ no tags: ${file}  (add "tags: a, b" to the frontmatter)`);
   const kind = isArticle ? (path.startsWith("blog/") ? "BlogPosting" : "Article")

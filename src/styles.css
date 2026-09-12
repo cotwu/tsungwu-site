@@ -220,3 +220,6 @@ article ol li { margin-bottom: 14px; }
 .entries a:hover { color: var(--accent); text-decoration: none; }
 .more { margin: 12px 0 0; font-size: 0.95rem; }
 .entries-section { margin-top: 36px; }
+
+/* index pages: a thin band cropped from the hero artwork under the title */
+.band { display: block; width: 100%; height: auto; margin: 4px 0 22px; }
