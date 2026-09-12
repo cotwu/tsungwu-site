@@ -7,7 +7,7 @@ date: 2026-09-12
 
 # Rebuilding this site in a day: notes from the APEX workshop
 
-Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on personal branding in the AI era run by Innovarad in Taipei. These notes were written at midday, during the hands-on session, and they double as the record of how this site was rebuilt from scratch in a single day.
+Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on personal branding in the AI era run by Innovarad in Taipei.
 
 ## Arriving with a site that already existed
 
@@ -17,9 +17,9 @@ That happens to be the point the workshop kept returning to: in the AI era a sit
 
 ## What happened during the day
 
-Environment setup followed the workshop's own flow. Once the tools were installed and GitHub and Cloudflare were connected, almost everything else was done by talking. I backed the old site up three ways (a tag on GitHub, the source and a live mirror in Dropbox), then told Claude Code: forget the old one, build a new one.
+Part of it was our own hands: setting up the environment and installing the tools. Whenever someone got stuck, the teaching assistants and instructors came over and untangled it. Once the environment worked, building could begin.
 
-Every page of the new site is generated as complete HTML at build time; nothing depends on browser-side scripts. English and Traditional Chinese each have their own copy, cross-referenced page by page. About twenty seconds after a push to GitHub, Cloudflare has the new version live. That speed makes "change a word, look, change again" a workable way to work.
+I backed the old site up three ways, then told the AI: forget the old one, build a new one. Every page of the new site is generated as complete HTML at build time; nothing depends on browser-side scripts. About twenty seconds after a push to GitHub, Cloudflare has the new version live. That speed makes "change a word, look, change again" a workable way to work.
 
 ## The most important thing from the morning
 
@@ -32,3 +32,15 @@ I had some resistance to the idea of "writing articles continuously." It sounded
 Writing it down accumulates a record of one's professional reasoning. And that process is, in itself, a footprint left in the world. Not for the sake of how many people see it, but so that the ideas existed, can be found, and can be built on. In a digital world these small accumulations are gradually recognised.
 
 Seen that way, writing is no longer an extra burden. It is part of what was already being done, with one added step: recording it.
+
+## The afternoon: AI as one's own assistant
+
+The afternoon was about how the instructor uses AI agents to make himself stronger. Not "AI is amazing" in the abstract, but a few things he actually uses every day.
+
+One is the **newsletter**. He has an AI compile the day's news in a given field into a primer: not merely collecting headlines, but drawing on the background knowledge the model already has, arranging it like a course, written in a tone a high-school student can follow, and then inviting his children to subscribe. He subscribes to several himself: advances in traditional Chinese medicine, clinic management, breakthroughs in obstetrics. He was candid that the thing breaks, errs, and links to the wrong places; it needs reading, fixing, adjusting. But it is for his own eyes, so an error costs nothing more than a correction.
+
+Another is **distillation**. A conversation with a language model is diffuse, but the AI can be asked to pull out what was actually valuable in it and turn that into material for the next step. The conversation is the process; what is distilled from it is what accumulates.
+
+On writing, he described the method I found most practical: the **sandwich**. Ask an AI to write an article outright and the result is oily, generic, and short on detail; readers dislike it. Better: first talk through your thoughts on the topic by voice, rambling is fine; let the AI read all of it and shape it into a structured piece; then check it yourself. The ideas are yours, the structure is delegated, the judgement stays with you. These notes were written exactly that way. Short posts of a few hundred words, the kind that go on Facebook, he suggested writing by hand: their value is sincerity, and asking an AI to imitate one's own voice works very badly.
+
+The last part was about the **link between the physical world and the online one**. Over the long run, what happens offline should be turned into online assets: run a workshop, and the participants' write-ups become backlinks; a restaurant that trades "a review for free fries" is accumulating Google reviews, digital word of mouth. In the other direction, what accumulates online is there so that real-world opportunities can find you. Each of us should think creatively about the user-generated content that fits our own situation.
