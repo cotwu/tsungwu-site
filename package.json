@@ -1,0 +1,27 @@
+{
+  "name": "tsungwu-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.mjs",
+    "dev": "node build.mjs && python3 -m http.server 8080 -d personal-site"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cotwu/tsungwu-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/cotwu/tsungwu-site/issues"
+  },
+  "homepage": "https://github.com/cotwu/tsungwu-site#readme",
+  "private": "true",
+  "devDependencies": {
+    "marked": "^16.4.2"
+  }
+}
