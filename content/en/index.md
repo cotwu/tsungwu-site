@@ -15,7 +15,7 @@ Entries are grouped into two tracks.
 
 ## Tracks
 
-- Perioperative hemodynamics | /en/concepts/#hemodynamics | What pressure actually drives blood through tissue: from mean systemic filling pressure and critical closing pressure to tissue perfusion pressure; whether pulse pressure can stand in for cardiac output; and what an algorithm that predicts intraoperative hypotension is really predicting.
+- Perioperative hemodynamics | /en/concepts/#hemodynamics | The physiology of critical closing pressure and venous return. Mean arterial pressure is not perfusion pressure, so which pressure drop actually pushes blood through tissue?
 - Medical education | /en/concepts/#medical-education | Clinical skills, simulation, OSCE design, and the learning-theory literature behind them.
 
 ## Latest
