@@ -223,3 +223,7 @@ html[lang="zh-Hant"] .hero .lede { font-family: "Noto Serif TC", var(--serif); f
 .hero h1 { font-size: 1.3rem; color: var(--muted); font-weight: 500; }
 .hero .question { margin-top: 18px; }
 .next a { font-family: var(--serif); }
+
+/* hero artwork: break out of the column moderately (1000px), not full-bleed */
+.hero-art { width: min(100vw, 1000px); margin-left: calc(50% - min(50vw, 500px)); }
+.band { max-width: 100%; }
