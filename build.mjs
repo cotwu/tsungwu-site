@@ -253,6 +253,20 @@ function jsonLd(lang, meta, path, kind) {
   return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@graph": graph })}</script>`;
 }
 
+// width/height of a baseline or progressive JPEG (SOF0/SOF2 marker); null for anything else
+function jpegSize(file) {
+  const b = readFileSync(file);
+  if (b[0] !== 0xff || b[1] !== 0xd8) return null;
+  let i = 2;
+  while (i < b.length) {
+    if (b[i] !== 0xff) return null;
+    const m = b[i + 1], len = b.readUInt16BE(i + 2);
+    if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) };
+    i += 2 + len;
+  }
+  return null;
+}
+
 function fmtDate(lang, iso) {
   if (!iso) return "";
   return new Date(iso + "T00:00:00Z").toLocaleDateString(LANGS[lang].dateLocale, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
@@ -337,7 +351,11 @@ function buildPage(lang, file) {
   const kicker = meta.track || (path.startsWith("blog/") ? "Blog" : path === "" ? (lang === "zh" ? "概念筆記" : "Concept notebook") : "");
   mkdirSync(join(OUT, "og"), { recursive: true });
   writeFileSync(join(OUT, "og", ogName), ogPng({ title: meta.title, kicker, lang, home: path === "" }));
-  head += `\n    <meta property="og:image" content="${SITE}/og/${ogName}" />\n    <meta property="og:image:width" content="1200" />\n    <meta property="og:image:height" content="630" />\n    <meta name="twitter:image" content="${SITE}/og/${ogName}" />`;
+  // a post with a raster cover (jpg/png) shares that instead of the generated card
+  const coverFile = meta.cover && /\.(jpe?g|png)$/i.test(meta.cover) ? join("src", meta.cover.replace(/^\/img\//, "img/")) : null;
+  const ogUrl = coverFile && existsSync(coverFile) ? `${SITE}${meta.cover}` : `${SITE}/og/${ogName}`;
+  const ogDim = coverFile && existsSync(coverFile) ? jpegSize(coverFile) : { w: 1200, h: 630 };
+  head += `\n    <meta property="og:image" content="${ogUrl}" />` + (ogDim ? `\n    <meta property="og:image:width" content="${ogDim.w}" />\n    <meta property="og:image:height" content="${ogDim.h}" />` : "") + `\n    <meta name="twitter:image" content="${ogUrl}" />`;
   const html = layout({ lang, path, meta, main, head });
   const dir = join(OUT, lang, path);
   mkdirSync(dir, { recursive: true });
