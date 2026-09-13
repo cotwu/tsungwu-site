@@ -351,8 +351,6 @@ It was the conviction that when the lights went out, someone should stay and kee
 
 ## Sources
 
-Most of the primary material consists of participants' memoirs. Where the text says "according to the recollection of", no official archive has yet been found to confirm the details independently. Links go to Chinese-language sources.
-
 - Tu Tsung-ming, *Memoirs* (回憶錄), vol. 2 (Taipei: Longwen, 1998), p. 187. (The hospital episode.)
 - Lin Chung-sheng (ed.), *The Memoirs of Kao Yu-shu* (高玉樹回憶錄：玉樹臨風步步高) (Taipei: Avanguard, 2007). ("Grass roots", the 1960 withdrawal, the 1964 monitors.)
 - Kang Ning-hsiang, *Taiwan, Fighting On: The Memoirs of Kang Ning-hsiang* (台灣，打拼：康寧祥回憶錄) (Taipei: Asian Culture, 2014). (The Chase message; "Eat Wang Min-ning's food.")
