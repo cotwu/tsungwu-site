@@ -1,11 +1,11 @@
 ---
-title: "Rebuilding this site in a day: notes from the APEX workshop"
-description: On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The core of an online presence should come from professional accumulation, not traffic, and writing turns out to be nothing more than recording one's own thinking.
+title: "Personal branding in the AI era: what did a one-day workshop actually teach me?"
+description: On 12 September 2026 I attended the APEX workshop on personal branding in the AI era. The website is only the most visible product. What I brought back is a way of working: understand the world a little more each day, record thoughts with little effort, and share them.
 tags: workshop notes, personal brand
 date: 2026-09-12
 ---
 
-# Rebuilding this site in a day: notes from the APEX workshop
+# Personal branding in the AI era: what did a one-day workshop actually teach me?
 
 Today I attended [APEX](https://apex.innovarad.tw/), a one-day workshop on personal branding in the AI era run by Innovarad in Taipei.
 
@@ -15,15 +15,9 @@ I was not starting entirely from zero. The domain tsungwu.tw has been mine since
 
 That happens to be the point the workshop kept returning to: in the AI era a site is not only for people to look at; it has to be readable, and quotable, by search engines and language models. So the goal for the day was clear: not to patch, but to rebuild.
 
-## What happened during the day
-
-Part of it was our own hands: setting up the environment and installing the tools. Whenever someone got stuck, the teaching assistants and instructors came over and untangled it. Once the environment worked, building could begin.
-
-I backed the old site up three ways, then told the AI: forget the old one, build a new one. Every page of the new site is generated as complete HTML at build time; nothing depends on browser-side scripts. About twenty seconds after a push to GitHub, Cloudflare has the new version live. That speed makes "change a word, look, change again" a workable way to work.
-
 ## The most important thing from the morning
 
-The first half of the day covered a fair amount of SEO and GEO basics: how to structure a site, how search engines and AI read a page, which settings are table stakes. Useful, but not what I took away.
+Part of it was our own hands: setting up the environment and installing the tools. Whenever someone got stuck, the teaching assistants and instructors came over and untangled it. Once the environment worked, building could begin. The first half of the day also covered a fair amount of SEO and GEO basics: how to structure a site, how search engines and AI read a page, which settings are table stakes. Useful, but not what I took away.
 
 The most important sentence was this: **the core of an online personal brand should come from the accumulation of your professional work, not from traffic.**
 
@@ -41,6 +35,10 @@ One is the **newsletter**. He has an AI compile the day's news in a given field 
 
 Another is **distillation**. Not the model distillation of machine learning; here the thing being distilled is oneself. A conversation with a language model is diffuse, but the AI can be asked to pull out what was actually valuable in it and turn that into material for the next step. The conversation is the process; what is distilled from it is what accumulates.
 
-On writing and illustration, he shared practical methods for the AI era.
+On writing, what he taught was not technique but how to make writing happen at all: say the idea out loud first, let the AI shape it into a draft, then rewrite it in your own words. Fact-checking can be handed to the AI; whether to change anything stays your call. Illustration works the same way. A post used to stall on finding a suitable image; now a scene described to an image model yields something usable in minutes.
 
-The last part was about the **link between the physical world and the online one**. Over the long run, what happens offline should be turned into online assets: run a workshop, and the participants' write-ups become backlinks; a restaurant that trades "a review for free fries" is accumulating Google reviews, digital word of mouth. In the other direction, what accumulates online is there so that real-world opportunities can find you. Each of us should think creatively and design a mechanism, suited to our own situation, for gathering user-generated content.
+## Besides the website, what came home with me
+
+Looking back, the website is only the most visible product of the day. What I actually brought back is a way of working: have the AI turn the day's news in a field into something readable; jot down whatever I read or think of, and let the AI distil the scattered conversation into something that keeps; write as soon as there is an idea, without waiting for it to be complete; tidy it up a little, and publish.
+
+Working this way, each day I will understand the world a little more, see a little wider, and record my own thoughts with a little less effort. This site is where that accumulation will show, and I am somewhat curious to look back in a year and see what it has grown into.
