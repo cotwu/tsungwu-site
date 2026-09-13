@@ -55,7 +55,7 @@ The capital was not nearly as easy for the ruling party to dominate as later pol
 
 The 1954 election was especially painful.
 
-Wang Min-ning was a military-bureaucratic figure who had trained at the Imperial Japanese Army Academy and later became head of the Taiwan Provincial Police after the February 28 Incident, overseeing police affairs during the ensuing pacification campaign.
+Wang Min-ning was a military-bureaucratic figure who had trained at the Imperial Japanese Army Academy and later became head of the Taiwan Provincial Police after the February 28 Incident.
 
 He embodied a very recognizable form of postwar state power.
 
