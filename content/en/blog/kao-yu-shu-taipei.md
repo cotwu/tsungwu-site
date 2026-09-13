@@ -93,7 +93,7 @@ When Kao Yu-shu's motorcade passed through a neighborhood, shopkeepers were disc
 
 Another tactic was rumor.
 
-Kao had spent time in the United States and had American contacts, so a story began circulating:
+Kao had [studied in the United States](https://zh.wikipedia.org/wiki/高玉樹) and had American contacts, so a story began circulating:
 
 Kao Yu-shu was a CIA agent.
 
