@@ -8,6 +8,13 @@ Static bilingual (EN / zh-Hant) academic concept site. Technical layout and comm
 1. Read the newest handoff note (交班單) first:
    Dropbox `!!!!anesthesia/2. 個人網站/_交班單_<YYYY-MM-DD>.md`.
 2. Before ending a session that changed anything, write a new 交班單 with the same naming.
+   The owner edits from several machines; the 交班單 (not this machine's state) is the source
+   of truth for "where things are". Repo path differs per machine: if it is not on this machine,
+   `gh repo clone cotwu/tsungwu-site`.
+3. Blog drafting rules live in Dropbox `!!!!anesthesia/2. 個人網站/Blog/`: `AGENTS.md`
+   (one folder per post, `YYYY-MM-DD_題目/draft.md`) and
+   `longform-writing-workflow.md` (12-step process for long-form posts). Read both before
+   starting a new post.
 
 ## Build & deploy
 
