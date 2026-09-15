@@ -1,7 +1,7 @@
 // Static site generator for tsungwu.tw — zero framework.
 // content/{en,zh}/**/*.md  →  personal-site/{en,zh}/<path>/index.html
 // Every page is fully rendered at build time so crawlers and AI see real content.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, copyFileSync, existsSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, copyFileSync, cpSync, existsSync, statSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { marked } from "marked";
 import { execSync } from "node:child_process";
@@ -407,6 +407,9 @@ for (const lang of Object.keys(LANGS)) {
 writeFileSync(join(OUT, "_redirects"), "");
 mkdirSync(join(OUT, "functions"), { recursive: true });
 for (const f of readdirSync("src/functions")) copyFileSync(join("src/functions", f), join(OUT, "functions", f));
+// self-contained sub-sites served on their own subdomain by functions/_middleware.js
+// (src/subsites/<name>/ → /_sub/<name>/, host <name>.tsungwu.tw)
+if (existsSync("src/subsites")) cpSync("src/subsites", join(OUT, "_sub"), { recursive: true });
 writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 writeFileSync(join(OUT, "sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n` +
