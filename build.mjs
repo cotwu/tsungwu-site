@@ -407,8 +407,8 @@ for (const lang of Object.keys(LANGS)) {
 writeFileSync(join(OUT, "_redirects"), "");
 mkdirSync(join(OUT, "functions"), { recursive: true });
 for (const f of readdirSync("src/functions")) copyFileSync(join("src/functions", f), join(OUT, "functions", f));
-// self-contained sub-sites served on their own subdomain by functions/_middleware.js
-// (src/subsites/<name>/ → /_sub/<name>/, host <name>.tsungwu.tw)
+// self-contained static pages (e.g. student teaching pages) kept outside the generator:
+// src/subsites/<name>/ → /_sub/<name>/
 if (existsSync("src/subsites")) cpSync("src/subsites", join(OUT, "_sub"), { recursive: true });
 writeFileSync(join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 writeFileSync(join(OUT, "sitemap.xml"),
