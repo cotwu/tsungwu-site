@@ -21,6 +21,10 @@ Static bilingual (EN / zh-Hant) academic concept site. Technical layout and comm
 - Content: `content/{en,zh}/**/*.md` → `node build.mjs` → `personal-site/` (committed).
 - Push `main` = Cloudflare Pages deploy (~20 s, no build step on CF). Verify live with `curl`.
 - Local preview: `.claude/launch.json` config `site` (port 8080).
+- Self-contained pages that are not site content (student teaching pages, one-off HTML):
+  put the folder in `src/subsites/<name>/` → served at `/_sub/<name>/`. Default to this path;
+  a subdomain (Pages custom domain, dashboard step) is only for pages the owner marks as
+  important. Ask the owner which.
 - Blog posts need a `tags:` line in frontmatter; ask which tags to use before drafting.
   Existing tags: 麻醉安全, 衛教, 課後記錄, 個人品牌, 臺灣史, 臺北.
 
