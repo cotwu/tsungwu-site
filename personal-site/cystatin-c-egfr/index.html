@@ -35,6 +35,9 @@ th{background:var(--accent-soft);font-weight:600;white-space:nowrap}
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 tr.flag td{background:#fdf6ec}
 .note{color:var(--muted);font-size:.9rem}
+.refs{margin:22px 0;padding-left:1.7em;font-size:.92rem;line-height:1.75}
+.refs li{margin:0 0 13px;padding-left:2px}
+.refs li::marker{color:var(--muted)}
 footer.site{border-top:1px solid var(--line);margin-top:56px;padding:26px 0 44px;color:var(--muted);font-size:.87rem}
 footer.site a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer.site a:hover{color:var(--accent)}
@@ -161,45 +164,14 @@ footer.site a:hover{color:var(--accent)}
 
 <h2>文獻來源</h2>
 
-<p>五篇中四篇有開放取用全文；Anesthesiology 2026 需院內訂閱連結。</p>
-
-<div class="tablewrap">
-<table class="stack">
-<thead><tr><th>文獻</th><th>PubMed</th><th>DOI／全文</th></tr></thead>
-<tbody>
-<tr>
-  <td data-label="文獻">Lei SH, et al. Anesthesiology 2026;144:811-822</td>
-  <td data-label="PubMed"><a href="https://pubmed.ncbi.nlm.nih.gov/41270262/" target="_blank" rel="noopener">41270262</a></td>
-  <td data-label="DOI／全文"><a href="https://doi.org/10.1097/ALN.0000000000005859" target="_blank" rel="noopener">10.1097/ALN.0000000000005859</a>（需訂閱）</td>
-</tr>
-<tr>
-  <td data-label="文獻">Prowle JR, et al. Clin Kidney J 2024;17:sfae004</td>
-  <td data-label="PubMed"><a href="https://pubmed.ncbi.nlm.nih.gov/38269033/" target="_blank" rel="noopener">38269033</a></td>
-  <td data-label="DOI／全文"><a href="https://doi.org/10.1093/ckj/sfae004" target="_blank" rel="noopener">10.1093/ckj/sfae004</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10807905/" target="_blank" rel="noopener">PMC 全文</a></td>
-</tr>
-<tr>
-  <td data-label="文獻">Estrella MM, et al. JAMA 2025;334:1915-1926</td>
-  <td data-label="PubMed"><a href="https://pubmed.ncbi.nlm.nih.gov/41202182/" target="_blank" rel="noopener">41202182</a></td>
-  <td data-label="DOI／全文"><a href="https://doi.org/10.1001/jama.2025.17578" target="_blank" rel="noopener">10.1001/jama.2025.17578</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12595547/" target="_blank" rel="noopener">PMC 全文</a></td>
-</tr>
-<tr>
-  <td data-label="文獻">Shlipak MG, et al. Am J Kidney Dis 2011;58:366-373</td>
-  <td data-label="PubMed"><a href="https://pubmed.ncbi.nlm.nih.gov/21601336/" target="_blank" rel="noopener">21601336</a></td>
-  <td data-label="DOI／全文"><a href="https://doi.org/10.1053/j.ajkd.2011.03.015" target="_blank" rel="noopener">10.1053/j.ajkd.2011.03.015</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3159705/" target="_blank" rel="noopener">PMC 全文</a></td>
-</tr>
-<tr>
-  <td data-label="文獻">Lees JS, et al. Br J Cancer 2025;133:1652-1659</td>
-  <td data-label="PubMed"><a href="https://pubmed.ncbi.nlm.nih.gov/40973716/" target="_blank" rel="noopener">40973716</a></td>
-  <td data-label="DOI／全文"><a href="https://doi.org/10.1038/s41416-025-03190-3" target="_blank" rel="noopener">10.1038/s41416-025-03190-3</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12644916/" target="_blank" rel="noopener">PMC 全文</a></td>
-</tr>
-<tr>
-  <td data-label="文獻">Chen X, et al. BMC Geriatr 2021;21:541（骨科加分用）</td>
-  <td data-label="PubMed"><a href="https://pubmed.ncbi.nlm.nih.gov/34641805/" target="_blank" rel="noopener">34641805</a></td>
-  <td data-label="DOI／全文"><a href="https://doi.org/10.1186/s12877-021-02522-1" target="_blank" rel="noopener">10.1186/s12877-021-02522-1</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8507107/" target="_blank" rel="noopener">PMC 全文</a></td>
-</tr>
-</tbody>
-</table>
-</div>
+<ol class="refs">
+  <li>Lei SH, Zhuo XY, Qu L, et al. Discordances between preoperative creatinine- and cystatin C-based estimated glomerular filtration rate and outcomes after noncardiac surgery: an observational study. <i>Anesthesiology</i>. 2026;144(4):811-822. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/41270262/" target="_blank" rel="noopener">41270262</a></li>
+  <li>Prowle JR, Croal B, Abbott TEF, Cuthbertson BH, Wijeysundera DN; METS study investigators. Cystatin C or creatinine for pre-operative assessment of kidney function and risk of post-operative acute kidney injury: a secondary analysis of the METS cohort study. <i>Clin Kidney J</i>. 2024;17(1):sfae004. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/38269033/" target="_blank" rel="noopener">38269033</a></li>
+  <li>Estrella MM, Ballew SH, Sang Y, et al. Discordance in creatinine- and cystatin C-based eGFR and clinical outcomes: a meta-analysis. <i>JAMA</i>. 2025;334(21):1915-1926. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/41202182/" target="_blank" rel="noopener">41202182</a></li>
+  <li>Shlipak MG, Coca SG, Wang Z, et al. Presurgical serum cystatin C and risk of acute kidney injury after cardiac surgery. <i>Am J Kidney Dis</i>. 2011;58(3):366-373. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/21601336/" target="_blank" rel="noopener">21601336</a></li>
+  <li>Lees JS, Fu EL, Faucon AL, et al. Accuracy of glomerular filtration rate estimates among patients with cancer. <i>Br J Cancer</i>. 2025;133(11):1652-1659. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/40973716/" target="_blank" rel="noopener">40973716</a></li>
+  <li>Chen X, Shen Y, Hou L, et al. Sarcopenia index based on serum creatinine and cystatin C predicts the risk of postoperative complications following hip fracture surgery in older adults. <i>BMC Geriatr</i>. 2021;21(1):541. PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/34641805/" target="_blank" rel="noopener">34641805</a></li>
+</ol>
 
 <p>指引：KDIGO 2024 Clinical Practice Guideline for CKD，<a href="https://kdigo.org/guidelines/ckd-evaluation-and-management/" target="_blank" rel="noopener">Kidney Int 2024</a>。</p>
 
