@@ -72,20 +72,24 @@ footer.site a:hover{color:var(--accent)}
 <p>Creatinine 來自肌肉代謝，肌肉少的人 creatinine 天生偏低，eGFR 就被高估。麻醉碰到的高風險族群（老年、肌少症、肝硬化、癌症惡病質、長期臥床）正好都是肌肉少的人。Cystatin C 由全身有核細胞穩定產生，不受肌肉量影響，可以把這群「Cr 看起來正常、其實腎功能不好」的病人抓出來。</p>
 
 <div class="case">
-<p><strong>同一位病人</strong>：80 歲女性、45 kg、Cr 0.8 mg/dL、cystatin C 1.6 mg/L</p>
+<p><strong>同一位病人</strong>：80 歲女性、45 kg、Cr 1.0 mg/dL、cystatin C 3.0 mg/L</p>
 <div class="tablewrap">
 <table>
 <thead><tr><th>公式</th><th>eGFR (mL/min/1.73 m²)</th><th>CKD 分期</th></tr></thead>
 <tbody>
-<tr><td>只用 creatinine（CKD-EPI 2021）</td><td class="num">74</td><td>G2，看起來正常</td></tr>
-<tr class="flag"><td>只用 cystatin C（CKD-EPI 2012）</td><td class="num">36</td><td>G3b</td></tr>
-<tr><td>兩者合併（CKD-EPI 2021 cr-cys）</td><td class="num">52</td><td>G3a</td></tr>
+<tr><td>只用 creatinine（CKD-EPI 2021）</td><td class="num">57</td><td>G3a</td></tr>
+<tr class="flag"><td>只用 cystatin C（CKD-EPI 2012）</td><td class="num">16</td><td>G4</td></tr>
+<tr class="flag"><td>兩者合併（CKD-EPI 2021 cr-cys）</td><td class="num">28</td><td>G4</td></tr>
 </tbody>
 </table>
 </div>
 </div>
 
-<p>只看 Cr 會把一個 G3 的病人當成腎功能正常。KDIGO 2024 指引：兩者都有時，合併公式最準確；creatinine 不可靠時（肌肉量極端、肝硬化）改用 cystatin C。</p>
+<p>Sugammadex 是 rocuronium 與 vecuronium 的專一性解藥，用來逆轉這兩種肌肉鬆弛劑造成的神經肌肉阻斷；仿單不建議用於重度腎功能不全，實務上的門檻落在 eGFR 30 mL/min/1.73 m² 附近。</p>
+
+<p>只看 creatinine，這位病人的 eGFR 是 57，沒有人會在用藥前停下來。把 cystatin C 一起算是 28，落在門檻以下。同一個病人、同一天的血，決定不一樣。</p>
+
+<p>KDIGO 2024 指引：兩者都有時，合併公式最準確；creatinine 不可靠時（肌肉量極端、肝硬化）改用 cystatin C。</p>
 
 <h2>證據：五篇</h2>
 
@@ -98,12 +102,12 @@ footer.site a:hover{color:var(--accent)}
 <tr>
   <td data-label="文獻"><a href="https://pubmed.ncbi.nlm.nih.gov/41270262/" target="_blank" rel="noopener">Lei SH, et al.<br>Anesthesiology 2026</a></td>
   <td data-label="族群">中國兩院 58,905 位非心臟手術病人</td>
-  <td data-label="一句話結論">eGFRcys 比 eGFRcr 每低 10 mL/min，術後併發症／死亡 aOR 1.12（兩院一致）；AKI、心血管、肺部、感染各分項都成立</td>
+  <td data-label="一句話結論">每 10 mL/min 的差距對應術後併發症或死亡的勝算多 12%，兩家醫院各自算都一樣。73% 的病人 eGFRcys 低於 eGFRcr，平均差 10。心血管、AKI、感染、肺部分開看也都成立</td>
 </tr>
 <tr>
   <td data-label="文獻"><a href="https://pubmed.ncbi.nlm.nih.gov/38269033/" target="_blank" rel="noopener">Prowle JR, et al.<br>Clin Kidney J 2024（METS）</a></td>
   <td data-label="族群">1,347 位 ≥40 歲非心臟手術，前瞻性</td>
-  <td data-label="一句話結論">兩個 eGFR 放同一模型，cystatin C 仍與術後 AKI 強相關，creatinine 不再顯著</td>
+  <td data-label="一句話結論">兩個 eGFR 放進同一個模型（校正年齡、性別），cystatin C 仍與術後 AKI 相關，creatinine 就不再顯著</td>
 </tr>
 <tr>
   <td data-label="文獻"><a href="https://pubmed.ncbi.nlm.nih.gov/41202182/" target="_blank" rel="noopener">Estrella MM, et al.<br>JAMA 2025</a></td>
