@@ -14,7 +14,11 @@ cover: /img/chen-fans-cover.jpg
 
 當時，他沒有請人把球找回來。直到後來，才意識到自己打出了這項賽事的第一支滿貫砲。那顆球被球迷保存了下來，一放就是二十年。
 
-2026 年 9 月 19 日，陳鏞基引退系列賽的賽後，[工作人員把這顆球轉交到他手上](https://www.nownews.com/news/6876627)。隔天受訪，他說想找到送球的人，好好表達感謝。年輕時未曾留意保存的紀錄，有人替他記著，直到他準備告別球場。
+2026 年 9 月 19 日，陳鏞基引退系列賽的賽後，這位球迷[請人把這顆球轉交到他手上](https://www.nownews.com/news/6876627)。隔天陳鏞基受訪時說想找到送球的人，好好表達感謝。年輕時未曾留意保存的紀錄，有人替他記著，直到他準備告別球場。
+
+那天晚上，一位年長的球迷在球場外等他離開。旁邊的球迷知道他要還一顆經典賽的球，把最前面的位置讓給他，一起幫忙大喊。球最後由工作人員送到車上。在場的球迷說，陳鏞基拿到球之後，過了好一陣子，車子才開動。
+
+當晚，陳鏞基的太太在 Threads 發了一則[尋人啟事](https://www.threads.com/@ava_ye0124/post/DdeYdCyj2XS)，想找到這位球迷。她說，他們在車上拿著這顆球一直看，「這顆不是球，是回顧來時路的珍貴寶物」。
 
 <figure>
 <img src="/img/chen-ball-20-years.jpg" alt="插畫：午後的書架上，壓克力盒裡放著一顆泛黃的舊棒球，旁邊有票根、舊報紙和一盆綠色植物" width="1600" height="1073" loading="lazy">
@@ -83,6 +87,7 @@ cover: /img/chen-fans-cover.jpg
 - ETtoday 運動雲：[2006 經典賽對中國擊出滿貫砲](https://sports.ettoday.net/news/869694)
 - 自由時報，2016：[「很高興能代表台灣隊來這邊比賽」受訪原話](https://sports.ltn.com.tw/news/breakingnews/1576360)
 - NOWnews，2026-09-20：[引退系列賽後收到二十年前的滿貫砲全壘打球](https://www.nownews.com/news/6876627)
+- Threads，2026-09-19：[陳鏞基太太的尋人啟事與回覆](https://www.threads.com/@ava_ye0124/post/DdeYdCyj2XS)
 - 統一獅官網：[陳鏞基引退活動頁](https://www.uni-lions.com.tw/activity/show/34)
 - 自由時報，2020：[陳鏞基生涯回顧與專訪](https://sports.ltn.com.tw/news/paper/1396870)
 - 自由時報，2007-04-21：[左肩舊傷復發](https://sports.ltn.com.tw/news/paper/126508)
