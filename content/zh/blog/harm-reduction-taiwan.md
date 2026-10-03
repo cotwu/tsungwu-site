@@ -22,7 +22,9 @@ cover: /img/harm-reduction-taiwan.jpg
 
 各縣市透過藥局、衛生所、醫療院所與自動販賣機等管道提供針具，販賣機也讓使用者不必以舊換新就能取得器材。以臺北市為例，[2026 年 9 月版佈點名單](https://data.taipei/dataset/detail?id=5e53353a-4799-4b02-8922-cf81bb6fbf95)列有 19 台全天服務的針具自動服務機，其中 12 台設於藥局、7 台設於市立聯合醫院，另有 37 處衛教諮詢站。免費發放與自動服務機並行，讓取得針具的方式與時間更有彈性。
 
-美沙冬處理的是另一個環節。它用於鴉片類藥物依賴的治療，透過規律服用，[減輕戒斷症狀與渴求](https://www.cdc.gov.tw/Bulletin/Detail/M7tEEf4gKSIllHWIVTXEbQ?typeid=9)，協助減少海洛因使用及注射。針具服務降低每次注射的風險，替代療法則有助於減少需要注射的次數；篩檢與轉介，讓感染者能及早進入治療。
+美沙冬與清潔針具會一起出現在減害計畫裡，是因為兩者處理不同的問題。美沙冬透過口服治療，[減輕海洛因依賴者的戒斷不適與渴求](https://www.cdc.gov.tw/Bulletin/Detail/M7tEEf4gKSIllHWIVTXEbQ?typeid=9)，幫助減少注射；清潔針具則降低每次注射的感染風險。有些人尚未接受治療，有些人[在治療期間仍會注射](https://doi.org/10.1111/j.1360-0443.2007.01912.x)，都需要取得乾淨器材。
+
+針具服務還有一個重要作用，就是讓醫療與衛生人員有機會接觸原本不容易進入醫療體系的使用者。透過領取針具與諮詢，逐步建立信任，再依需要提供篩檢、轉介美沙冬等成癮治療，或協助感染者接受 HIV 與肝炎治療。針具服務因此也成為[連結使用者與醫療照護的窗口](https://www.unaids.org/sites/default/files/2026-02/needle-syringe-prog-pple-who-inject-drug-op-guide_en.pdf)。
 
 這也是世界衛生組織（WHO）建議的方向。[WHO 的 2022 年整合指引](https://www.who.int/teams/global-hiv-hepatitis-and-stis-programmes/populations/people-who-inject-drugs)，將針具計畫、鴉片類藥物促效劑維持治療，以及 HIV、病毒性肝炎的檢驗與治療，列入注射藥物使用者所需的服務。減少污名、歧視與妨礙就醫的制度障礙，同樣被列為影響成效的重要措施。
 
@@ -72,6 +74,7 @@ WHO 也指出，[讓人更容易取得乾淨針具，不會增加用藥](https:/
 - Huang YF, et al. [Changes in HIV incidence among people who inject drugs in Taiwan following introduction of a harm reduction program: a study of two cohorts](https://doi.org/10.1371/journal.pmed.1001625). *PLoS Med*. 2014;11:e1001625.
 - Yen YF, et al. [Prevalences and associated risk factors of HCV/HIV co-infection and HCV mono-infection among injecting drug users in a methadone maintenance treatment program in Taipei, Taiwan](https://doi.org/10.1186/1471-2458-12-1066). *BMC Public Health*. 2012;12:1066.
 - Chen WJ, et al. [The impact of Taiwan's implementation of a nationwide harm reduction program in 2006 on the use of various illicit drugs](https://doi.org/10.1186/s12954-021-00566-5). *Harm Reduct J*. 2021;18:117.
+- Van den Berg C, et al. [Full participation in harm reduction programmes is associated with decreased risk for human immunodeficiency virus and hepatitis C virus: evidence from the Amsterdam Cohort Studies among drug users](https://doi.org/10.1111/j.1360-0443.2007.01912.x). *Addiction*. 2007;102:1454-62.
 - Hagan H, et al. [Sharing of drug preparation equipment as a risk factor for hepatitis C](https://doi.org/10.2105/ajph.91.1.42). *Am J Public Health*. 2001;91:42-46.
 - Bluthenthal RN, et al. [Examination of the association between syringe exchange program (SEP) dispensation policy and SEP client-level syringe coverage among injection drug users](https://pubmed.ncbi.nlm.nih.gov/17286637/). *Addiction*. 2007;102:638-46.
 - Wu ZY, Scott SR. [Human immunodeficiency virus prevention strategies in China](https://pmc.ncbi.nlm.nih.gov/articles/PMC7004624/). *Chin Med J*. 2020;133:318-25.
