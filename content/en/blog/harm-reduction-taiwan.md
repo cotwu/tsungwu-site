@@ -1,7 +1,7 @@
 ---
 title: Why does giving out free needles reduce harm? What Taiwan's data say
 description: Taiwan began handing out sterile needles in 2005 and added methadone in 2006. New HIV diagnoses among people who inject drugs fell from about 2,400 in 2005 to 22 in 2021, with no sign of more heroin use. The needles worked as part of a package, and hepatitis C remains harder to stop.
-tags: Taiwan
+tags: Taiwan, Health education
 date: 2026-10-03
 cover: /img/harm-reduction-taiwan.jpg
 ---
