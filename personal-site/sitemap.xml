@@ -12,6 +12,12 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/2026-09-12-apex-workshop/"/>
   </url>
   <url>
+    <loc>https://tsungwu.tw/en/blog/harm-reduction-taiwan/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/harm-reduction-taiwan/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/harm-reduction-taiwan/"/>
+  </url>
+  <url>
     <loc>https://tsungwu.tw/en/blog/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/"/>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/"/>
@@ -82,6 +88,12 @@
     <loc>https://tsungwu.tw/zh/blog/chen-yung-chi-represent-taiwan/</loc>
     <lastmod>2026-09-28</lastmod>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/chen-yung-chi-represent-taiwan/"/>
+  </url>
+  <url>
+    <loc>https://tsungwu.tw/zh/blog/harm-reduction-taiwan/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tsungwu.tw/en/blog/harm-reduction-taiwan/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://tsungwu.tw/zh/blog/harm-reduction-taiwan/"/>
   </url>
   <url>
     <loc>https://tsungwu.tw/zh/blog/</loc>
