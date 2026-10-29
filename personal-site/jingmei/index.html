@@ -249,7 +249,7 @@ const PORT_ZOOM = -0.45, PORT_PAD = { top: 0, left: 0, right: 0, bottom: 520 };
 
 // ───────── 地圖 ─────────
 const map = new maplibregl.Map({
-  container: 'map', interactive: false, attributionControl: false, fadeDuration: 0, maxPitch: 80,
+  container: 'map', center: [CAM[0][1], CAM[0][2]], zoom: CAM[0][3], interactive: false, // 載入中先停在台灣，不顯示全球 attributionControl: false, fadeDuration: 0, maxPitch: 80,
   canvasContextAttributes: { preserveDrawingBuffer: true, antialias: true },
   style: {
     version: 8,
