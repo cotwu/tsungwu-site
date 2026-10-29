@@ -23,8 +23,6 @@
   html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0d1620; }
   /* 網頁版：1920×1080 舞台等比縮放置中 */
   #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
-  #rotate { display: none; }
-  @media (orientation: portrait) { #rotate { display: block; position: fixed; left: 0; right: 0; bottom: 12%; text-align: center; color: rgba(255,255,255,.7); font: 15px "LXGW WenKai TC", sans-serif; } }
   #map { position: absolute; inset: 0; }
   #ov { position: absolute; inset: 0; pointer-events: none; font-family: "LXGW WenKai TC", "Noto Sans CJK TC", sans-serif; color: var(--ink); }
   .ink { filter: url(#rough); }
@@ -63,11 +61,27 @@
   #credit { position: absolute; right: 26px; bottom: 16px; font: 16px "Noto Sans CJK TC", sans-serif; color: rgba(255,255,255,.75);
     text-shadow: 0 1px 3px #000; }
   #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%); }
+  /* 直式版（手機直拿、9:16 影片）：舞台 1080×1920 */
+  br.p { display: none; }
+  .port .land { display: none; }
+  .port br.p { display: inline; }
+  .port #stage { width: 1080px; height: 1920px; }
+  .port #card { left: 50px; right: 50px; bottom: 150px; width: auto; padding: 34px 42px 36px; }
+  .port #card .zh { font-size: 54px; }
+  .port #card .en { font-size: 34px; }
+  .port #era { left: 0; right: 0; top: 110px; justify-content: center; }
+  .port #era .e { font-size: 38px; padding: 12px 30px; }
+  .port .full { padding: 0 60px; box-sizing: border-box; }
+  .port .full .t1 { font-size: 118px; line-height: 1.2; }
+  .port .full .t2 { font-size: 48px; }
+  .port .full .t3 { font-size: 38px; line-height: 1.5; }
+  .port #ending { padding-bottom: 170px !important; }
+  .port #ending .t1 { font-size: 104px !important; }
+  .port #credit { left: 40px; right: 40px; bottom: 40px; text-align: center; font-size: 24px; }
   .maplibregl-ctrl-attrib, .maplibregl-ctrl-logo { display: none !important; }
 </style>
 </head>
 <body>
-<div id="rotate">手機請橫放觀看 ⟲</div>
 <div id="stage">
 <div id="map"></div>
 <div id="ov">
@@ -79,16 +93,16 @@
   <div id="era"><div class="e">18 世紀</div><div class="e">19 世紀</div><div class="e">20 世紀</div></div>
   <div id="card"><div class="zh"></div><div class="en"></div></div>
   <div class="full" id="title">
-    <div class="t1">景美一日・走過台北三百年</div>
+    <div class="t1">景美一日<span class="land">・</span><br class="p">走過台北三百年</div>
     <div class="t2">One Day in Jingmei — 300 Years of Taipei</div>
-    <div class="t3">整理自 三立《台灣ON AIR》・沈伯洋英文導覽台北歷史景點與爬山路徑（2026.10.27）</div>
+    <div class="t3">整理自 三立《台灣ON AIR》・<br class="p">沈伯洋英文導覽台北歷史景點與爬山路徑<br class="p">（2026.10.27）</div>
   </div>
   <div class="full" id="ending" style="justify-content:flex-end;padding-bottom:80px;box-sizing:border-box;background:linear-gradient(to top,rgba(13,22,32,.8),rgba(13,22,32,0) 42%)">
-    <div class="t1" style="font-size:96px">一天之內，走完台北三百年</div>
+    <div class="t1" style="font-size:96px">一天之內，<br class="p">走完台北三百年</div>
     <div class="t2">Three centuries of Taipei, in a single day.</div>
-    <div class="t3">資料來源：三立《台灣ON AIR》沈伯洋英文導覽台北歷史景點與爬山路徑（2026.10.27）</div>
+    <div class="t3">資料來源：三立《台灣ON AIR》<br class="p">沈伯洋英文導覽台北歷史景點與爬山路徑<br class="p">（2026.10.27）</div>
   </div>
-  <div id="credit">衛星影像 © Esri, Maxar ｜ 地形 © Mapzen/AWS Terrain Tiles ｜ 圳道與傳說路線為示意</div>
+  <div id="credit">衛星影像 © Esri, Maxar ｜ <br class="p">地形 © Mapzen/AWS Terrain Tiles ｜ 圳道與傳說路線為示意</div>
 </div>
 </div>
 
@@ -218,13 +232,20 @@ function camAt(t) {
   return { center: [lerp(1), lerp(2)], zoom: lerp(3), pitch: lerp(4), bearing: A[5] + db * s };
 }
 
-// ───────── 網頁版縮放 ─────────
+// ───────── 網頁版縮放：橫式 1920×1080，直式 1080×1920 ─────────
+const q = new URLSearchParams(location.search);
+const PORT = q.has('portrait') || (!q.has('landscape') && innerHeight > innerWidth);
+if (PORT) document.documentElement.classList.add('port');
+const [SW, SH] = PORT ? [1080, 1920] : [1920, 1080];
 const stage = document.getElementById('stage');
 const fit = () => {
-  const k = Math.min(innerWidth / 1920, innerHeight / 1080);
-  stage.style.transform = `translate(${(innerWidth - 1920 * k) / 2}px, ${(innerHeight - 1080 * k) / 2}px) scale(${k})`;
+  if (!q.has('portrait') && !q.has('landscape') && (innerHeight > innerWidth) !== PORT) return location.reload(); // 手機轉向：換版面重播
+  const k = Math.min(innerWidth / SW, innerHeight / SH);
+  stage.style.transform = `translate(${(innerWidth - SW * k) / 2}px, ${(innerHeight - SH * k) / 2}px) scale(${k})`;
 };
 addEventListener('resize', fit); fit();
+// 直式：畫面較窄，鏡頭拉遠一點，並把焦點往上移、讓開下方字卡
+const PORT_ZOOM = -0.45, PORT_PAD = { top: 0, left: 0, right: 0, bottom: 520 };
 
 // ───────── 地圖 ─────────
 const map = new maplibregl.Map({
@@ -270,7 +291,12 @@ for (const [id, , art, zh, en] of PINS) {
 // ───────── 每格繪製 ─────────
 const lastP = {};
 function draw(t) {
-  map.jumpTo(camAt(t));
+  const cam = camAt(t);
+  if (PORT) { // 片頭漸進到直式鏡頭；片尾總覽拉近一點，讓五個地點分開
+    const k = ease(clamp((t - 1.5) / 4.5)), e = ease(clamp((t - 72) / 4));
+    cam.zoom += PORT_ZOOM * k * (1 - e) + 0.35 * e; cam.padding = { ...PORT_PAD, bottom: PORT_PAD.bottom * k };
+  }
+  map.jumpTo(cam);
 
   for (const [id, line, a, b] of LINES) {
     const p = Math.round(clamp((t - a) / (b - a)) * 200) / 200;
@@ -287,7 +313,7 @@ function draw(t) {
     const pt = map.project(pos), pop = 0.6 + 0.4 * ease(clamp((t - a) / .5));
     const w = el.offsetWidth, h = el.offsetHeight;
     el.style.opacity = o;
-    el.style.transform = `translate(${pt.x - w / 2 + dx}px, ${pt.y - h + lift}px) scale(${sc * pop})`;
+    el.style.transform = `translate(${pt.x - w / 2 + dx}px, ${pt.y - h + lift}px) scale(${sc * pop * (PORT && /^e\d$/.test(id) ? 1.25 : 1)})`;
   }
 
   const card = document.getElementById('card'); let shown = false;
@@ -310,7 +336,6 @@ function draw(t) {
 // 預覽：?t=秒 停在某格；無參數則即時播放。錄影：window.seek(t)
 window.seek = t => new Promise(res => { draw(story(t)); map.once('idle', () => requestAnimationFrame(() => res())); map.triggerRepaint(); });
 window.DUR = DUR;
-const q = new URLSearchParams(location.search);
 map.on('load', () => {
   if (q.has('capture')) return;
   if (q.has('t')) { seek(+q.get('t')); return; }
