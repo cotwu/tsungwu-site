@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>景美一日・走過台北三百年</title>
+<meta name="description" content="地圖動畫：從 18 世紀的瑠公圳、19 世紀的集應廟，到仙跡岩傳說與 20 世紀的眷村、人權園區，一天走完台北三百年。整理自三立《台灣ON AIR》沈伯洋英文導覽。">
+<meta property="og:title" content="景美一日・走過台北三百年">
+<meta property="og:description" content="地圖動畫：瑠公圳、集應廟、仙跡岩、蟾蜍山、景美人權園區。整理自三立《台灣ON AIR》沈伯洋英文導覽。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tsungwu.tw/jingmei/">
+<meta property="og:image" content="https://tsungwu.tw/jingmei/og.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Lora:ital,wght@1,500&display=block" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<style>
+  :root {
+    --paper: #fbf5e6; --ink: #2b2620; --soft: #6b5f50;
+    --red: #c8452c; --blue: #3f86c6; --gold: #e0a92e; --green: #5f8f3e;
+  }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0d1620; }
+  /* 網頁版：1920×1080 舞台等比縮放置中 */
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
+  #rotate { display: none; }
+  @media (orientation: portrait) { #rotate { display: block; position: fixed; left: 0; right: 0; bottom: 12%; text-align: center; color: rgba(255,255,255,.7); font: 15px "LXGW WenKai TC", sans-serif; } }
+  #map { position: absolute; inset: 0; }
+  #ov { position: absolute; inset: 0; pointer-events: none; font-family: "LXGW WenKai TC", "Noto Sans CJK TC", sans-serif; color: var(--ink); }
+  .ink { filter: url(#rough); }
+
+  /* 地點標籤與插畫：以 map.project 定位 */
+  .pin { position: absolute; left: 0; top: 0; transform-origin: 50% 100%; opacity: 0; will-change: transform, opacity; }
+  .pin .art { display: block; margin: 0 auto; filter: drop-shadow(3px 6px 6px rgba(0,0,0,.45)); }
+  .pin .tag { margin-top: 4px; background: var(--paper); border: 3px solid var(--ink); border-radius: 14px;
+    padding: 6px 16px 7px; white-space: nowrap; text-align: center; box-shadow: 4px 5px 0 rgba(0,0,0,.35); }
+  .pin .tag b { font-size: 34px; display: block; line-height: 1.1; }
+  .pin .tag i { font: italic 500 20px "Lora", serif; color: var(--soft); }
+  .pin .stem { width: 4px; height: 26px; background: var(--ink); margin: 0 auto; }
+
+  /* 字卡 */
+  #card { position: absolute; left: 70px; bottom: 70px; width: 820px; background: var(--paper);
+    border: 4px solid var(--ink); border-radius: 22px; padding: 30px 38px 32px; box-shadow: 8px 10px 0 rgba(0,0,0,.4);
+    opacity: 0; }
+  #card .zh { font-size: 44px; font-weight: 700; line-height: 1.35; }
+  #card .en { font: italic 500 27px/1.4 "Lora", serif; color: var(--soft); margin-top: 14px; }
+  #card .hl { color: var(--red); }
+
+  /* 時代條 */
+  #era { position: absolute; left: 70px; top: 60px; display: flex; gap: 0; opacity: 0; }
+  #era .e { font-size: 30px; font-weight: 700; padding: 10px 26px; background: rgba(251,245,230,.55);
+    border: 3px solid var(--ink); color: var(--soft); }
+  #era .e:first-child { border-radius: 16px 0 0 16px; } #era .e:last-child { border-radius: 0 16px 16px 0; }
+  #era .e + .e { border-left: none; }
+  #era .e.on { background: var(--red); color: #fff; }
+
+  /* 片頭片尾 */
+  .full { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; opacity: 0; }
+  .full .t1 { font-size: 112px; font-weight: 700; color: var(--paper); text-shadow: 0 6px 30px rgba(0,0,0,.7), 4px 4px 0 var(--ink); }
+  .full .t2 { font: italic 500 46px "Lora", serif; color: var(--paper); margin-top: 18px; text-shadow: 0 4px 20px rgba(0,0,0,.8); }
+  .full .t3 { font-size: 30px; color: var(--paper); margin-top: 40px; opacity: .9; text-shadow: 0 3px 14px rgba(0,0,0,.9); }
+  #credit { position: absolute; right: 26px; bottom: 16px; font: 16px "Noto Sans CJK TC", sans-serif; color: rgba(255,255,255,.75);
+    text-shadow: 0 1px 3px #000; }
+  #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%); }
+  .maplibregl-ctrl-attrib, .maplibregl-ctrl-logo { display: none !important; }
+</style>
+</head>
+<body>
+<div id="rotate">手機請橫放觀看 ⟲</div>
+<div id="stage">
+<div id="map"></div>
+<div id="ov">
+  <div id="vignette"></div>
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.5"/></filter>
+  </svg>
+  <div id="pins"></div>
+  <div id="era"><div class="e">18 世紀</div><div class="e">19 世紀</div><div class="e">20 世紀</div></div>
+  <div id="card"><div class="zh"></div><div class="en"></div></div>
+  <div class="full" id="title">
+    <div class="t1">景美一日・走過台北三百年</div>
+    <div class="t2">One Day in Jingmei — 300 Years of Taipei</div>
+    <div class="t3">整理自 三立《台灣ON AIR》・沈伯洋英文導覽台北歷史景點與爬山路徑（2026.10.27）</div>
+  </div>
+  <div class="full" id="ending" style="justify-content:flex-end;padding-bottom:80px;box-sizing:border-box;background:linear-gradient(to top,rgba(13,22,32,.8),rgba(13,22,32,0) 42%)">
+    <div class="t1" style="font-size:96px">一天之內，走完台北三百年</div>
+    <div class="t2">Three centuries of Taipei, in a single day.</div>
+    <div class="t3">資料來源：三立《台灣ON AIR》沈伯洋英文導覽台北歷史景點與爬山路徑（2026.10.27）</div>
+  </div>
+  <div id="credit">衛星影像 © Esri, Maxar ｜ 地形 © Mapzen/AWS Terrain Tiles ｜ 圳道與傳說路線為示意</div>
+</div>
+</div>
+
+<script>
+// ───────── 插畫（手繪風 SVG） ─────────
+const ART_W = { aqueduct: 280, temple: 260, rice: 220, market: 250, foot: 260, tower: 190, immortal: 250, toad: 210, village: 300, ntu: 260, memorial: 270, gate: 260 };
+const ART = Object.fromEntries(Object.entries(ART_W).map(([k, w]) => [k, `<img class="art" src="art/${k}.png" style="width:${w}px">`]));
+ART[''] = '';
+
+// ───────── 地點 ─────────
+const P = {
+  taipei101: [121.56450, 25.03384], longshan: [121.49990, 25.03720],
+  qingtan: [121.5505, 24.9480], dapinglin: [121.54178, 24.97379], kingbue: [121.5414, 24.9895],
+  jiying: [121.54197, 24.99170], market: [121.54170, 24.99069],
+  xianjiyan: [121.54815, 24.99248], toadhill: [121.54403, 25.00798], huanmin: [121.54004, 25.00953],
+  ntu: [121.53970, 25.01740], memorial: [121.53233, 24.98730],
+};
+const CANAL = [P.qingtan, [121.5472, 24.9550], [121.5430, 24.9625], [121.5422, 24.9690], P.dapinglin, [121.5414, 24.9800], [121.5412, 24.9862], P.kingbue];
+const HIKE = [P.jiying, [121.5440, 24.9912], [121.5462, 24.9918], P.xianjiyan];
+const LEGEND = arc(P.xianjiyan, P.toadhill, 0.006, 40);
+const SOUTHWAY = [P.jiying, [121.5400, 24.9895], [121.5372, 24.9884], P.memorial];
+
+function arc(a, b, bulge, n) {
+  const out = [], dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy), nx = -dy / len, ny = dx / len;
+  for (let i = 0; i <= n; i++) { const s = i / n, h = Math.sin(Math.PI * s) * bulge; out.push([a[0] + dx * s + nx * h, a[1] + dy * s + ny * h]); }
+  return out;
+}
+function along(line, p) { // 依比例截取折線
+  if (p <= 0) return [line[0], line[0]];
+  const seg = []; let total = 0;
+  for (let i = 1; i < line.length; i++) { const d = Math.hypot(line[i][0] - line[i-1][0], line[i][1] - line[i-1][1]); seg.push(d); total += d; }
+  let need = total * Math.min(p, 1); const out = [line[0]];
+  for (let i = 1; i < line.length; i++) {
+    if (need >= seg[i-1]) { out.push(line[i]); need -= seg[i-1]; continue; }
+    const r = need / seg[i-1]; out.push([line[i-1][0] + (line[i][0] - line[i-1][0]) * r, line[i-1][1] + (line[i][1] - line[i-1][1]) * r]); break;
+  }
+  return out.length > 1 ? out : [line[0], line[0]];
+}
+
+// ───────── 時間軸 ─────────
+const DUR = 85;
+// 放慢段落：實際時間 [a, a+len+extra] 對應故事時間 [a, a+len]（「梘尾」字卡多停 3 秒）
+const SLOW = [21.5, 6, 3];
+function story(t) {
+  const [a, len, extra] = SLOW;
+  if (t <= a) return t;
+  if (t <= a + len + extra) return a + (t - a) * len / (len + extra);
+  return t - extra;
+}
+// 鏡頭關鍵格：[t, lng, lat, zoom, pitch, bearing]
+const CAM = [
+  [0,   121.00, 23.75, 7.0,  0,   0],
+  [1.5, 121.00, 23.75, 7.0,  0,   0],
+  [6,   121.535, 25.030, 11.9, 40, -8],
+  [11,  121.530, 25.028, 12.3, 48, 6],
+  [15,  121.546, 24.950, 13.4, 45, 0],
+  [21,  121.5425, 24.966, 14.2, 52, 6],
+  [25,  121.5415, 24.9890, 15.8, 62, 18],
+  [29,  121.5420, 24.9915, 17.1, 62, 35],
+  [33,  121.5419, 24.9912, 17.3, 64, 48],
+  [37,  121.5417, 24.9905, 17.2, 64, 70],
+  [41,  121.5465, 24.9912, 15.6, 66, 95],
+  [45,  121.5482, 24.9925, 15.9, 70, 120],
+  [50,  121.5540, 25.0040, 14.6, 74, 22],
+  [53,  121.5520, 25.0060, 14.4, 72, 10],
+  [57,  121.5452, 25.0050, 14.9, 62, -20],
+  [61,  121.5405, 25.0098, 16.4, 63, -40],
+  [64,  121.5400, 25.0120, 15.8, 60, -25],
+  [68,  121.5340, 24.9880, 16.2, 62, -150],
+  [72,  121.5326, 24.9875, 16.5, 64, -175],
+  [76,  121.5400, 24.9930, 14.45, 34, -10],
+  [82,  121.5405, 24.9935, 14.35, 36, 4],
+];
+// 字卡：[起, 迄, 中文, 英文]
+const CARDS = [
+  [6.5, 10.5, '來台北，大家都去 <span class="hl">101</span>、<span class="hl">龍山寺</span>。', 'Most visitors head straight for Taipei 101 or Longshan Temple.'],
+  [11, 14.8, '但有個地方，能一次看見台北三百年——<span class="hl">景美</span>。', 'But one neighborhood holds 300 years of Taipei: Jingmei.'],
+  [15.5, 21, '1740 年代，郭錫瑠開鑿<span class="hl">瑠公圳</span>，引新店溪水灌溉台北盆地的農田。', 'In the 1740s, Kuo Hsi-liu dug the Liugong Canal to water the farms of the Taipei Basin.'],
+  [21.5, 27.5, '圳水用木「梘」跨過景美溪，尾端叫「<span class="hl">梘尾</span>」——後寫作「景尾」，1920 年改名「景美」。', 'A wooden aqueduct (kíng) carried it over the river. Its end, kíng-bué, became “Jingmei” in 1920.'],
+  [28, 32.8, '農人怕蟲害，便奉祀保儀尊王——<span class="hl">集應廟</span>，守護莊稼的神。', 'Farmers feared pests, so they built Jiying Temple for a god who guards the crops.'],
+  [33.2, 38, '有廟就有人潮：<span class="hl">早市、夜市</span>，一路熱鬧到今天。', 'Where there is a temple, there is a crowd — morning market, night market, still buzzing today.'],
+  [38.5, 43.5, '從廟口走約 20 分鐘，就上<span class="hl">仙跡岩</span>。', 'A 20-minute walk from the temple takes you up Xianjiyan.'],
+  [44, 49, '傳說<span class="hl">呂洞賓</span>追趕蟾蜍精，在岩上留下一枚腳印。', 'Legend says the immortal Lü Dongbin left a footprint here while chasing a toad spirit.'],
+  [49.5, 53.8, '山頂眺望台，遠遠就能看見 <span class="hl">101</span>。', 'From the lookout, Taipei 101 rises on the horizon.'],
+  [54.2, 58.5, '往北：蟾蜍精逃到公館，化作<span class="hl">蟾蜍山</span>。', 'Head north: the toad fled to Gongguan and became Toad Mountain.'],
+  [59, 65, '山腳的<span class="hl">煥民新村</span>，是 1949 年後的空軍眷村；旁邊就是台大。', 'At its foot, Huanmin Village housed Air Force families after 1949 — right by National Taiwan University.'],
+  [65.5, 70.5, '往另一頭：新店的<span class="hl">白色恐怖景美紀念園區</span>。', 'The other way: the White Terror Jing-Mei Memorial Park in Xindian.'],
+  [70.8, 75.5, '戒嚴時期，這裡審判、關押政治犯——台北的<span class="hl">另一面</span>。', 'Under martial law, political prisoners were tried and held here — Taipei’s other story.'],
+];
+// 時代條：[起, 迄, 亮哪一格]
+const ERA = [[15.5, 28, 0], [28, 54, 1], [54, 76, 2]];
+// 圖釘／插畫：[id, 地點, 插畫, 中文, 英文, 起, 迄, 大小倍率]
+const PINS = [
+  ['p101a', P.taipei101, 'tower', '台北 101', 'Taipei 101', 6.5, 14.5, 1],
+  ['plsa', P.longshan, 'gate', '龍山寺', 'Longshan Temple', 7, 14.5, 1],
+  ['pcanal', P.dapinglin, '', '瑠公圳', 'Liugong Canal', 16, 23, .9],
+  ['pking', P.kingbue, 'aqueduct', '梘尾 → 景美', 'kíng-bué → Jingmei', 22, 28.5, 1],
+  ['pjy', P.jiying, 'temple', '集應廟', 'Jiying Temple', 28, 38.5, 1.05],
+  ['pbug', [121.5428, 24.9921], 'rice', '', '', 29.2, 33, .9],
+  ['pmk', P.market, 'market', '景美夜市', 'Jingmei Night Market', 33.4, 38.5, 1],
+  ['pxj', P.xianjiyan, 'foot', '仙跡岩', 'Xianjiyan · Immortal Footprint Rock', 39, 54, 1.05],
+  ['pimm', P.xianjiyan, 'immortal', '', '', 44.3, 49.5, 1, -280],
+  ['p101b', P.taipei101, 'tower', '台北 101', 'Taipei 101', 50, 54, 1.3],
+  ['ptoad', P.toadhill, 'toad', '蟾蜍山', 'Toad Mountain', 54.5, 65, 1],
+  ['phm', P.huanmin, 'village', '煥民新村', 'Huanmin Air Force Village', 59.3, 65, 1],
+  ['pntu', P.ntu, 'ntu', '台大', 'NTU', 60.3, 65, .85],
+  ['pmem', P.memorial, 'memorial', '景美紀念園區', 'Jing-Mei Memorial Park', 66, 76, 1.05],
+  // 片尾總覽
+  ['e1', P.kingbue, 'aqueduct', '18 世紀', 'canal', 76.5, 82, .42],
+  ['e2', P.jiying, 'temple', '19 世紀', 'temple & market', 77, 82, .42],
+  ['e3', P.xianjiyan, 'foot', '傳說', 'legend', 77.5, 82, .42],
+  ['e4', P.huanmin, 'village', '20 世紀', 'military village', 78, 82, .42],
+  ['e5', P.memorial, 'memorial', '20 世紀', 'human rights', 78.5, 82, .42],
+];
+// 線段：[source, 線, 起, 迄]（起迄之間生長，之後保留到片尾）
+const LINES = [['canal', CANAL, 15.8, 24], ['hike', HIKE, 38.6, 42.5], ['legend', LEGEND, 54.3, 57.5], ['south', SOUTHWAY, 65.6, 68.5]];
+
+// ───────── 小工具 ─────────
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const fade = (t, a, b, f = .6) => clamp(Math.min((t - a) / f, (b - t) / f));
+function camAt(t) {
+  let i = 0; while (i < CAM.length - 2 && t > CAM[i + 1][0]) i++;
+  const A = CAM[i], B = CAM[i + 1], s = ease(clamp((t - A[0]) / (B[0] - A[0])));
+  const lerp = k => A[k] + (B[k] - A[k]) * s;
+  let db = B[5] - A[5]; if (db > 180) db -= 360; if (db < -180) db += 360;
+  return { center: [lerp(1), lerp(2)], zoom: lerp(3), pitch: lerp(4), bearing: A[5] + db * s };
+}
+
+// ───────── 網頁版縮放 ─────────
+const stage = document.getElementById('stage');
+const fit = () => {
+  const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+  stage.style.transform = `translate(${(innerWidth - 1920 * k) / 2}px, ${(innerHeight - 1080 * k) / 2}px) scale(${k})`;
+};
+addEventListener('resize', fit); fit();
+
+// ───────── 地圖 ─────────
+const map = new maplibregl.Map({
+  container: 'map', interactive: false, attributionControl: false, fadeDuration: 0, maxPitch: 80,
+  canvasContextAttributes: { preserveDrawingBuffer: true, antialias: true },
+  style: {
+    version: 8,
+    sources: {
+      sat: { type: 'raster', tileSize: 256, maxzoom: 19, tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'] },
+      dem: { type: 'raster-dem', encoding: 'terrarium', tileSize: 256, maxzoom: 15, tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'] },
+    },
+    sky: { 'sky-color': '#9cc7e8', 'horizon-color': '#f3e6c8', 'fog-color': '#e9dcc0', 'sky-horizon-blend': .6, 'horizon-fog-blend': .5, 'fog-ground-blend': .75, 'atmosphere-blend': .8 },
+    layers: [
+      { id: 'bg', type: 'background', paint: { 'background-color': '#1d2a33' } },
+      { id: 'sat', type: 'raster', source: 'sat', paint: { 'raster-saturation': -0.25, 'raster-contrast': 0.05, 'raster-brightness-max': 0.92 } },
+      { id: 'hill', type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.25, 'hillshade-shadow-color': '#2b2620' } },
+    ],
+  },
+  terrain: { source: 'dem', exaggeration: 1.6 },
+});
+
+const lineSrc = {};
+map.on('load', () => {
+  const styleFor = { canal: ['#3f86c6', 9, null], hike: ['#e0a92e', 7, [1.2, 1.2]], legend: ['#e0a92e', 7, [0.4, 1.6]], south: ['#c8452c', 7, [1.2, 1.2]] };
+  for (const [id] of LINES) {
+    map.addSource(id, { type: 'geojson', data: lineGeo([[0, 0], [0, 0]]) });
+    const [c, w, dash] = styleFor[id];
+    map.addLayer({ id: id + '-case', type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#fbf5e6', 'line-width': w + 6, 'line-opacity': 0.9 } });
+    map.addLayer({ id, type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: Object.assign({ 'line-color': c, 'line-width': w }, dash ? { 'line-dasharray': dash } : {}) });
+  }
+  window.mapReady = true;
+});
+function lineGeo(coords) { return { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } }; }
+
+// ───────── 圖釘 DOM ─────────
+const pinBox = document.getElementById('pins');
+for (const [id, , art, zh, en] of PINS) {
+  const d = document.createElement('div'); d.className = 'pin'; d.id = id;
+  d.innerHTML = ART[art] + (zh ? `<div class="stem"></div><div class="tag"><b>${zh}</b><i>${en}</i></div>` : '');
+  pinBox.appendChild(d);
+}
+
+// ───────── 每格繪製 ─────────
+const lastP = {};
+function draw(t) {
+  map.jumpTo(camAt(t));
+
+  for (const [id, line, a, b] of LINES) {
+    const p = Math.round(clamp((t - a) / (b - a)) * 200) / 200;
+    if (lastP[id] !== p) { lastP[id] = p; map.getSource(id)?.setData(lineGeo(along(line, ease(p)))); }
+  }
+
+  for (const [id, ll, art, zh, , a, b, sc, dx = 0] of PINS) {
+    const el = document.getElementById(id), o = fade(t, a, b, .5);
+    if (o <= 0) { el.style.opacity = 0; continue; }
+    let pos = ll, lift = 0;
+    if (id === 'ptoad' && t < 57.5) { // 蟾蜍沿傳說路線飛過去
+      const q = ease(clamp((t - 54.3) / 3.2)); pos = LEGEND[Math.round(q * (LEGEND.length - 1))]; lift = Math.sin(q * Math.PI * 3) * -30;
+    }
+    const pt = map.project(pos), pop = 0.6 + 0.4 * ease(clamp((t - a) / .5));
+    const w = el.offsetWidth, h = el.offsetHeight;
+    el.style.opacity = o;
+    el.style.transform = `translate(${pt.x - w / 2 + dx}px, ${pt.y - h + lift}px) scale(${sc * pop})`;
+  }
+
+  const card = document.getElementById('card'); let shown = false;
+  for (const [a, b, zh, en] of CARDS) {
+    if (t >= a - .01 && t <= b) {
+      if (card.dataset.k !== String(a)) { card.dataset.k = a; card.querySelector('.zh').innerHTML = zh; card.querySelector('.en').textContent = en; }
+      const o = fade(t, a, b, .45); card.style.opacity = o; card.style.transform = `translateY(${(1 - o) * 24}px)`; shown = true;
+    }
+  }
+  if (!shown) card.style.opacity = 0;
+
+  const era = document.getElementById('era'); let eo = 0;
+  for (const [a, b, k] of ERA) if (t >= a && t < b) { eo = 1; era.querySelectorAll('.e').forEach((e, i) => e.classList.toggle('on', i === k)); }
+  era.style.opacity = eo * fade(t, 15.5, 76, .6);
+
+  document.getElementById('title').style.opacity = fade(t, -1, 5.6, .9);
+  document.getElementById('ending').style.opacity = fade(t, 76.3, 90, .9);
+}
+
+// 預覽：?t=秒 停在某格；無參數則即時播放。錄影：window.seek(t)
+window.seek = t => new Promise(res => { draw(story(t)); map.once('idle', () => requestAnimationFrame(() => res())); map.triggerRepaint(); });
+window.DUR = DUR;
+const q = new URLSearchParams(location.search);
+map.on('load', () => {
+  if (q.has('capture')) return;
+  if (q.has('t')) { seek(+q.get('t')); return; }
+  const t0 = performance.now();
+  const loop = () => { const t = (performance.now() - t0) / 1000 % DUR; draw(story(t)); requestAnimationFrame(loop); };
+  loop();
+});
+</script>
+</body>
+</html>
