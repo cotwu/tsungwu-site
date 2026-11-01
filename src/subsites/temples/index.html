@@ -78,13 +78,13 @@
   .port #ending { padding-bottom: 170px !important; }
   .port #ending .t1 { font-size: 104px !important; }
   .port #credit { left: 40px; right: 40px; bottom: 40px; text-align: center; font-size: 24px; }
-  /* 「天上聖母」→「天母」大字 */
-  #name { position: absolute; right: 90px; top: 70px; display: flex; align-items: center; opacity: 0; font-weight: 700; font-size: 132px;
+  /* 「天照大神＋天上聖母」→「天母」大字 */
+  #name { position: absolute; right: 90px; top: 70px; display: flex; align-items: center; opacity: 0; font-weight: 700; font-size: 110px;
     background: var(--paper); border: 4px solid var(--ink); border-radius: 26px; padding: 14px 38px; box-shadow: 8px 10px 0 rgba(0,0,0,.4); }
   #name span { display: inline-block; overflow: hidden; white-space: nowrap; line-height: 1.15; text-align: center; }
   #name .k { color: var(--red); }
   #name .m { color: var(--soft); }
-  .port #name { right: auto; left: 50%; top: auto; bottom: 640px; transform: translateX(-50%); font-size: 150px; }
+  .port #name { right: auto; left: 50%; top: auto; bottom: 640px; transform: translateX(-50%); font-size: 96px; padding: 14px 30px; }
   /* 片尾連結（只在網頁版顯示，錄影時隱藏） */
   #links { margin-top: 36px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; visibility: hidden; }
   #links a, #links button { pointer-events: auto; cursor: pointer; font: 700 30px "LXGW WenKai TC", sans-serif; color: var(--ink);
@@ -115,7 +115,7 @@
   </svg>
   <div id="pins"></div>
   <div id="era"><div class="e">士林</div><div class="e">加蚋仔</div><div class="e">天母</div></div>
-  <div id="name"><span class="k">天</span><span class="m">上</span><span class="m">聖</span><span class="k">母</span></div>
+  <div id="name"><span class="k">天</span><span class="m">照</span><span class="m">大</span><span class="m">神</span><span class="m">＋</span><span class="m">天</span><span class="m">上</span><span class="m">聖</span><span class="k">母</span></div>
   <div id="card"><div class="zh"></div><div class="en"></div></div>
   <div class="full" id="title">
     <div class="t1">三間廟<span class="land">・</span><br class="p">三段台北</div>
@@ -215,7 +215,7 @@ const CARDS = [
   [59.5, 64, '沈伯洋說：在大稻埕聞到的，是<span class="hl">南萬華的花香</span>。', 'Shen Po-yang: “In Dadaocheng, what you smelled was South Wanhua’s jasmine.”'],
   [66.5, 70.5, '天母這一帶，原本叫「<span class="hl">三角埔</span>」。', 'This area was once called Sanjiaopu.'],
   [71, 76.5, '1930 年代，日本人中治稔郎在這裡創立「<span class="hl">天母教</span>」：供奉媽祖，並把媽祖和天照大神看成同一位神。', 'In the 1930s a Japanese settler founded the Tianmu sect here, worshipping Mazu as one with Amaterasu.'],
-  [77, 82.5, '「天母」兩個字，取自媽祖的尊號「<span class="hl">天</span>上聖<span class="hl">母</span>」頭尾兩字。', '“Tianmu” takes the first and last characters of Mazu’s title, Tiān-shàng-shèng-mǔ.'],
+  [77, 82.5, '「天母」，是<span class="hl">天</span>照大神的「天」，加上媽祖「天上聖<span class="hl">母</span>」的「母」。', '“Tianmu” joins the “Tian” of Amaterasu with the “Mu” of Mazu’s title, Tiān-shàng-shèng-mǔ.'],
   [83, 88.5, '他蓋了<span class="hl">天母神社</span>，又開溫泉、跑巴士都叫「天母」，這個名字就慢慢取代了「三角埔」。', 'His Tianmu Shrine, hot spring and bus line spread the name until it replaced Sanjiaopu.'],
   [89, 94.5, '戰後神社荒廢，居民另建廟奉祀媽祖，1979 年落成<span class="hl">三玉宮</span>：三角埔＋玉潮坑。', 'After the war, locals built a temple for Mazu, completed in 1979 as Sanyu Temple.'],
 ];
