@@ -96,11 +96,14 @@
   .capture #links { display: none; }
   #snd { position: fixed; top: 12px; right: 12px; z-index: 10; font: 700 15px "LXGW WenKai TC", sans-serif; color: #2b2118;
     background: #fbf3e4; border: 2px solid #2b2118; border-radius: 999px; padding: 7px 14px; cursor: pointer; box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
-  .capture #snd { display: none; }
+  #pp { position: fixed; top: 12px; right: 132px; z-index: 10; font: 700 15px "LXGW WenKai TC", sans-serif; color: #2b2118;
+    background: #fbf3e4; border: 2px solid #2b2118; border-radius: 999px; padding: 7px 14px; cursor: pointer; box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
+  .capture #snd, .capture #pp { display: none; }
   .maplibregl-ctrl-attrib, .maplibregl-ctrl-logo { display: none !important; }
 </style>
 </head>
 <body>
+<button type="button" id="pp">❚❚ 暫停</button>
 <button type="button" id="snd">♪ 開啟音樂</button>
 <audio id="bgm" src="music.m4a" preload="auto"></audio>
 <div id="stage">
@@ -366,16 +369,27 @@ map.on('load', () => {
   let t0 = performance.now();
   // 配樂：瀏覽器不准自動播放有聲音的媒體，按鈕開啟後對齊目前時間
   const bgm = document.getElementById('bgm'), snd = document.getElementById('snd');
-  const now = () => (performance.now() - t0) / 1000;
+  let pausedAt = null;  // 暫停時記下時刻，繼續時把 t0 往後推
+  const now = () => ((pausedAt ?? performance.now()) - t0) / 1000;
+  const pp = document.getElementById('pp');
+  const setPause = p => {
+    if (p && pausedAt === null) { pausedAt = performance.now(); bgm.pause(); pp.textContent = '▶ 繼續'; }
+    else if (!p && pausedAt !== null) {
+      t0 += performance.now() - pausedAt; pausedAt = null; pp.textContent = '❚❚ 暫停';
+      if (snd.dataset.on && now() < DUR) { bgm.currentTime = now(); bgm.play(); }
+    }
+  };
+  pp.onclick = () => setPause(pausedAt === null);
+  addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); setPause(pausedAt === null); } });
   snd.onclick = () => {
-    if (bgm.paused) { if (now() < DUR) { bgm.currentTime = now(); bgm.play(); } snd.textContent = '♪ 關閉音樂'; snd.dataset.on = 1; }
+    if (!snd.dataset.on) { if (now() < DUR && pausedAt === null) { bgm.currentTime = now(); bgm.play(); } snd.textContent = '♪ 關閉音樂'; snd.dataset.on = 1; }
     else { bgm.pause(); snd.textContent = '♪ 開啟音樂'; delete snd.dataset.on; }
   };
   document.getElementById('replay').onclick = () => {
-    t0 = performance.now();
+    t0 = performance.now(); pausedAt = null; pp.textContent = '❚❚ 暫停';
     if (snd.dataset.on) { bgm.currentTime = 0; bgm.play(); }
   };
-  const loop = () => { const t = Math.min((performance.now() - t0) / 1000, DUR); draw(story(t)); requestAnimationFrame(loop); };
+  const loop = () => { const t = Math.min(now(), DUR); draw(story(t)); requestAnimationFrame(loop); };
   loop();
 });
 </script>
