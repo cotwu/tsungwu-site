@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三間廟・三段台北</title>
+<meta name="description" content="地圖動畫：士林慈諴宮的對場作、加蚋仔的茉莉花香、天母三玉宮與地名由來。整理自沈伯洋 2026 年參選期間的廟宇致詞，史實另行查核。">
+<meta property="og:title" content="三間廟・三段台北">
+<meta property="og:description" content="士林慈諴宮的對場作、加蚋仔的茉莉花香、天母地名的由來。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tsungwu.tw/temples/">
+<meta property="og:image" content="https://tsungwu.tw/temples/og.jpg">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Lora:ital,wght@1,500&display=block" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<style>
+  :root {
+    --paper: #fbf5e6; --ink: #2b2620; --soft: #6b5f50;
+    --red: #c8452c; --blue: #3f86c6; --gold: #e0a92e; --green: #5f8f3e;
+  }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0d1620; }
+  /* 網頁版：1920×1080 舞台等比縮放置中 */
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
+  #map { position: absolute; inset: 0; }
+  #ov { position: absolute; inset: 0; pointer-events: none; font-family: "LXGW WenKai TC", "Noto Sans CJK TC", sans-serif; color: var(--ink); }
+  .ink { filter: url(#rough); }
+
+  /* 地點標籤與插畫：以 map.project 定位 */
+  .pin { position: absolute; left: 0; top: 0; transform-origin: 50% 100%; opacity: 0; will-change: transform, opacity; }
+  .pin .art { display: block; margin: 0 auto; filter: drop-shadow(3px 6px 6px rgba(0,0,0,.45)); }
+  .pin .tag { margin-top: 4px; background: var(--paper); border: 3px solid var(--ink); border-radius: 14px;
+    padding: 6px 16px 7px; white-space: nowrap; text-align: center; box-shadow: 4px 5px 0 rgba(0,0,0,.35); }
+  .pin .tag b { font-size: 34px; display: block; line-height: 1.1; }
+  .pin .tag i { font: italic 500 20px "Lora", serif; color: var(--soft); }
+  .pin .stem { width: 4px; height: 26px; background: var(--ink); margin: 0 auto; }
+
+  /* 字卡 */
+  #card { position: absolute; left: 70px; bottom: 70px; width: 820px; background: var(--paper);
+    border: 4px solid var(--ink); border-radius: 22px; padding: 30px 38px 32px; box-shadow: 8px 10px 0 rgba(0,0,0,.4);
+    opacity: 0; }
+  #card .zh { font-size: 44px; font-weight: 700; line-height: 1.35; }
+  #card .en { font: italic 500 27px/1.4 "Lora", serif; color: var(--soft); margin-top: 14px; }
+  #card .hl { color: var(--red); }
+
+  /* 時代條 */
+  #era { position: absolute; left: 70px; top: 60px; display: flex; gap: 0; opacity: 0; }
+  #era .e { font-size: 30px; font-weight: 700; padding: 10px 26px; background: rgba(251,245,230,.55);
+    border: 3px solid var(--ink); color: var(--soft); }
+  #era .e:first-child { border-radius: 16px 0 0 16px; } #era .e:last-child { border-radius: 0 16px 16px 0; }
+  #era .e + .e { border-left: none; }
+  #era .e.on { background: var(--red); color: #fff; }
+
+  /* 片頭片尾 */
+  .full { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; opacity: 0; }
+  .full .t1 { font-size: 112px; font-weight: 700; color: var(--paper); text-shadow: 0 6px 30px rgba(0,0,0,.7), 4px 4px 0 var(--ink); }
+  .full .t2 { font: italic 500 46px "Lora", serif; color: var(--paper); margin-top: 18px; text-shadow: 0 4px 20px rgba(0,0,0,.8); }
+  .full .t3 { font-size: 30px; color: var(--paper); margin-top: 40px; opacity: .9; text-shadow: 0 3px 14px rgba(0,0,0,.9); }
+  #credit { position: absolute; right: 26px; bottom: 16px; font: 16px "Noto Sans CJK TC", sans-serif; color: rgba(255,255,255,.75);
+    text-shadow: 0 1px 3px #000; }
+  #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%); }
+  /* 直式版（手機直拿、9:16 影片）：舞台 1080×1920 */
+  br.p { display: none; }
+  .port .land { display: none; }
+  .port br.p { display: inline; }
+  .port #stage { width: 1080px; height: 1920px; }
+  .port #card { left: 50px; right: 50px; bottom: 150px; width: auto; padding: 34px 42px 36px; }
+  .port #card .zh { font-size: 54px; }
+  .port #card .en { font-size: 34px; }
+  .port #era { left: 0; right: 0; top: 110px; justify-content: center; }
+  .port #era .e { font-size: 38px; padding: 12px 30px; }
+  .port .full { padding: 0 60px; box-sizing: border-box; }
+  .port .full .t1 { font-size: 118px; line-height: 1.2; }
+  .port .full .t2 { font-size: 48px; }
+  .port .full .t3 { font-size: 38px; line-height: 1.5; }
+  .port #ending { padding-bottom: 170px !important; }
+  .port #ending .t1 { font-size: 104px !important; }
+  .port #credit { left: 40px; right: 40px; bottom: 40px; text-align: center; font-size: 24px; }
+  /* 「天上聖母」→「天母」大字 */
+  #name { position: absolute; right: 90px; top: 70px; display: flex; align-items: center; opacity: 0; font-weight: 700; font-size: 132px;
+    background: var(--paper); border: 4px solid var(--ink); border-radius: 26px; padding: 14px 38px; box-shadow: 8px 10px 0 rgba(0,0,0,.4); }
+  #name span { display: inline-block; overflow: hidden; white-space: nowrap; line-height: 1.15; text-align: center; }
+  #name .k { color: var(--red); }
+  #name .m { color: var(--soft); }
+  .port #name { right: auto; left: 50%; top: auto; bottom: 640px; transform: translateX(-50%); font-size: 150px; }
+  /* 片尾連結（只在網頁版顯示，錄影時隱藏） */
+  #links { margin-top: 36px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; visibility: hidden; }
+  #links a, #links button { pointer-events: auto; cursor: pointer; font: 700 30px "LXGW WenKai TC", sans-serif; color: var(--ink);
+    background: var(--paper); border: 4px solid var(--ink); border-radius: 999px; padding: 14px 36px; text-decoration: none;
+    box-shadow: 5px 6px 0 rgba(0,0,0,.4); }
+  #links a { background: var(--red); color: #fff; }
+  .port #links { flex-direction: column; align-items: center; gap: 22px; }
+  .port #links a, .port #links button { font-size: 40px; padding: 18px 44px; }
+  .capture #links { display: none; }
+  #snd { position: fixed; top: 12px; right: 12px; z-index: 10; font: 700 15px "LXGW WenKai TC", sans-serif; color: #2b2118;
+    background: #fbf3e4; border: 2px solid #2b2118; border-radius: 999px; padding: 7px 14px; cursor: pointer; box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
+  .capture #snd { display: none; }
+  .maplibregl-ctrl-attrib, .maplibregl-ctrl-logo { display: none !important; }
+</style>
+</head>
+<body>
+<button type="button" id="snd">♪ 開啟音樂</button>
+<audio id="bgm" src="music.m4a" preload="auto"></audio>
+<div id="stage">
+<div id="map"></div>
+<div id="ov">
+  <div id="vignette"></div>
+  <svg width="0" height="0" style="position:absolute">
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.5"/></filter>
+  </svg>
+  <div id="pins"></div>
+  <div id="era"><div class="e">士林</div><div class="e">加蚋仔</div><div class="e">天母</div></div>
+  <div id="name"><span class="k">天</span><span class="m">上</span><span class="m">聖</span><span class="k">母</span></div>
+  <div id="card"><div class="zh"></div><div class="en"></div></div>
+  <div class="full" id="title">
+    <div class="t1">三間廟<span class="land">・</span><br class="p">三段台北</div>
+    <div class="t2">Three Temples, Three Stories of Taipei</div>
+    <div class="t3">整理自 沈伯洋 2026 年參選期間的廟宇致詞<br class="p">（士林慈諴宮 7/5、萬華 8/23・10/10、天母三玉宮 10/30）</div>
+  </div>
+  <div class="full" id="ending" style="justify-content:flex-end;padding-bottom:80px;box-sizing:border-box;background:linear-gradient(to top,rgba(13,22,32,.8),rgba(13,22,32,0) 42%)">
+    <div class="t1" style="font-size:96px">三間廟，<br class="p">三段台北</div>
+    <div class="t2">Feud &amp; harmony · Jasmine &amp; tea · Faith &amp; a place name</div>
+    <div class="t3">原話出自沈伯洋致詞；史實參考國家文化記憶庫、維基百科等，<br class="p">年代各說不一處取多數說法</div>
+    <div id="links">
+      <a href="https://www.youtube.com/watch?v=t8e8T8Tbj9g&amp;t=612s" target="_blank" rel="noopener">▶ 慈諴宮致詞</a>
+      <a href="https://www.youtube.com/watch?v=K64LTrC2Biw&amp;t=3023s" target="_blank" rel="noopener">▶ 加蚋仔致詞</a>
+      <a href="https://www.youtube.com/watch?v=bslf3b46rBA&amp;t=4646s" target="_blank" rel="noopener">▶ 三玉宮致詞</a>
+      <button type="button" id="replay">↻ 重播</button>
+    </div>
+  </div>
+  <div id="credit">衛星影像 © Esri, Maxar ｜ 地形 © Mapzen/AWS Terrain Tiles ｜ <br class="p">路線為示意 ｜ 插圖為 AI 依實景照片繪製</div>
+</div>
+</div>
+
+<script>
+// ───────── 插畫（Gemini 依實景照片繪製的繪本風貼紙） ─────────
+const ART_W = { cixian: 360, guangzhao: 360, sanyu: 380, fire: 250, craftsmen: 270, jasmine: 220, tea: 250, shrine: 260, mazu: 170 };
+const ART = Object.fromEntries(Object.entries(ART_W).map(([k, w]) => [k, `<img class="art" src="art/${k}.png" style="width:${w}px">`]));
+ART[''] = '';
+
+// ───────── 地點（OpenStreetMap 定位） ─────────
+const P = {
+  monga: [121.49990, 25.03720], dadaocheng: [121.50835, 25.05520],
+  shilinOld: [121.52630, 25.09788], cixian: [121.52471, 25.08963],
+  guangzhao: [121.50032, 25.02347],
+  sanyu: [121.53071, 25.11791], shrine: [121.53082, 25.12619],
+};
+const FEUD = [P.monga, [121.5060, 25.0480], [121.5095, 25.0600], [121.5150, 25.0760], [121.5215, 25.0880], P.shilinOld];
+const MOVE = arc(P.shilinOld, P.cixian, -0.0012, 20);
+const JASMINE = [P.guangzhao, [121.4975, 25.0290], [121.4968, 25.0360], [121.5010, 25.0440], [121.5060, 25.0500], P.dadaocheng];
+const TIANMU = arc(P.shrine, P.sanyu, 0.0012, 20);
+
+function arc(a, b, bulge, n) {
+  const out = [], dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy), nx = -dy / len, ny = dx / len;
+  for (let i = 0; i <= n; i++) { const s = i / n, h = Math.sin(Math.PI * s) * bulge; out.push([a[0] + dx * s + nx * h, a[1] + dy * s + ny * h]); }
+  return out;
+}
+function along(line, p) { // 依比例截取折線
+  if (p <= 0) return [line[0], line[0]];
+  const seg = []; let total = 0;
+  for (let i = 1; i < line.length; i++) { const d = Math.hypot(line[i][0] - line[i-1][0], line[i][1] - line[i-1][1]); seg.push(d); total += d; }
+  let need = total * Math.min(p, 1); const out = [line[0]];
+  for (let i = 1; i < line.length; i++) {
+    if (need >= seg[i-1]) { out.push(line[i]); need -= seg[i-1]; continue; }
+    const r = need / seg[i-1]; out.push([line[i-1][0] + (line[i][0] - line[i-1][0]) * r, line[i-1][1] + (line[i][1] - line[i-1][1]) * r]); break;
+  }
+  return out.length > 1 ? out : [line[0], line[0]];
+}
+
+// ───────── 時間軸 ─────────
+const DUR = 104.5;
+const story = t => t;
+// 鏡頭關鍵格：[t, lng, lat, zoom, pitch, bearing]
+const CAM = [
+  [0,    121.00, 23.75, 7.0, 0, 0],
+  [1.5,  121.00, 23.75, 7.0, 0, 0],
+  [6,    121.515, 25.066, 11.9, 40, -5],
+  [10.5, 121.510, 25.060, 12.9, 48, 0],
+  [14,   121.5245, 25.0935, 14.8, 55, 8],
+  [17.5, 121.5260, 25.0960, 15.7, 58, 14],
+  [22.5, 121.5250, 25.0905, 15.2, 56, 4],
+  [29,   121.5247, 25.0893, 17.0, 62, 18],
+  [35,   121.5247, 25.0893, 17.2, 64, 36],
+  [37.5, 121.512, 25.056, 13.0, 48, 0],
+  [41,   121.5003, 25.0228, 15.6, 56, -10],
+  [47,   121.5003, 25.0235, 16.8, 62, 8],
+  [52.5, 121.5008, 25.0250, 16.4, 60, 18],
+  [58.5, 121.5050, 25.0420, 13.2, 42, 40],
+  [63.5, 121.5084, 25.0548, 15.8, 60, 20],
+  [66.5, 121.520, 25.090, 13.0, 48, 0],
+  [70,   121.5310, 25.1220, 15.0, 56, 0],
+  [75.5, 121.5308, 25.1250, 16.2, 62, -14],
+  [82.5, 121.5308, 25.1250, 16.3, 62, -6],
+  [88.5, 121.5309, 25.1225, 15.6, 60, -4],
+  [94.5, 121.5307, 25.1190, 16.3, 60, 12],
+  [98.5, 121.516, 25.0430, 10.75, 0, 0],
+  [104.5, 121.516, 25.0430, 10.7, 0, 0],
+];
+// 字卡：[起, 迄, 中文, 英文]
+const CARDS = [
+  [6.5, 11, '1850 年代，漳州人與泉州人在台北一再<span class="hl">械鬥</span>，一路由南往北。', 'In the 1850s, Zhangzhou and Quanzhou settlers fought feud after feud, moving north across Taipei.'],
+  [11.5, 17, '1859 年，<span class="hl">士林舊街</span>（芝蘭街）被燒毀，街上的媽祖廟也毀於戰火。', 'In 1859 Shilin’s old street burned, and its Mazu temple with it.'],
+  [17.5, 23, '1864 年，仕紳在新街重建媽祖廟，就是今天的<span class="hl">慈諴宮</span>。', 'In 1864 the temple was rebuilt on the new street: today’s Cixian Temple.'],
+  [23.5, 29.5, '1927 年大修，兩組匠師各做半邊、互相較勁，這叫「<span class="hl">對場作</span>」。', 'In the 1927 rebuild, two teams of craftsmen each took one half and competed: duì-tiûnn-tsoh.'],
+  [30, 35, '沈伯洋說：同一座廟，兩邊手藝不同，「這就是<span class="hl">合而不同</span>」。', 'Shen Po-yang: one temple, two styles of craft. “Harmony without sameness.”'],
+  [37.5, 41.5, '萬華南邊的<span class="hl">加蚋仔</span>，舊時是低窪沼澤，地名可能來自平埔族語。', 'Ka-lah-á, south Wanhua, was once marshland; the name may come from an Indigenous word.'],
+  [42, 47.5, '移民從泉州迎來張聖者（<span class="hl">飛天大聖</span>），傳說他棄官行醫；1949 年建廣照宮。', 'Settlers brought Zhang Shengzhe, said to have left office to heal the sick. Guangzhao Temple was built in 1949.'],
+  [48, 53, '沙地適合種花，<span class="hl">茉莉花</span>成了「加蚋仔三寶」之一。', 'Sandy soil grew jasmine, one of Ka-lah-á’s “three treasures”.'],
+  [53.5, 59, '茉莉花送到<span class="hl">大稻埕</span>茶行，薰成花茶，銷往南洋。', 'The flowers went to Dadaocheng’s tea houses to scent tea for export.'],
+  [59.5, 64, '沈伯洋說：在大稻埕聞到的，是<span class="hl">南萬華的花香</span>。', 'Shen Po-yang: “In Dadaocheng, what you smelled was South Wanhua’s jasmine.”'],
+  [66.5, 70.5, '天母這一帶，原本叫「<span class="hl">三角埔</span>」。', 'This area was once called Sanjiaopu.'],
+  [71, 76.5, '1930 年代，日本人中治稔郎在這裡創立「<span class="hl">天母教</span>」：供奉媽祖，並把媽祖和天照大神看成同一位神。', 'In the 1930s a Japanese settler founded the Tianmu sect here, worshipping Mazu as one with Amaterasu.'],
+  [77, 82.5, '「天母」兩個字，取自媽祖的尊號「<span class="hl">天</span>上聖<span class="hl">母</span>」頭尾兩字。', '“Tianmu” takes the first and last characters of Mazu’s title, Tiān-shàng-shèng-mǔ.'],
+  [83, 88.5, '他蓋了<span class="hl">天母神社</span>，又開溫泉、跑巴士都叫「天母」，這個名字就慢慢取代了「三角埔」。', 'His Tianmu Shrine, hot spring and bus line spread the name until it replaced Sanjiaopu.'],
+  [89, 94.5, '戰後神社荒廢，居民另建廟奉祀媽祖，1979 年落成<span class="hl">三玉宮</span>：三角埔＋玉潮坑。', 'After the war, locals built a temple for Mazu, completed in 1979 as Sanyu Temple.'],
+];
+// 章節條：[起, 迄, 亮哪一格]
+const ERA = [[6.5, 36, 0], [36, 65, 1], [65, 95, 2]];
+const ERA_SPAN = [6.5, 95];
+// 圖釘／插畫：[id, 地點, 插畫, 中文, 英文, 起, 迄, 大小倍率, 水平位移]
+const PINS = [
+  ['pfeud', P.monga, '', '漳泉械鬥（示意）', 'Zhang–Quan feuds', 6.8, 11.2, 1],
+  ['pfire', P.shilinOld, 'fire', '士林舊街', 'Shilin Old Street', 11.8, 23, 1],
+  ['pcx', P.cixian, 'cixian', '慈諴宮', 'Cixian Temple', 17.8, 36, 1],
+  ['pcraft', P.cixian, 'craftsmen', '', '', 24, 30, 1, 340],
+  ['pgz', P.guangzhao, 'guangzhao', '廣照宮', 'Guangzhao Temple', 41.5, 58.5, 1],
+  ['pjas', P.guangzhao, 'jasmine', '', '', 48.2, 58.5, 1, 330],
+  ['ptea', P.dadaocheng, 'tea', '大稻埕茶行', 'Dadaocheng tea houses', 57.2, 64.5, 1],
+  ['pshrine', P.shrine, 'shrine', '天母神社（舊址示意）', 'Tianmu Shrine (approx. site)', 70.8, 94.5, 1],
+  ['pmazu', P.shrine, 'mazu', '', '', 71, 82.5, 1, -300],
+  ['psanyu', P.sanyu, 'sanyu', '三玉宮', 'Sanyu Temple', 89.2, 97, 1],
+  // 片尾總覽
+  ['e1', P.cixian, 'cixian', '士林・對場作', 'Cixian Temple', 98.7, 130, .5, -240],
+  ['e2', P.guangzhao, 'guangzhao', '加蚋仔・茉莉花', 'Guangzhao Temple', 99.2, 130, .5],
+  ['e3', P.sanyu, 'sanyu', '天母・地名', 'Sanyu Temple', 99.7, 130, .5, 240],
+];
+// 線段：[source, 線, 起, 迄]（起迄之間生長，之後保留到片尾）
+const LINES = [['feud', FEUD, 6.8, 11], ['move', MOVE, 17.8, 20], ['jasmine', JASMINE, 53.6, 57], ['tianmu', TIANMU, 89.2, 91.5]];
+
+// ───────── 小工具 ─────────
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const fade = (t, a, b, f = .6) => clamp(Math.min((t - a) / f, (b - t) / f));
+function camAt(t) {
+  let i = 0; while (i < CAM.length - 2 && t > CAM[i + 1][0]) i++;
+  const A = CAM[i], B = CAM[i + 1], s = ease(clamp((t - A[0]) / (B[0] - A[0])));
+  const lerp = k => A[k] + (B[k] - A[k]) * s;
+  let db = B[5] - A[5]; if (db > 180) db -= 360; if (db < -180) db += 360;
+  return { center: [lerp(1), lerp(2)], zoom: lerp(3), pitch: lerp(4), bearing: A[5] + db * s };
+}
+
+// ───────── 網頁版縮放：橫式 1920×1080，直式 1080×1920 ─────────
+const q = new URLSearchParams(location.search);
+const PORT = q.has('portrait') || (!q.has('landscape') && innerHeight > innerWidth);
+if (PORT) document.documentElement.classList.add('port');
+if (q.has('capture')) document.documentElement.classList.add('capture');
+const [SW, SH] = PORT ? [1080, 1920] : [1920, 1080];
+const stage = document.getElementById('stage');
+const fit = () => {
+  if (!q.has('portrait') && !q.has('landscape') && (innerHeight > innerWidth) !== PORT) return location.reload(); // 手機轉向：換版面重播
+  const k = Math.min(innerWidth / SW, innerHeight / SH);
+  stage.style.transform = `translate(${(innerWidth - SW * k) / 2}px, ${(innerHeight - SH * k) / 2}px) scale(${k})`;
+};
+addEventListener('resize', fit); fit();
+// 直式：畫面較窄，鏡頭拉遠一點，並把焦點往上移、讓開下方字卡
+const PORT_ZOOM = -0.45, PORT_PAD = { top: 0, left: 0, right: 0, bottom: 520 };
+
+// ───────── 地圖 ─────────
+const map = new maplibregl.Map({
+  container: 'map', center: [CAM[0][1], CAM[0][2]], zoom: CAM[0][3], interactive: false, // 載入中先停在台灣，不顯示全球 attributionControl: false, fadeDuration: 0, maxPitch: 80,
+  canvasContextAttributes: { preserveDrawingBuffer: true, antialias: true },
+  style: {
+    version: 8,
+    sources: {
+      sat: { type: 'raster', tileSize: 256, maxzoom: 19, tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'] },
+      dem: { type: 'raster-dem', encoding: 'terrarium', tileSize: 256, maxzoom: 15, tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'] },
+    },
+    sky: { 'sky-color': '#9cc7e8', 'horizon-color': '#f3e6c8', 'fog-color': '#e9dcc0', 'sky-horizon-blend': .6, 'horizon-fog-blend': .5, 'fog-ground-blend': .75, 'atmosphere-blend': .8 },
+    layers: [
+      { id: 'bg', type: 'background', paint: { 'background-color': '#1d2a33' } },
+      { id: 'sat', type: 'raster', source: 'sat', paint: { 'raster-saturation': -0.25, 'raster-contrast': 0.05, 'raster-brightness-max': 0.92 } },
+      { id: 'hill', type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.25, 'hillshade-shadow-color': '#2b2620' } },
+    ],
+  },
+  terrain: { source: 'dem', exaggeration: 1.6 },
+});
+
+const lineSrc = {};
+map.on('load', () => {
+  const styleFor = { feud: ['#c8452c', 8, [1.2, 1.2]], move: ['#e0a92e', 8, null], jasmine: ['#5f8f3e', 8, [0.4, 1.6]], tianmu: ['#e0a92e', 7, [1.2, 1.2]] };
+  for (const [id] of LINES) {
+    map.addSource(id, { type: 'geojson', data: lineGeo([[0, 0], [0, 0]]) });
+    const [c, w, dash] = styleFor[id];
+    map.addLayer({ id: id + '-case', type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#fbf5e6', 'line-width': w + 6, 'line-opacity': 0.9 } });
+    map.addLayer({ id, type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: Object.assign({ 'line-color': c, 'line-width': w }, dash ? { 'line-dasharray': dash } : {}) });
+  }
+  window.mapReady = true;
+});
+function lineGeo(coords) { return { type: 'Feature', geometry: { type: 'LineString', coordinates: coords } }; }
+
+// ───────── 圖釘 DOM ─────────
+const pinBox = document.getElementById('pins');
+for (const [id, , art, zh, en] of PINS) {
+  const d = document.createElement('div'); d.className = 'pin'; d.id = id;
+  d.innerHTML = ART[art] + (zh ? `<div class="stem"></div><div class="tag"><b>${zh}</b><i>${en}</i></div>` : '');
+  pinBox.appendChild(d);
+}
+
+// ───────── 每格繪製 ─────────
+const lastP = {};
+function draw(t) {
+  const cam = camAt(t);
+  if (PORT) { // 片頭漸進到直式鏡頭；片尾總覽拉近一點，讓五個地點分開
+    const k = ease(clamp((t - 1.5) / 4.5)), e = ease(clamp((t - 94.5) / 4));
+    cam.zoom += PORT_ZOOM * k * (1 - e) + 0.2 * e; cam.padding = { ...PORT_PAD, bottom: PORT_PAD.bottom * k };
+  }
+  map.jumpTo(cam);
+
+  for (const [id, line, a, b] of LINES) {
+    const p = Math.round(clamp((t - a) / (b - a)) * 200) / 200;
+    if (lastP[id] !== p) { lastP[id] = p; map.getSource(id)?.setData(lineGeo(along(line, ease(p)))); }
+  }
+
+  for (const [id, ll, art, zh, , a, b0, sc, dx = 0] of PINS) {
+    const b = PORT && (id === 'pgz' || id === 'pjas') ? Math.min(b0, 57.4) : b0; // 直式畫面窄，讓開大稻埕茶行
+    const el = document.getElementById(id), o = fade(t, a, b, .5);
+    if (o <= 0) { el.style.opacity = 0; continue; }
+    let pos = ll, lift = 0;
+    const pt = map.project(pos), pop = 0.6 + 0.4 * ease(clamp((t - a) / .5));
+    const w = el.offsetWidth, h = el.offsetHeight;
+    el.style.opacity = o;
+    el.style.transform = `translate(${pt.x - w / 2 + dx}px, ${pt.y - h + lift}px) scale(${sc * pop * (PORT && /^e\d$/.test(id) ? 1.25 : 1)})`;
+  }
+
+  const card = document.getElementById('card'); let shown = false;
+  for (const [a, b, zh, en] of CARDS) {
+    if (t >= a - .01 && t <= b) {
+      if (card.dataset.k !== String(a)) { card.dataset.k = a; card.querySelector('.zh').innerHTML = zh; card.querySelector('.en').textContent = en; }
+      const o = fade(t, a, b, .45); card.style.opacity = o; card.style.transform = `translateY(${(1 - o) * 24}px)`; shown = true;
+    }
+  }
+  if (!shown) card.style.opacity = 0;
+
+  const era = document.getElementById('era'); let eo = 0;
+  for (const [a, b, k] of ERA) if (t >= a && t < b) { eo = 1; era.querySelectorAll('.e').forEach((e, i) => e.classList.toggle('on', i === k)); }
+  era.style.opacity = eo * fade(t, ERA_SPAN[0], ERA_SPAN[1], .6);
+
+  document.getElementById('title').style.opacity = fade(t, -1, 5.6, .9);
+  const nm = document.getElementById('name'), nq = ease(clamp((t - 79) / 1.2));
+  nm.style.opacity = fade(t, 77.2, 82.5, .5);
+  nm.querySelectorAll('.m').forEach(e => { e.style.maxWidth = (1 - nq) * 1.05 + 'em'; e.style.opacity = 1 - nq; });
+  const endO = fade(t, 98.3, 200, .9);
+  document.getElementById('ending').style.opacity = endO;
+  document.getElementById('links').style.visibility = endO > .5 ? 'visible' : 'hidden';
+}
+
+// 預覽：?t=秒 停在某格；無參數則即時播放。錄影：window.seek(t)
+window.seek = t => new Promise(res => { draw(story(t)); map.once('idle', () => requestAnimationFrame(() => res())); map.triggerRepaint(); });
+window.DUR = DUR;
+map.on('load', () => {
+  if (q.has('capture')) return;
+  if (q.has('t')) { seek(+q.get('t')); return; }
+  // 網頁版播完停在片尾（讓人有時間點連結），按「重播」從頭再來
+  let t0 = performance.now();
+  // 配樂：瀏覽器不准自動播放有聲音的媒體，按鈕開啟後對齊目前時間
+  const bgm = document.getElementById('bgm'), snd = document.getElementById('snd');
+  const now = () => (performance.now() - t0) / 1000;
+  snd.onclick = () => {
+    if (bgm.paused) { if (now() < DUR) { bgm.currentTime = now(); bgm.play(); } snd.textContent = '♪ 關閉音樂'; snd.dataset.on = 1; }
+    else { bgm.pause(); snd.textContent = '♪ 開啟音樂'; delete snd.dataset.on; }
+  };
+  document.getElementById('replay').onclick = () => {
+    t0 = performance.now();
+    if (snd.dataset.on) { bgm.currentTime = 0; bgm.play(); }
+  };
+  const loop = () => { const t = Math.min((performance.now() - t0) / 1000, DUR); draw(story(t)); requestAnimationFrame(loop); };
+  loop();
+});
+</script>
+</body>
+</html>
