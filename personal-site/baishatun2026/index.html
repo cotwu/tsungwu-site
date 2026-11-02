@@ -71,7 +71,10 @@
   .ja .full .t2 { font: 700 44px "Zen Maru Gothic", sans-serif; }
   .full .t3 { font-size: 28px; color: var(--paper); margin-top: 36px; opacity: .92; text-shadow: 0 3px 14px rgba(0,0,0,.9); line-height: 1.6; }
   #hook .t1 { font-size: 78px; max-width: 1500px; }
+  .full .by { font-size: 34px; font-weight: 700; color: #ffd9e8; opacity: 1; }
   #credit { position: absolute; right: 26px; bottom: 14px; font: 16px "Noto Sans CJK TC", sans-serif; color: rgba(255,255,255,.78); text-shadow: 0 1px 3px #000; text-align: right; }
+  #wm { position: absolute; right: 34px; top: 30px; font: 700 26px "Lora", serif; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.8); letter-spacing: .5px; opacity: 0; }
+  .port #wm { right: 30px; top: 40px; font-size: 30px; }
   #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%); }
 
   br.p { display: none; }
@@ -122,12 +125,14 @@
 <div id="start"><h1><em>粉紅超跑</em>的 280 公里</h1><p>白沙屯媽祖進香 2026 地圖動畫</p>
   <button type="button" data-lang="en">中文＋English</button>
   <button type="button" data-lang="ja">中文＋日本語<span>日本語字幕</span></button>
-  <small>點選後開始播放（有配樂）</small></div>
+  <small>點選後開始播放（有配樂）</small>
+  <small>製作：吳宗達 Tsung Wu｜tsungwu.tw</small></div>
 <div id="stage">
 <div id="map"></div>
 <div id="ov">
   <div id="vignette"></div>
   <div id="pins"></div>
+  <div id="wm">tsungwu.tw</div>
   <div id="hud"><div class="day"></div><div class="km"></div></div>
   <div id="chart"><h3>歷年報名人數<small data-sub="chart"></small></h3><div id="bars"></div></div>
   <div id="card"><div class="zh"></div><div class="sub"></div></div>
@@ -135,11 +140,13 @@
   <div class="full" id="title">
     <div class="t1">白沙屯媽祖進香 2026<br><em>粉紅超跑</em>的 280 公里</div>
     <div class="t2" data-sub="title"></div>
+    <div class="t3 by">製作：吳宗達 Tsung Wu｜tsungwu.tw</div>
   </div>
   <div class="full" id="ending" style="justify-content:flex-end;padding-bottom:90px;box-sizing:border-box;background:linear-gradient(to top,rgba(13,22,32,.85),rgba(13,22,32,0) 45%)">
     <div class="t1" style="font-size:92px"><em>粉紅超跑</em>的 280 公里</div>
     <div class="t2" data-sub="end"></div>
-    <div class="t3">路線節點：白沙屯拱天宮官網「2026 官方進香地圖」，連千華整理；路線依節點重建，僅供示意<br>里程：2026 年 GPS 紀錄｜報名人數：歷年新聞報導｜本片為個人製作，非白沙屯拱天宮官方作品</div>
+    <div class="t3 by" style="margin-top:22px">製作：吳宗達 Tsung Wu｜tsungwu.tw</div>
+    <div class="t3" style="margin-top:14px">路線節點：白沙屯拱天宮官網「2026 官方進香地圖」，連千華整理；路線依節點重建，僅供示意<br>里程：2026 年 GPS 紀錄｜報名人數：歷年新聞報導｜本片為個人製作，非白沙屯拱天宮官方作品</div>
     <div id="links"><button type="button" id="replay">↻ 重播</button></div>
   </div>
   <div id="credit">航照影像 © 內政部國土測繪中心 ｜ 地形 © Mapzen/AWS Terrain Tiles ｜ 道路 © OpenStreetMap 貢獻者 ｜ <br class="p">插圖為 AI 依實景照片繪製</div>
@@ -219,7 +226,7 @@ const art = k => ART_W[k] ? `<img class="art" src="art/${k}.png" style="width:${
 const nodeM = name => NODES.find(n => n.name === name).m;
 const M_BEIGANG = nodeM('北港朝天宮'), M_END = ROUTE_M[ROUTE_M.length - 1];
 const SEG = [
-  [46, 57.5, nodeM('大甲鎮瀾宮'), '4/13', 1],
+  [46, 52, nodeM('大甲鎮瀾宮'), '4/13', 1],
   [58, 70, nodeM('中華賓士員林展示中心'), '4/14', 2],
   [70.5, 76.5, nodeM('虎尾帥興宮'), '4/15', 3],
   [77, 81.5, nodeM('元長客厝'), '4/16', 4],
@@ -434,6 +441,7 @@ function draw(t) {
     b.style.height = (b.dataset.v / 463588 * 250 * g) + 'px';
   });
 
+  document.getElementById('wm').style.opacity = 0.6 * fade(t, 13.6, 999, .8);  // 浮水印：片名之後全程
   document.getElementById('hook').style.opacity = fade(t, 1.2, 7.2, .8);
   document.getElementById('title').style.opacity = fade(t, 7.6, 13.4, .8);
   const endO = fade(t, 141.3, 300, .9);
