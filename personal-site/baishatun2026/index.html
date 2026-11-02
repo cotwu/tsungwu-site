@@ -101,6 +101,16 @@
     background: #fbf3e4; border: 2px solid #2b2118; border-radius: 999px; padding: 7px 14px; cursor: pointer; box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
   #pp { right: 12px; } #lang { right: 112px; } #snd { right: 202px; }
   .capture .ctl { display: none; }
+  /* 開場選單：選字幕語言後開始播放（同時開啟音樂） */
+  #start { position: fixed; inset: 0; z-index: 20; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+    background: rgba(13,22,32,.72); font-family: "LXGW WenKai TC", sans-serif; color: #fbf5e6; text-align: center; padding: 0 20px; }
+  #start h1 { margin: 0; font-size: clamp(30px, 6vw, 60px); text-shadow: 3px 3px 0 #2b2620; }
+  #start h1 em { font-style: normal; color: #ffb3d1; }
+  #start p { margin: 0 0 8px; font-size: clamp(16px, 2.4vw, 22px); opacity: .9; }
+  #start button { cursor: pointer; width: min(420px, 86vw); font: 700 clamp(20px, 3vw, 28px) "LXGW WenKai TC", sans-serif; color: #2b2620;
+    background: #fbf5e6; border: 3px solid #2b2620; border-radius: 999px; padding: 14px 28px; box-shadow: 4px 5px 0 rgba(0,0,0,.4); }
+  #start button span { font: 500 .8em "Zen Maru Gothic", sans-serif; margin-left: 8px; }
+  #start small { font-size: 15px; opacity: .75; }
   .maplibregl-ctrl-attrib, .maplibregl-ctrl-logo { display: none !important; }
 </style>
 </head>
@@ -109,6 +119,10 @@
 <button type="button" class="ctl" id="lang">日本語</button>
 <button type="button" class="ctl" id="snd">♪ 開啟音樂</button>
 <audio id="bgm" src="music.m4a" preload="auto"></audio>
+<div id="start"><h1><em>粉紅超跑</em>的 280 公里</h1><p>白沙屯媽祖進香 2026 地圖動畫</p>
+  <button type="button" data-lang="en">中文＋English</button>
+  <button type="button" data-lang="ja">中文＋日本語<span>日本語字幕</span></button>
+  <small>點選後開始播放（有配樂）</small></div>
 <div id="stage">
 <div id="map"></div>
 <div id="ov">
@@ -434,7 +448,8 @@ document.getElementById('lang').onclick = () => { LANG = LANG === 'ja' ? 'en' : 
 map.on('load', () => {
   if (q.has('capture')) return;
   if (q.has('t')) { seek(+q.get('t')); return; }
-  let t0 = performance.now(), pausedAt = null;
+  const PICK = !q.has('lang');
+  let t0 = performance.now(), pausedAt = PICK ? t0 : null;  // 有開場選單時先停在第 0 秒
   const now = () => ((pausedAt ?? performance.now()) - t0) / 1000;
   const pp = document.getElementById('pp');
   // 配樂：瀏覽器不准自動播放有聲音的媒體，按鈕開啟後對齊目前時間
@@ -456,6 +471,13 @@ map.on('load', () => {
     t0 = performance.now(); pausedAt = null; pp.textContent = '❚❚ 暫停';
     if (snd.dataset.on) { bgm.currentTime = 0; bgm.play(); }
   };
+  if (PICK) {
+    const st = document.getElementById('start'); st.style.display = 'flex';
+    st.querySelectorAll('button').forEach(b => b.onclick = () => {
+      LANG = b.dataset.lang; applyLang(); st.style.display = 'none';
+      t0 = performance.now(); pausedAt = null; snd.click();
+    });
+  }
   const loop = () => { draw(Math.min(now(), DUR)); requestAnimationFrame(loop); };
   loop();
 });
