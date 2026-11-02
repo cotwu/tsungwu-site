@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>粉紅超跑的 280 公里</title>
+<meta name="description" content="地圖動畫：白沙屯媽祖 2026 年徒步往北港進香的八天路線。路線依白沙屯拱天宮官網節點重建。">
+<meta property="og:title" content="粉紅超跑的 280 公里｜白沙屯媽祖進香 2026">
+<meta property="og:description" content="這趟路有起點、有終點，但沒有人知道中間怎麼走。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tsungwu.tw/baishatun2026/">
+<meta property="og:image" content="https://tsungwu.tw/baishatun2026/og.jpg">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Lora:ital,wght@1,500&family=Zen+Maru+Gothic:wght@500;700&display=block" rel="stylesheet">
+<link href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<script src="route.js"></script>
+<style>
+  :root {
+    --paper: #fbf5e6; --ink: #2b2620; --soft: #6b5f50;
+    --pink: #e8649b; --red: #c8452c; --gold: #e0a92e; --ret: #f08a3c;
+  }
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0d1620; }
+  #stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
+  #map { position: absolute; inset: 0; }
+  #ov { position: absolute; inset: 0; pointer-events: none; font-family: "LXGW WenKai TC", "Noto Sans CJK TC", sans-serif; color: var(--ink); }
+
+  .pin { position: absolute; left: 0; top: 0; transform-origin: 50% 100%; opacity: 0; will-change: transform, opacity; }
+  .pin .art { display: block; margin: 0 auto; filter: drop-shadow(3px 6px 6px rgba(0,0,0,.45)); }
+  .pin .tag { margin-top: 4px; background: var(--paper); border: 3px solid var(--ink); border-radius: 14px;
+    padding: 6px 16px 7px; white-space: nowrap; text-align: center; box-shadow: 4px 5px 0 rgba(0,0,0,.35); }
+  .pin .tag b { font-size: 32px; display: block; line-height: 1.1; }
+  .pin .tag i { font: italic 500 19px "Lora", serif; color: var(--soft); }
+  .ja .pin .tag i { font: 500 19px "Zen Maru Gothic", sans-serif; }
+  .pin .stem { width: 4px; height: 22px; background: var(--ink); margin: 0 auto; }
+  /* 插圖還沒好時的替代：粉紅轎子 */
+  .ph { width: 70px; height: 70px; margin: 0 auto; border-radius: 16px 16px 8px 8px; background: var(--pink); border: 4px solid #fff;
+    box-shadow: 0 0 0 3px var(--ink), 4px 8px 8px rgba(0,0,0,.4); }
+  #sedan { z-index: 3; }
+
+  #card { position: absolute; left: 70px; bottom: 70px; width: 860px; background: var(--paper);
+    border: 4px solid var(--ink); border-radius: 22px; padding: 28px 38px 30px; box-shadow: 8px 10px 0 rgba(0,0,0,.4); opacity: 0; }
+  #card .zh { font-size: 42px; font-weight: 700; line-height: 1.38; }
+  #card .sub { font: italic 500 26px/1.42 "Lora", serif; color: var(--soft); margin-top: 12px; }
+  .ja #card .sub { font: 500 26px/1.55 "Zen Maru Gothic", sans-serif; }
+  #card .hl { color: var(--red); }
+
+  /* 日期與里程 */
+  #hud { position: absolute; left: 70px; top: 56px; display: flex; gap: 14px; opacity: 0; }
+  #hud div { background: var(--paper); border: 3px solid var(--ink); border-radius: 16px; padding: 8px 22px; box-shadow: 4px 5px 0 rgba(0,0,0,.35); }
+  #hud .day { background: var(--pink); color: #fff; font-size: 34px; font-weight: 700; }
+  #hud .km { font-size: 34px; font-weight: 700; }
+  #hud small { font: italic 500 20px "Lora", serif; color: inherit; opacity: .85; margin-left: 8px; }
+
+  /* 歷年報名人數 */
+  #chart { position: absolute; right: 80px; top: 70px; width: 760px; background: rgba(251,245,230,.94); border: 4px solid var(--ink);
+    border-radius: 22px; padding: 22px 28px 16px; box-shadow: 8px 10px 0 rgba(0,0,0,.4); opacity: 0; }
+  #chart h3 { margin: 0 0 10px; font-size: 30px; }
+  #chart h3 small { font: italic 500 20px "Lora", serif; color: var(--soft); margin-left: 10px; }
+  #bars { display: flex; align-items: flex-end; gap: 12px; height: 300px; }
+  #bars .b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  #bars .v { font-size: 18px; font-weight: 700; color: var(--soft); white-space: nowrap; }
+  #bars .bar { width: 100%; background: var(--pink); border: 2px solid var(--ink); border-bottom: none; border-radius: 8px 8px 0 0; }
+  #bars .y { font-size: 20px; margin-top: 4px; }
+
+  .full { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; }
+  .full .t1 { font-size: 104px; font-weight: 700; color: var(--paper); text-shadow: 0 6px 30px rgba(0,0,0,.7), 4px 4px 0 var(--ink); line-height: 1.2; }
+  .full .t1 em { font-style: normal; color: #ffb3d1; }
+  .full .t2 { font: italic 500 44px "Lora", serif; color: var(--paper); margin-top: 18px; text-shadow: 0 4px 20px rgba(0,0,0,.8); }
+  .ja .full .t2 { font: 700 44px "Zen Maru Gothic", sans-serif; }
+  .full .t3 { font-size: 28px; color: var(--paper); margin-top: 36px; opacity: .92; text-shadow: 0 3px 14px rgba(0,0,0,.9); line-height: 1.6; }
+  #hook .t1 { font-size: 78px; max-width: 1500px; }
+  #credit { position: absolute; right: 26px; bottom: 14px; font: 16px "Noto Sans CJK TC", sans-serif; color: rgba(255,255,255,.78); text-shadow: 0 1px 3px #000; text-align: right; }
+  #vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.45) 100%); }
+
+  br.p { display: none; }
+  .port br.p { display: inline; }
+  .port #stage { width: 1080px; height: 1920px; }
+  .port #card { left: 50px; right: 50px; bottom: 150px; width: auto; padding: 32px 40px 34px; }
+  .port #card .zh { font-size: 50px; }
+  .port #card .sub { font-size: 32px; }
+  .port #hud { left: 0; right: 0; top: 110px; justify-content: center; }
+  .port #hud .day, .port #hud .km { font-size: 42px; }
+  .port #chart { left: 50px; right: 50px; top: 260px; width: auto; }
+  .port .full { padding: 0 60px; box-sizing: border-box; }
+  .port .full .t1 { font-size: 100px; }
+  .port #hook .t1 { font-size: 76px; }
+  .port .full .t2 { font-size: 44px; }
+  .port .full .t3 { font-size: 34px; }
+  .port #credit { left: 40px; right: 40px; bottom: 40px; text-align: center; font-size: 22px; }
+  .port #ending { padding-bottom: 190px !important; }
+  .port #ending .t1 { font-size: 88px !important; }
+  .port #ending .t3 { font-size: 26px; }
+
+  #links { margin-top: 32px; display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; visibility: hidden; }
+  #links button { pointer-events: auto; cursor: pointer; font: 700 30px "LXGW WenKai TC", sans-serif; color: var(--ink);
+    background: var(--paper); border: 4px solid var(--ink); border-radius: 999px; padding: 14px 36px; box-shadow: 5px 6px 0 rgba(0,0,0,.4); }
+  .capture #links { display: none; }
+  .ctl { position: fixed; top: 12px; z-index: 10; font: 700 15px "LXGW WenKai TC", sans-serif; color: #2b2118;
+    background: #fbf3e4; border: 2px solid #2b2118; border-radius: 999px; padding: 7px 14px; cursor: pointer; box-shadow: 2px 3px 0 rgba(0,0,0,.35); }
+  #pp { right: 12px; } #lang { right: 112px; } #snd { right: 202px; }
+  .capture .ctl { display: none; }
+  .maplibregl-ctrl-attrib, .maplibregl-ctrl-logo { display: none !important; }
+</style>
+</head>
+<body>
+<button type="button" class="ctl" id="pp">❚❚ 暫停</button>
+<button type="button" class="ctl" id="lang">日本語</button>
+<button type="button" class="ctl" id="snd">♪ 開啟音樂</button>
+<audio id="bgm" src="music.m4a" preload="auto"></audio>
+<div id="stage">
+<div id="map"></div>
+<div id="ov">
+  <div id="vignette"></div>
+  <div id="pins"></div>
+  <div id="hud"><div class="day"></div><div class="km"></div></div>
+  <div id="chart"><h3>歷年報名人數<small data-sub="chart"></small></h3><div id="bars"></div></div>
+  <div id="card"><div class="zh"></div><div class="sub"></div></div>
+  <div class="full" id="hook"><div class="t1"></div><div class="t2"></div></div>
+  <div class="full" id="title">
+    <div class="t1">白沙屯媽祖進香 2026<br><em>粉紅超跑</em>的 280 公里</div>
+    <div class="t2" data-sub="title"></div>
+  </div>
+  <div class="full" id="ending" style="justify-content:flex-end;padding-bottom:90px;box-sizing:border-box;background:linear-gradient(to top,rgba(13,22,32,.85),rgba(13,22,32,0) 45%)">
+    <div class="t1" style="font-size:92px"><em>粉紅超跑</em>的 280 公里</div>
+    <div class="t2" data-sub="end"></div>
+    <div class="t3">路線節點：白沙屯拱天宮官網「2026 官方進香地圖」，連千華整理；路線依節點重建，僅供示意<br>里程：2026 年 GPS 紀錄｜報名人數：歷年新聞報導｜本片為個人製作，非白沙屯拱天宮官方作品</div>
+    <div id="links"><button type="button" id="replay">↻ 重播</button></div>
+  </div>
+  <div id="credit">航照影像 © 內政部國土測繪中心 ｜ 地形 © Mapzen/AWS Terrain Tiles ｜ 道路 © OpenStreetMap 貢獻者 ｜ <br class="p">插圖為 AI 依實景照片繪製</div>
+</div>
+</div>
+
+<script>
+// ───────── 語言：中文＋英文（預設）／中文＋日文（?lang=ja） ─────────
+const q = new URLSearchParams(location.search);
+let LANG = q.get('lang') === 'ja' ? 'ja' : 'en';
+const T = {
+  hook: ['這趟路有起點、有終點，<br>但沒有人知道中間怎麼走。', 'This journey has a start and an end — but no one knows the way in between.', 'この道には出発点と終点がある。でも、その間をどう歩くかは誰にも分からない。'],
+  title: ['', 'Baishatun Mazu Pilgrimage 2026 · 280 km with the Pink Supercar', '白沙屯媽祖進香 2026　ピンク超跑の280キロ'],
+  end: ['', 'A road no one knows, walked again every year', '毎年、誰も知らない道をまた歩く'],
+  chart: ['', 'Registered pilgrims', '参加登録者数'],
+};
+// 字卡：[起, 迄, 中文, 英文, 日文]
+const CARDS = [
+  [16, 22, '苗栗通霄的<span class="hl">白沙屯拱天宮</span>，每年徒步到雲林北港朝天宮進香，是延續近兩百年的傳統。',
+    'Every year, Baishatun Gongtian Temple in Tongxiao, Miaoli, walks its Mazu to Chaotian Temple in Beigang, Yunlin — a tradition of nearly two centuries.',
+    '苗栗県通霄の白沙屯拱天宮は毎年、媽祖とともに雲林県北港の朝天宮まで徒歩で進香する。二百年近く続く伝統だ。'],
+  [22.5, 27, '2010 年，被指定為<span class="hl">國家重要民俗</span>。', 'In 2010 it was designated a National Important Folk Custom.', '2010年、国の重要民俗に指定された。'],
+  [27.5, 33.5, '神轎頂上蓋著粉紅色的帆布，走得又快、轉得又急，大家叫它「<span class="hl">粉紅超跑</span>」。',
+    'Her palanquin wears a pink canopy and moves fast, turning sharply — people call it the “Pink Supercar.”',
+    '神輿の屋根はピンクの布で覆われ、速く、鋭く曲がる。人々は「ピンク超跑」と呼ぶ。'],
+  [34, 39.5, '起駕、進火、回宮的時辰，由擲筊決定；但<span class="hl">路線，不事先決定</span>。',
+    'The hours of departure, fire fetching and return are set by casting divination blocks — but not the route.',
+    '出発・進火・帰還の時刻はポエ（筊）を投げて決める。しかし道順は決めない。'],
+  [40, 46, '出了廟門，轎班依媽祖的意思轉向、停駕。<span class="hl">沒有人知道</span>下一個路口會往哪裡走。',
+    'Out the temple gate, the bearers turn and stop as Mazu wills. No one knows which way the next corner will go.',
+    '廟の門を出ると、担ぎ手は媽祖の意のままに向きを変え、立ち止まる。次の角をどちらへ曲がるか、誰にも分からない。'],
+  [46.5, 52, '凌晨 1 點多起駕，一路往北，上午停在<span class="hl">大甲鎮瀾宮</span>。',
+    'Setting off after 1 a.m., she heads north; by mid-morning she stops at Dajia Jenn Lann Temple.',
+    '午前1時過ぎに出発し北へ。午前中、大甲鎮瀾宮に立ち寄る。'],
+  [52.5, 58, '轎上的白沙屯媽、山邊媽、首度同行的爐主媽，與大甲媽相會，稱為「<span class="hl">四媽相會</span>」。',
+    'Baishatun Mazu, Shanbian Mazu and, for the first time, Luzhu Mazu meet Dajia Mazu: the “Meeting of Four Mazus.”',
+    '神輿に乗る白沙屯媽、山辺媽、初めて同行した炉主媽が大甲媽と出会う。「四媽相会」と呼ばれる。'],
+  [58.5, 64.5, '經清水、大肚到彰化。這天停駕的地方有工廠、縣政府、醫院，晚上停在一間<span class="hl">賓士展示中心</span>。',
+    'Through Qingshui and Dadu to Changhua — stopping at factories, the county hall, a hospital, and at night a Mercedes-Benz showroom.',
+    '清水、大肚を経て彰化へ。工場、県庁、病院に立ち寄り、夜はベンツのショールームに駐駕。'],
+  [65, 70.5, '神轎常停在汽車修理廠、醫院、學校。<span class="hl">停在哪裡，誰也猜不到</span>。',
+    'She often stops at car repair shops, hospitals and schools. Where she’ll stop, no one can guess.',
+    '神輿はよく自動車整備工場、病院、学校に立ち寄る。どこで止まるか、誰にも予想できない。'],
+  [71, 76.5, '穿過永靖、北斗，跨過<span class="hl">濁水溪</span>，進入雲林西螺、虎尾。',
+    'Through Yongjing and Beidou, across the Zhuoshui River into Xiluo and Huwei, Yunlin.',
+    '永靖、北斗を抜け、濁水渓を越えて雲林の西螺、虎尾へ。'],
+  [77, 82, '經土庫、元長，一步步靠近<span class="hl">北港</span>。', 'Via Tuku and Yuanchang, step by step toward Beigang.', '土庫、元長を経て、一歩ずつ北港へ。'],
+  [82.5, 89, '凌晨抵達北港，去程 143 公里。在朝天宮「<span class="hl">進火</span>」：把聖火舀進火缸，封好放進香擔，隨即啟程回家。',
+    'Reaching Beigang before dawn — 143 km out. At Chaotian Temple comes the Fire Fetching: holy fire is scooped into an urn, sealed in the incense carrier, and the journey home begins.',
+    '未明に北港へ到着、往路143キロ。朝天宮で「進火」：聖火を火缶に移して封をし、香担に納めて、すぐに帰路につく。'],
+  [89.5, 96, '回程經竹塘、埤頭，晚上第一次駐駕<span class="hl">溪湖福安宮</span>，廟方說這是建廟兩百多年來頭一次。',
+    'Back via Zhutang and Pitou; that night she stays at Xihu Fu’an Temple — a first in its two centuries, the temple says.',
+    '帰りは竹塘、埤頭を経て、夜は初めて渓湖福安宮に駐駕。廟によると、創建以来二百年余りで初めてだという。'],
+  [96.5, 103.5, '沿著<span class="hl">海線</span>北上，經鹿港、伸港、梧棲，回到苗栗苑裡、通霄。',
+    'North along the coast via Lukang, Shengang and Wuqi, back to Yuanli and Tongxiao in Miaoli.',
+    '海沿いを北上し、鹿港、伸港、梧棲を経て、苗栗の苑裡、通霄へ。'],
+  [104, 111, '回到白沙屯拱天宮。<span class="hl">8 天 7 夜，來回 280 公里</span>。',
+    'Home to Baishatun Gongtian Temple: 8 days, 7 nights, 280 km round trip.',
+    '白沙屯拱天宮に帰還。7泊8日、往復280キロ。'],
+  [115.5, 121.5, '2017 年報名人數 2.7 萬人，2026 年 <span class="hl">46.4 萬人</span>，十年成長 17 倍。',
+    'Registrations: 27,000 in 2017; 464,000 in 2026 — up 17-fold in a decade.',
+    '参加登録者は2017年の2.7万人から、2026年には46.4万人に。10年で17倍。'],
+  [122, 128, '走在神轎身邊的信眾，叫做「<span class="hl">香燈腳</span>」；沿路的居民，會在家門口擺上點心和茶水。',
+    'Those who walk alongside her are called hiunn-ting-kha, “incense-lamp feet”; residents along the way set out snacks and tea at their doors.',
+    '神輿に付き従う信者は「香灯脚」と呼ばれる。沿道の住民は家の前に軽食やお茶を用意して迎える。'],
+  [128.5, 134.5, '走了 280 公里，帶回<span class="hl">一爐火</span>。回宮 12 天後開爐，這趟進香才算圓滿。',
+    '280 km walked, to bring home one urn of fire. Twelve days after her return the urn is opened, and the pilgrimage is complete.',
+    '280キロを歩いて、持ち帰るのはひとつの火。帰還から12日後に「開炉」して、進香は円満に終わる。'],
+  [135, 141, '明年，又是一條<span class="hl">沒有人知道的路</span>。', 'Next year, another road no one knows.', '来年もまた、誰も知らない道が始まる。'],
+];
+
+// ───────── 插圖（之後補上；沒有檔案時用替代圖形） ─────────
+const ART_W = { sedan: 200, gongtian: 340, chaotian: 340, factory: 130, hospital: 130, car: 140, urn: 170, snack: 190, pilgrims: 200 };
+const art = k => ART_W[k] ? `<img class="art" src="art/${k}.png" style="width:${ART_W[k]}px">` : (k === 'sedan' ? '<div class="ph"></div>' : '');
+
+// ───────── 路線進度：每段 [起, 迄, 到第幾公尺, 日期, 第幾天] ─────────
+const nodeM = name => NODES.find(n => n.name === name).m;
+const M_BEIGANG = nodeM('北港朝天宮'), M_END = ROUTE_M[ROUTE_M.length - 1];
+const SEG = [
+  [46, 57.5, nodeM('大甲鎮瀾宮'), '4/13', 1],
+  [58, 70, nodeM('中華賓士員林展示中心'), '4/14', 2],
+  [70.5, 76.5, nodeM('虎尾帥興宮'), '4/15', 3],
+  [77, 81.5, nodeM('元長客厝'), '4/16', 4],
+  [82, 85.5, M_BEIGANG, '4/17', 5],
+  [89, 95.5, nodeM('溪湖福安宮'), '4/17', 5],
+  [96, 103.5, nodeM('通霄鎮公所'), '4/18–19', '6–7'],
+  [104, 109.5, M_END, '4/20', 8],
+];
+const WD = { '4/13': '一', '4/14': '二', '4/15': '三', '4/16': '四', '4/17': '五', '4/18–19': '六・日', '4/20': '一' };
+function routeAt(t) { // 回傳 { m, seg }
+  let m = 0, seg = SEG[0];
+  for (const s of SEG) { if (t >= s[0]) { seg = s; const prev = SEG[SEG.indexOf(s) - 1]; const m0 = prev ? prev[2] : 0;
+    m = m0 + (s[2] - m0) * ease(clamp((t - s[0]) / (s[1] - s[0]))); } }
+  return { m, seg };
+}
+// 畫面里程換算成 GPS 紀錄（去程 143.2、回程 137.1 公里）
+const gpsKm = m => m <= M_BEIGANG ? m / M_BEIGANG * 143.2 : 143.2 + (m - M_BEIGANG) / (M_END - M_BEIGANG) * 137.1;
+function pointAt(m) {
+  let lo = 0, hi = ROUTE_M.length - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (ROUTE_M[mid] <= m) lo = mid; else hi = mid; }
+  const r = (m - ROUTE_M[lo]) / Math.max(1, ROUTE_M[hi] - ROUTE_M[lo]);
+  return { i: lo, ll: [ROUTE[lo][0] + (ROUTE[hi][0] - ROUTE[lo][0]) * r, ROUTE[lo][1] + (ROUTE[hi][1] - ROUTE[lo][1]) * r] };
+}
+function slice(m0, m1) {
+  if (m1 <= m0) return null;
+  const a = pointAt(m0), b = pointAt(m1);
+  return [a.ll, ...ROUTE.slice(a.i + 1, b.i + 1), b.ll];
+}
+
+// ───────── 鏡頭 ─────────
+const GT = [120.7090, 24.5714], CT = [120.30468, 23.56810];
+// 關鍵格：[t, lng, lat, zoom, pitch, bearing]；路線段（46–110）改為跟著粉紅超跑
+const CAM = [
+  [0,   120.95, 23.70, 7.0, 0, 0],
+  [7,   120.95, 23.70, 7.0, 0, 0],
+  [13,  120.712, 24.566, 13.6, 50, -10],
+  [20,  120.7095, 24.5705, 15.6, 58, 0],
+  [33,  120.7092, 24.5708, 16.0, 60, 18],
+  [44,  120.7085, 24.5650, 13.4, 50, 10],
+];
+const CAM_END = [
+  [110, 120.90, 24.06, 9.3, 25, 0],
+  [148, 120.90, 24.06, 9.25, 25, 0],
+];
+const CAM_END_P = [
+  [110, 120.55, 24.22, 9.4, 20, 0],
+  [148, 120.55, 24.22, 9.35, 20, 0],
+];
+const FOLLOW_Z = [[46, 13.2], [57, 13.0], [60, 12.6], [70, 12.4], [77, 12.2], [83, 12.8], [88, 12.8], [92, 12.2], [97, 11.4], [103, 11.6], [107, 12.6]];
+function interp(K, t, idx) { let i = 0; while (i < K.length - 2 && t > K[i + 1][0]) i++; const A = K[i], B = K[i + 1]; const s = ease(clamp((t - A[0]) / (B[0] - A[0]))); return A[idx] + (B[idx] - A[idx]) * s; }
+function keyCam(K, t) {
+  return { center: [interp(K, t, 1), interp(K, t, 2)], zoom: interp(K, t, 3), pitch: interp(K, t, 4), bearing: interp(K, t, 5) };
+}
+function followCam(t) {
+  let x = 0, y = 0; const n = 7;
+  for (let k = 0; k < n; k++) { const p = pointAt(routeAt(t - 1.2 + k * 0.4).m).ll; x += p[0]; y += p[1]; }
+  return { center: [x / n, y / n], zoom: interp(FOLLOW_Z.map(([a, z]) => [a, 0, 0, z]), t, 3), pitch: 48, bearing: 0 };
+}
+function camAt(t) {
+  const mix = (A, B, s) => ({ center: [A.center[0] + (B.center[0] - A.center[0]) * s, A.center[1] + (B.center[1] - A.center[1]) * s],
+    zoom: A.zoom + (B.zoom - A.zoom) * s, pitch: A.pitch + (B.pitch - A.pitch) * s, bearing: A.bearing + (B.bearing - A.bearing) * s });
+  if (t < 44) return keyCam(CAM, t);
+  if (t < 47) return mix(keyCam(CAM, 44), followCam(t), ease((t - 44) / 3));
+  if (t < 108) return followCam(t);
+  const E = PORT ? CAM_END_P : CAM_END;
+  if (t < 112) return mix(followCam(t), keyCam(E, t), ease((t - 108) / 4));
+  return keyCam(E, t);
+}
+
+// ───────── 圖釘：[id, 經緯度, 插圖, 中文, 英文, 日文, 起, 迄, 大小, 水平位移] ─────────
+const PINS = [
+  ['pgt', GT, 'gongtian', '白沙屯拱天宮', 'Baishatun Gongtian Temple', '白沙屯拱天宮', 14, 46, 1, -230],
+  ['pdj', NODES.find(n => n.name === '大甲鎮瀾宮').ll, '', '大甲鎮瀾宮', 'Dajia Jenn Lann Temple', '大甲鎮瀾宮', 50, 58, 1, 220],
+  ['pfac', NODES.find(n => n.name === '福懋油脂股份有限公司').ll, 'factory', '工廠', 'Factory', '工場', 60, 66, .8, -170],
+  ['phos', NODES.find(n => n.name === '秀傳紀念醫院').ll, 'hospital', '醫院', 'Hospital', '病院', 61.5, 67.5, .8, 170],
+  ['pbenz', NODES.find(n => n.name === '中華賓士員林展示中心').ll, 'car', '賓士展示中心', 'Benz showroom', 'ベンツのショールーム', 63.5, 70.5, .8, 200],
+  ['pct', CT, 'chaotian', '北港朝天宮', 'Beigang Chaotian Temple', '北港朝天宮', 83.5, 90, 1, -250],
+  ['pfire', CT, 'urn', '', '', '', 85.5, 89.5, 1, 230],
+  ['pxh', NODES.find(n => n.name === '溪湖福安宮').ll, '', '溪湖福安宮', 'Xihu Fu’an Temple', '渓湖福安宮', 93, 96.5, 1, 220],
+  ['pgt2', GT, 'gongtian', '白沙屯拱天宮', 'Baishatun Gongtian Temple', '白沙屯拱天宮', 107, 112, 1, -230],
+  ['psnack', [120.62, 24.00], 'snack', '', '', '', 122.5, 128.5, .8, -120],
+  ['pwalk', [120.62, 24.00], 'pilgrims', '', '', '', 122.8, 128.5, .8, 140],
+];
+
+// ───────── 小工具 ─────────
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const fade = (t, a, b, f = .6) => clamp(Math.min((t - a) / f, (b - t) / f));
+const DUR = 148;
+
+// ───────── 版面 ─────────
+const PORT = q.has('portrait') || (!q.has('landscape') && innerHeight > innerWidth);
+if (PORT) document.documentElement.classList.add('port');
+if (q.has('capture')) document.documentElement.classList.add('capture');
+const [SW, SH] = PORT ? [1080, 1920] : [1920, 1080];
+const stage = document.getElementById('stage');
+const fit = () => {
+  if (!q.has('portrait') && !q.has('landscape') && (innerHeight > innerWidth) !== PORT) return location.reload();
+  const k = Math.min(innerWidth / SW, innerHeight / SH);
+  stage.style.transform = `translate(${(innerWidth - SW * k) / 2}px, ${(innerHeight - SH * k) / 2}px) scale(${k})`;
+};
+addEventListener('resize', fit); fit();
+const PORT_ZOOM = -0.6, PORT_PAD = { top: 0, left: 0, right: 0, bottom: 560 };
+
+// ───────── 地圖 ─────────
+const map = new maplibregl.Map({
+  container: 'map', center: [CAM[0][1], CAM[0][2]], zoom: CAM[0][3], interactive: false,
+  attributionControl: false, fadeDuration: 0, maxPitch: 75,
+  canvasContextAttributes: { preserveDrawingBuffer: true, antialias: true },
+  style: {
+    version: 8,
+    sources: {
+      photo: { type: 'raster', tileSize: 256, maxzoom: 19, tiles: ['https://wmts.nlsc.gov.tw/wmts/PHOTO2/default/GoogleMapsCompatible/{z}/{y}/{x}'] },
+      dem: { type: 'raster-dem', encoding: 'terrarium', tileSize: 256, maxzoom: 15, tiles: ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'] },
+    },
+    sky: { 'sky-color': '#9cc7e8', 'horizon-color': '#f3e6c8', 'fog-color': '#e9dcc0', 'sky-horizon-blend': .6, 'horizon-fog-blend': .5, 'fog-ground-blend': .75, 'atmosphere-blend': .8 },
+    layers: [
+      { id: 'bg', type: 'background', paint: { 'background-color': '#1f3a4d' } },
+      { id: 'hill0', type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.5, 'hillshade-shadow-color': '#16222b', 'hillshade-highlight-color': '#5d7a8a' } },
+      { id: 'photo', type: 'raster', source: 'photo', paint: { 'raster-saturation': -0.15, 'raster-contrast': 0.05, 'raster-brightness-max': 0.93 } },
+      { id: 'hill', type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.2, 'hillshade-shadow-color': '#2b2620' } },
+    ],
+  },
+  terrain: { source: 'dem', exaggeration: 1.5 },
+});
+const lineGeo = c => ({ type: 'Feature', geometry: { type: 'LineString', coordinates: c || [[0, 0], [0, 0]] } });
+map.on('load', () => {
+  for (const [id, col] of [['out', '#e8649b'], ['ret', '#f08a3c']]) {
+    map.addSource(id, { type: 'geojson', data: lineGeo() });
+    map.addLayer({ id: id + '-case', type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': '#fbf5e6', 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 5, 13, 11], 'line-opacity': .9 } });
+    map.addLayer({ id, type: 'line', source: id, layout: { 'line-cap': 'round', 'line-join': 'round' }, paint: { 'line-color': col, 'line-width': ['interpolate', ['linear'], ['zoom'], 8, 3, 13, 7] } });
+  }
+  window.mapReady = true;
+});
+
+// ───────── DOM ─────────
+const pinBox = document.getElementById('pins');
+for (const [id, , a, zh] of PINS) {
+  const d = document.createElement('div'); d.className = 'pin'; d.id = id;
+  d.innerHTML = art(a) + (zh ? `<div class="stem"></div><div class="tag"><b>${zh}</b><i></i></div>` : '');
+  pinBox.appendChild(d);
+}
+const sedan = document.createElement('div'); sedan.className = 'pin'; sedan.id = 'sedan'; sedan.innerHTML = art('sedan'); pinBox.appendChild(sedan);
+const YEARS = [[2017, 26669], [2018, 43205], [2019, 50001], [2020, 54599], [2021, 78672], [2022, 90928], [2023, 113621], [2024, 179971], [2025, 329118], [2026, 463588]];
+document.getElementById('bars').innerHTML = YEARS.map(([y, v]) => `<div class="b"><div class="v">${(v / 10000).toFixed(1)}萬</div><div class="bar" data-v="${v}"></div><div class="y">${String(y).slice(2)}</div></div>`).join('');
+
+function applyLang() {
+  const L = LANG === 'ja' ? 2 : 1;
+  document.documentElement.classList.toggle('ja', LANG === 'ja');
+  document.getElementById('hook').querySelector('.t1').innerHTML = T.hook[0];
+  document.getElementById('hook').querySelector('.t2').textContent = T.hook[L];
+  document.querySelectorAll('[data-sub]').forEach(e => e.textContent = T[e.dataset.sub][L]);
+  for (const p of PINS) { const i = document.querySelector('#' + p[0] + ' .tag i'); if (i) i.textContent = p[3 + L]; }
+  document.getElementById('lang').textContent = LANG === 'ja' ? 'English' : '日本語';
+  document.getElementById('card').dataset.k = '';
+}
+applyLang();
+
+// ───────── 每格繪製 ─────────
+let lastM = -1;
+function draw(t) {
+  const cam = camAt(t);
+  if (PORT) { const k = ease(clamp((t - 7) / 6)); cam.zoom += PORT_ZOOM * k; cam.padding = { ...PORT_PAD, bottom: PORT_PAD.bottom * k }; }
+  map.jumpTo(cam);
+
+  const { m, seg } = routeAt(t);
+  const mr = Math.round(m / 20) * 20;
+  if (mr !== lastM && map.getSource('out')) {
+    lastM = mr;
+    map.getSource('out').setData(lineGeo(slice(0, Math.min(mr, M_BEIGANG))));
+    map.getSource('ret').setData(lineGeo(slice(M_BEIGANG, mr)));
+  }
+
+  // 粉紅超跑：拱天宮出場（26 秒），沿路線前進，回宮後淡出
+  const sp = pointAt(m).ll, so = fade(t, 26, 112, .6);
+  if (so > 0) { const pt = map.project(sp); sedan.style.opacity = so;
+    sedan.style.transform = `translate(${pt.x - sedan.offsetWidth / 2}px, ${pt.y - sedan.offsetHeight}px) scale(${0.6 + 0.4 * ease(clamp((t - 26) / .6))})`; }
+  else sedan.style.opacity = 0;
+
+  for (const [id, ll, , , , , a, b, sc, dx = 0] of PINS) {
+    const el = document.getElementById(id), o = fade(t, a, b, .5);
+    if (o <= 0) { el.style.opacity = 0; continue; }
+    const pt = map.project(ll), pop = 0.6 + 0.4 * ease(clamp((t - a) / .5));
+    el.style.opacity = o;
+    el.style.transform = `translate(${pt.x - el.offsetWidth / 2 + dx}px, ${pt.y - el.offsetHeight}px) scale(${sc * pop})`;
+  }
+
+  const L = LANG === 'ja' ? 4 : 3;
+  const card = document.getElementById('card'); let shown = false;
+  for (const c of CARDS) {
+    const [a, b, zh] = c;
+    if (t >= a - .01 && t <= b) {
+      if (card.dataset.k !== String(a)) { card.dataset.k = a; card.querySelector('.zh').innerHTML = zh; card.querySelector('.sub').textContent = c[L]; }
+      const o = fade(t, a, b, .45); card.style.opacity = o; card.style.transform = `translateY(${(1 - o) * 24}px)`; shown = true;
+    }
+  }
+  if (!shown) card.style.opacity = 0;
+
+  const hud = document.getElementById('hud'), ho = fade(t, 46, 111, .6);
+  hud.style.opacity = ho;
+  if (ho > 0) {
+    const d = seg[4], date = seg[3];
+    hud.querySelector('.day').innerHTML = LANG === 'ja' ? `${d}日目 ${date}` : `第 ${d} 天 ${date}（${WD[date]}）<small>Day ${d}</small>`;
+    const km = Math.round(gpsKm(m));
+    hud.querySelector('.km').innerHTML = LANG === 'ja' ? `${km} キロ` : `${km} 公里<small>km</small>`;
+  }
+
+  const ch = document.getElementById('chart'), co = fade(t, 115, 128.3, .6);
+  ch.style.opacity = co;
+  if (co > 0) document.querySelectorAll('#bars .bar').forEach((b, i) => {
+    const g = ease(clamp((t - 115.6 - i * 0.25) / 1.2));
+    b.style.height = (b.dataset.v / 463588 * 250 * g) + 'px';
+  });
+
+  document.getElementById('hook').style.opacity = fade(t, 1.2, 7.2, .8);
+  document.getElementById('title').style.opacity = fade(t, 7.6, 13.4, .8);
+  const endO = fade(t, 141.3, 300, .9);
+  document.getElementById('ending').style.opacity = endO;
+  document.getElementById('links').style.visibility = endO > .5 ? 'visible' : 'hidden';
+}
+
+// ───────── 播放 ─────────
+window.seek = t => new Promise(res => { draw(t); map.once('idle', () => requestAnimationFrame(() => res())); map.triggerRepaint(); });
+window.DUR = DUR;
+document.getElementById('lang').onclick = () => { LANG = LANG === 'ja' ? 'en' : 'ja'; applyLang(); };
+map.on('load', () => {
+  if (q.has('capture')) return;
+  if (q.has('t')) { seek(+q.get('t')); return; }
+  let t0 = performance.now(), pausedAt = null;
+  const now = () => ((pausedAt ?? performance.now()) - t0) / 1000;
+  const pp = document.getElementById('pp');
+  // 配樂：瀏覽器不准自動播放有聲音的媒體，按鈕開啟後對齊目前時間
+  const bgm = document.getElementById('bgm'), snd = document.getElementById('snd');
+  const setPause = p => {
+    if (p && pausedAt === null) { pausedAt = performance.now(); bgm.pause(); pp.textContent = '▶ 繼續'; }
+    else if (!p && pausedAt !== null) {
+      t0 += performance.now() - pausedAt; pausedAt = null; pp.textContent = '❚❚ 暫停';
+      if (snd.dataset.on && now() < DUR) { bgm.currentTime = now(); bgm.play(); }
+    }
+  };
+  snd.onclick = () => {
+    if (!snd.dataset.on) { if (now() < DUR && pausedAt === null) { bgm.currentTime = now(); bgm.play(); } snd.textContent = '♪ 關閉音樂'; snd.dataset.on = 1; }
+    else { bgm.pause(); snd.textContent = '♪ 開啟音樂'; delete snd.dataset.on; }
+  };
+  pp.onclick = () => setPause(pausedAt === null);
+  addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); setPause(pausedAt === null); } });
+  document.getElementById('replay').onclick = () => {
+    t0 = performance.now(); pausedAt = null; pp.textContent = '❚❚ 暫停';
+    if (snd.dataset.on) { bgm.currentTime = 0; bgm.play(); }
+  };
+  const loop = () => { draw(Math.min(now(), DUR)); requestAnimationFrame(loop); };
+  loop();
+});
+</script>
+</body>
+</html>
