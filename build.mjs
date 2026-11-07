@@ -404,7 +404,10 @@ for (const lang of Object.keys(LANGS)) {
 }
 
 // "/" is handled by the Pages Function in functions/index.js (language-aware 302); _redirects kept for future rules
-writeFileSync(join(OUT, "_redirects"), "/_sub/qcdebriefing2606bjae/* /qcdebriefing2606bjae/:splat 301\n");
+writeFileSync(join(OUT, "_redirects"),
+  "/_sub/qcdebriefing2606bjae/* /qcdebriefing2606bjae/:splat 301\n" +
+  "/cystatin-c-egfr/* /zh/blog/cystatin-c-egfr/ 301\n" +
+  "/cystatin-c-egfr /zh/blog/cystatin-c-egfr/ 301\n");
 mkdirSync(join(OUT, "functions"), { recursive: true });
 for (const f of readdirSync("src/functions")) copyFileSync(join("src/functions", f), join(OUT, "functions", f));
 // self-contained static pages (e.g. student teaching pages) kept outside the generator:
