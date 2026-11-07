@@ -60,6 +60,9 @@ function parseFrontmatter(raw) {
   return { meta, body: raw.slice(m[0].length) };
 }
 
+// `draft: true` in frontmatter keeps a file in the repo but out of the built site
+const isDraft = (file) => parseFrontmatter(readFileSync(file, "utf8")).meta.draft === "true";
+
 const esc = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
 // Home: sections split on `## `; "Tracks" bullets are `Title | /url/ | description`
@@ -68,7 +71,7 @@ function latestEntries(lang) {
   for (const sub of ["blog", "concepts"]) {
     const dir = join("content", lang, sub);
     if (!existsSync(dir)) continue;
-    for (const f of readdirSync(dir).filter((f) => f.endsWith(".md") && f !== "index.md")) {
+    for (const f of readdirSync(dir).filter((f) => f.endsWith(".md") && f !== "index.md" && !isDraft(join(dir, f)))) {
       const file = join(dir, f);
       const { meta } = parseFrontmatter(readFileSync(file, "utf8"));
       const date = meta.date || gitDate(file);
@@ -175,7 +178,7 @@ function* walk(dir) {
   for (const f of readdirSync(dir).sort()) {
     const p = join(dir, f);
     if (statSync(p).isDirectory()) yield* walk(p);
-    else if (f.endsWith(".md")) yield p;
+    else if (f.endsWith(".md") && !isDraft(p)) yield p;
   }
 }
 
@@ -276,7 +279,7 @@ function readPosts(lang) {
   const dir = join("content", lang, "blog");
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
-    .filter((f) => f.endsWith(".md") && f !== "index.md")
+    .filter((f) => f.endsWith(".md") && f !== "index.md" && !isDraft(join(dir, f)))
     .map((f) => {
       const { meta } = parseFrontmatter(readFileSync(join(dir, f), "utf8"));
       return { ...meta, url: `/${lang}/blog/${f.replace(/\.md$/, "")}/` };

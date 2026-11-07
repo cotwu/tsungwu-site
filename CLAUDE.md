@@ -28,6 +28,19 @@ Static bilingual (EN / zh-Hant) academic concept site. Technical layout and comm
 - Blog posts need a `tags:` line in frontmatter; ask which tags to use before drafting.
   Existing tags: 麻醉安全, 衛教, 課後記錄, 個人品牌, 臺灣史, 臺北.
 
+## Unfinished work
+
+Keep `main`'s working tree clean, so any post can ship without isolating other work.
+
+- Text drafts live in the Dropbox article folder until final; they do not enter this repo.
+  Dropbox `Blog/_進行中.md` lists every open article, one line each: update it when work starts,
+  pauses or ships.
+- A draft that must be in the repo gets `draft: true` in frontmatter: the build skips it, so no
+  page, index entry or sitemap line. Remove the line to publish.
+- Half-finished changes to site structure (moving pages, redirects, `build.mjs`) go on a
+  `wip/<topic>` branch.
+- Before publishing, run `git status --short`. If it is not empty, tell the owner first.
+
 ## Concept entries (EN is the source of truth, ZH is the translation)
 
 - Fixed three-part structure: **Mechanism / Evidence / Open questions**. No other sections.
